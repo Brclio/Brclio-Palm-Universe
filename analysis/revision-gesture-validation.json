@@ -1,0 +1,173 @@
+{
+  "tested_at": "2026-10-17T08:14:57.706Z",
+  "controller_sha256": "ea0677d5b5d7fb1094465f666011a923c941c0b2d88368e2cd74058761446ab7",
+  "revision": "2026-10-17 source-shape-and-gesture-revision",
+  "purpose": "Controller behavior only; no real hand model accuracy claim.",
+  "limitations": [
+    "Synthetic observation fixtures validate state changes and edge cases, not fidelity or real camera recognition."
+  ],
+  "status": "passed-synthetic-sequence-validation",
+  "test_command": "node tests/gesture-sequence.test.mjs",
+  "test_results": [
+    {
+      "id": "empty-start",
+      "name": "无手/张掌/V/抬指保持空场，稳定握拳才召星",
+      "passed": true
+    },
+    {
+      "id": "summon-without-open-arm",
+      "name": "第一组稳定握拳直接召星，不要求预先张掌解锁",
+      "passed": true
+    },
+    {
+      "id": "aspect-correct-grab",
+      "name": "16:9画面上等物理距离的横向与纵向夹取使用相同边界",
+      "passed": true
+    },
+    {
+      "id": "directional-swipes",
+      "name": "向右横挥每次仅切换一级；继续伸手不连续跳过太阳",
+      "passed": true
+    },
+    {
+      "id": "unrelated-gestures",
+      "name": "静态V、反向横挥、竖直抬指不能切换天体",
+      "passed": true
+    },
+    {
+      "id": "victory-classifier-tolerance",
+      "name": "明确向右横挥时模型短暂误判V不抹除空间动作证据",
+      "passed": true
+    },
+    {
+      "id": "brief-tracking-dropout",
+      "name": "短丢手可保留真实右挥样本，长丢手或不可能瞬移不能补造横挥",
+      "passed": true
+    },
+    {
+      "id": "swipe-object-hit",
+      "name": "横扫必须穿过天体；远处右挥和只在天体右侧移动不能切换",
+      "passed": true
+    },
+    {
+      "id": "swipe-fingertip-hit",
+      "name": "掌心位于天体下方时，食指拇指轨迹穿过天体仍能横扫切换",
+      "passed": true
+    },
+    {
+      "id": "aperture-scale",
+      "name": "未接触的C形开口收窄也缩小月球，最紧时可以缩至微小光点",
+      "passed": true
+    },
+    {
+      "id": "moon-l-release",
+      "name": "首次夹持后仅拇指食指张开即可释放；释放原点保留最后夹持位置",
+      "passed": true
+    },
+    {
+      "id": "moon-l-release-boundaries",
+      "name": "夹持后静态V、仅伸食指、C形开口微增不会冒充拇指食指释放",
+      "passed": true
+    },
+    {
+      "id": "release-drift-animation",
+      "name": "释放后先向右漂移约0.6秒，再固定；丢手仍正常完成已触发动画",
+      "passed": true
+    },
+    {
+      "id": "spatial-grab",
+      "name": "远处捏合不抓取，月球附近C形可抓并随手拖动",
+      "passed": true
+    },
+    {
+      "id": "fist-grab-boundary",
+      "name": "近球握拳不能首次抓取；已抓住的C形偶发fist误判仍能跟随",
+      "passed": true
+    },
+    {
+      "id": "pinch-scale",
+      "name": "捏合越紧月球越小",
+      "passed": true
+    },
+    {
+      "id": "anchored-release",
+      "name": "松开后月球固定在漂移终点，张掌和竖向离开不展开月相",
+      "passed": true
+    },
+    {
+      "id": "left-pull-phases",
+      "name": "驻留月球向右不展开，向左挥触发后自行展开并保留右端锚点",
+      "passed": true
+    },
+    {
+      "id": "collect-lift-release",
+      "name": "只在月相右端捏合收拢；保持抓取上举不会化为唱片，松开才化为唱片",
+      "passed": true
+    },
+    {
+      "id": "c-grip-lift",
+      "name": "C形抓取保持上举不能被误认为L形释放",
+      "passed": true
+    },
+    {
+      "id": "l-release-aperture-growth",
+      "name": "L开口1.47倍手长且较夹持明显增大可释放，维持C或微增不能释放",
+      "passed": true
+    },
+    {
+      "id": "pan-placement",
+      "name": "唱片的位置由释放点决定：换一个释放点后唱片同向同距离移动",
+      "passed": true
+    },
+    {
+      "id": "frozen-pan",
+      "name": "化为唱片后再次捏合和拖动不能抓起或移动唱片",
+      "passed": true
+    },
+    {
+      "id": "phase-height",
+      "name": "拉开月相时手略向上移动，整排月相仍固定在释放高度",
+      "passed": true
+    },
+    {
+      "id": "unarmed-pan",
+      "name": "唱片悬浮期间仅张掌或V不爆散",
+      "passed": true
+    },
+    {
+      "id": "armed-burst",
+      "name": "唱片旁拳→张掌只爆散一次，之后空场直至reset",
+      "passed": true
+    },
+    {
+      "id": "tracking-loss",
+      "name": "丢手不会合成释放、化为唱片或长距离挥手",
+      "passed": true
+    },
+    {
+      "id": "threshold-noise",
+      "name": "单帧拳/捏合噪声和微小横向抖动不能触发动作",
+      "passed": true
+    },
+    {
+      "id": "tick-without-observation",
+      "name": "渲染tick不能把单帧或过期手势补成稳定握拳/横挥",
+      "passed": true
+    },
+    {
+      "id": "tick-animation",
+      "name": "tick独立推进唱片落位/长大动画，爆散脉冲不重复",
+      "passed": true
+    },
+    {
+      "id": "reset",
+      "name": "各抓取/展示阶段重置后无旧锚点、旧抓取或爆散",
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 31,
+    "passed": 31,
+    "failed": 0
+  }
+}

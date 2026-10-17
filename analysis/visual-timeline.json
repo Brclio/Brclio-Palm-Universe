@@ -1,0 +1,381 @@
+{
+  "source": "../明晚胡彦斌将携TRA_20261017122234.mp4",
+  "duration": 39.786667,
+  "fps": 30,
+  "total_frames": 1193,
+  "source_resolution": [
+    1280,
+    720
+  ],
+  "review_frame_resolution": [
+    640,
+    360
+  ],
+  "time_rule": "frame N corresponds to (N-1)/30 seconds; end times are exclusive unless explicitly named inclusive",
+  "method": {
+    "extraction": "全部1193帧已按原30fps顺序提取，帧文件640×360。",
+    "inspection": "先以2fps总览定位，再以10fps接触表检查12–34秒；在关键切换段检查30fps连续帧，并查看原分辨率截图。第二次复核重新检查握拳、扫球、初次释放、月相出现与唱片形成；没有逐张人工检查全部1193帧。",
+    "dense_ranges": [
+      [
+        425,
+        491
+      ],
+      [
+        514,
+        535
+      ],
+      [
+        553,
+        571
+      ],
+      [
+        699,
+        727
+      ],
+      [
+        772,
+        815
+      ],
+      [
+        981,
+        1007
+      ],
+      [
+        1020,
+        1050
+      ],
+      [
+        637,
+        670
+      ],
+      [
+        687,
+        738
+      ]
+    ],
+    "precision": "视觉起止通常约1-3帧误差；淡入淡出没有唯一物理阈值。尺寸/位置为640×360分析帧上的近似像素。"
+  },
+  "events": [
+    {
+      "id": "intro",
+      "start": 0,
+      "end": 12.533333,
+      "start_frame": 1,
+      "end_frame_inclusive": 376,
+      "title": "开场介绍",
+      "gesture": "自然口播，手指随讲话比划，无可见跟踪骨架。",
+      "visual": "暖色室内固定半身镜头；黑色花纹西装、白衬衫、条纹领带；底部居中白色字幕。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "prepare",
+      "start": 12.533333,
+      "end": 14.3,
+      "start_frame": 377,
+      "end_frame_inclusive": 429,
+      "title": "低头准备",
+      "gesture": "右手（画面左侧）在胸前捏合并向下收回，再抬起。",
+      "visual": "字幕消失，尚无清楚可见的发光天体。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "tracking",
+      "start": 14.3,
+      "end": 16.066667,
+      "start_frame": 430,
+      "end_frame_inclusive": 482,
+      "title": "手部骨架出现",
+      "gesture": "先张开五指，再收拢四根长指；拇指可以伸在拳外。",
+      "visual": "暖白细线连接手指关节与手掌，关节点为小白点；430帧附近开始，433帧骨架完整。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "star",
+      "start": 16.066667,
+      "end": 17.233333,
+      "start_frame": 483,
+      "end_frame_inclusive": 517,
+      "title": "金色五角星",
+      "gesture": "收拢的手悬在胸前，随后向画面右侧甩动张开的手。",
+      "visual": "483帧出现柔金光；487–490帧成形为有厚度、圆润外轮廓、内凹面和明暗材质的立体五角星，主体约60–70px；召出后固定，手撤开时不跟随。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "star_to_sun",
+      "start": 17.233333,
+      "end": 17.733333,
+      "start_frame": 518,
+      "end_frame_inclusive": 532,
+      "title": "星星切换太阳",
+      "gesture": "松开拳头，把张开的手从左向右扫过星星附近；手部骨架持续显示。",
+      "visual": "星星带水平拖影向右移出并淡化；太阳从画面左侧滑入胸前，过渡中两物体短暂共存。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "sun",
+      "start": 17.733333,
+      "end": 18.433333,
+      "start_frame": 533,
+      "end_frame_inclusive": 553,
+      "title": "炽热太阳",
+      "gesture": "食指与拇指保持张开的指向姿态，手略向左回。",
+      "visual": "直径约65-75px的橙黄色球体；高亮黄白表面、翻涌火焰纹理、橙色外晕，表面持续运动。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "sun_to_moon",
+      "start": 18.433333,
+      "end": 18.833333,
+      "start_frame": 554,
+      "end_frame_inclusive": 565,
+      "title": "太阳切换月球",
+      "gesture": "手先回到左边，拇指和食指伸出，再次向右扫过太阳附近；不是静态V手势切换。",
+      "visual": "太阳向右滑出、乳白月球从左滑入，具有水平运动模糊；558-565帧两物体共存。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "moon_drag",
+      "start": 18.833333,
+      "end": 21.433333,
+      "start_frame": 566,
+      "end_frame_inclusive": 643,
+      "title": "月球捏合拖动与缩小",
+      "gesture": "拇指与食指在月球附近形成C形夹取，其他长指收拢；两指不必接触。夹住后向右移动并收窄开口。",
+      "visual": "初始月球直径约67px，有灰色月海/陨坑与柔白光晕；夹取后跟随指间位置并缩小，643帧小球中心约(531,259)。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "moon_release",
+      "start": 21.433333,
+      "end": 23.033333,
+      "start_frame": 644,
+      "end_frame_inclusive": 691,
+      "title": "张开拇食指释放月球",
+      "gesture": "先伸直食指并张开拇指释放，随后才逐渐张开五指；不要求先完全张掌才能松开。",
+      "visual": "644–661帧小月球放大到约49px直径，中心从约(531,259)向右移到(550,259)，约0.6秒后固定。之后手向左离开，满月仍在原高度悬停。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "moon_phases",
+      "start": 23.033333,
+      "end": 25.666667,
+      "start_frame": 692,
+      "end_frame_inclusive": 770,
+      "title": "横排五个月相",
+      "gesture": "在已释放满月旁张掌向左横扫；触发后月相自行依次展开，手停下也继续完成。随后手回到最右满月夹取。",
+      "visual": "692帧开始出现暗轮廓，693帧明确。四个月相由右向左依次出现，与原满月组成五个球体。24.5秒中心约(94,259),(211,259),(325,259),(442,259),(550,259)，直径约49px；受光面均朝右，横排高度固定。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 2
+    },
+    {
+      "id": "phases_fade",
+      "start": 25.666667,
+      "end": 26.533333,
+      "start_frame": 771,
+      "end_frame_inclusive": 796,
+      "title": "收起月相并抬手",
+      "gesture": "夹住右端满月并把手沿右下至左上的弧线举起，保持小月球在拇食指之间。",
+      "visual": "月相向左滑动、淡出；手边小月球跟随指尖移动，拖影较轻。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 2
+    },
+    {
+      "id": "moon_grow",
+      "start": 26.533333,
+      "end": 26.933333,
+      "start_frame": 797,
+      "end_frame_inclusive": 808,
+      "title": "左上月球放大",
+      "gesture": "抬高手后伸直食指并张开拇指形成L形；持续夹住并抬高不会自动触发。",
+      "visual": "801–803帧松开，月球从指间小点增大并向手的左下方落位，随后出现唱片外圈。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 2
+    },
+    {
+      "id": "pan_appear",
+      "start": 26.933333,
+      "end": 27.666667,
+      "start_frame": 809,
+      "end_frame_inclusive": 830,
+      "title": "月球化为黑胶唱片",
+      "gesture": "L形手保持高举，随后向下收回。",
+      "visual": "809帧附近出现黑色外圈，811帧清楚；月球在黑胶唱片中央，唱片带同心纹槽、细长弯曲唱臂及唱头。唱片在手的左下落位，随后悬停。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    },
+    {
+      "id": "pan_float",
+      "start": 27.666667,
+      "end": 31.5,
+      "start_frame": 831,
+      "end_frame_inclusive": 945,
+      "title": "黑胶月球唱片悬浮",
+      "gesture": "手收回身体下方，人物抬头或闭眼聆听。",
+      "visual": "唱片中心约(118,132)，外径约148px，中央月球直径约90px。唱臂从顶部约(119,12)弯向右下唱头约(170,96)；唱臂上端有转轴圆孔。青绿/青蓝半透明光晕沿唱片纹槽流动，中央月球明暗与纹理持续变化。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 2
+    },
+    {
+      "id": "pan_fist",
+      "start": 31.5,
+      "end": 32.933333,
+      "start_frame": 946,
+      "end_frame_inclusive": 988,
+      "title": "握拳准备爆散",
+      "gesture": "右手重新举到唱片右下旁，先握拳，再从32.8秒开始张掌。",
+      "visual": "唱片维持悬浮，张掌前青绿色电弧逐渐变弱。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 2
+    },
+    {
+      "id": "burst",
+      "start": 32.933333,
+      "end": 34.9,
+      "start_frame": 989,
+      "end_frame_inclusive": 1047,
+      "title": "月球唱片爆散成粒子",
+      "gesture": "五指迅速张开，掌心朝前，然后缓慢放低。",
+      "visual": "989帧唱片开始变淡，990帧出现可辨粒子，991帧明显。唱片和月球变为乳白、浅金细粒子云，向左上及四周扩散；34.5秒仍有少量余尘，34.967秒画面已净。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 3
+    },
+    {
+      "id": "outro",
+      "start": 33.833333,
+      "end": 39.786667,
+      "start_frame": 1016,
+      "end_frame_inclusive": 1193,
+      "title": "收尾口播",
+      "gesture": "手落下，随后双手比划并用食指指向镜头。",
+      "visual": "字幕从33.833秒恢复；爆散余尘在最初约1秒与口播重叠，之后无特效。",
+      "confidence": "high",
+      "boundary_tolerance_frames": 1
+    }
+  ],
+  "on_screen_captions": [
+    {
+      "start_frame": 1,
+      "end_frame_inclusive": 104,
+      "start": 0.0,
+      "end": 3.466667,
+      "text": "大家都知道我最近很喜欢玩Vibe Coding"
+    },
+    {
+      "start_frame": 105,
+      "end_frame_inclusive": 198,
+      "start": 3.466667,
+      "end": 6.6,
+      "text": "把天马行空的想法变成现实"
+    },
+    {
+      "start_frame": 199,
+      "end_frame_inclusive": 260,
+      "start": 6.6,
+      "end": 8.666667,
+      "text": "真的是一个很美好的过程"
+    },
+    {
+      "start_frame": 261,
+      "end_frame_inclusive": 283,
+      "start": 8.666667,
+      "end": 9.433333,
+      "text": "最近啊"
+    },
+    {
+      "start_frame": 284,
+      "end_frame_inclusive": 376,
+      "start": 9.433333,
+      "end": 12.533333,
+      "text": "我也玩到一个很有趣的AI Coding的作品"
+    },
+    {
+      "start_frame": 1016,
+      "end_frame_inclusive": 1088,
+      "start": 33.833333,
+      "end": 36.266667,
+      "text": "2026美好奇妙夜的舞台"
+    },
+    {
+      "start_frame": 1091,
+      "end_frame_inclusive": 1149,
+      "start": 36.333333,
+      "end": 38.3,
+      "text": "我还有更多好玩的"
+    },
+    {
+      "start_frame": 1150,
+      "end_frame_inclusive": 1193,
+      "start": 38.3,
+      "end": 39.766667,
+      "text": "期待一下吧"
+    }
+  ],
+  "implementation_suggestions": [
+    {
+      "action": "收拢四根长指握拳",
+      "mapping": "稳定拳形召出立体金星；允许拇指伸在拳外。星星召出后固定。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    },
+    {
+      "action": "两次向右扫过天体",
+      "mapping": "松手后向右扫过星星附近变太阳，手收回左侧后再扫过太阳附近变月球；约0.4–0.5秒水平交叉换场。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    },
+    {
+      "action": "月球附近C形夹取",
+      "mapping": "抓取后才跟手；按指间开口缩小，不要求指尖实际接触。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    },
+    {
+      "action": "夹小后张开拇食指",
+      "mapping": "释放后球放大，中心向右微移约.03画宽，约.6秒后固定；不用先完全张掌。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    },
+    {
+      "action": "五指张掌向左扫",
+      "mapping": "触发五个月相依次自主展开；右端满月、整排高度固定。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    },
+    {
+      "action": "再夹右端满月、上举、L形松开",
+      "mapping": "小月球随夹持点上举，原横排消退；松开后向左下放大为带唱臂的黑胶月球唱片。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    },
+    {
+      "action": "唱片旁握拳再张掌",
+      "mapping": "只触发一次爆散；普通张掌或离远处握拳不能跳过流程。",
+      "status": "根据原片可见输入输出重新实现；原始源代码、模型与阈值未知。"
+    }
+  ],
+  "reference_assets": {
+    "source": "用户提供的视频原生帧",
+    "location": "../public/reference/",
+    "method": "运行时遮罩提取原片星星、太阳、月面、五个月相及唱片纹槽，保留原片材质；动画由原片纹理序列与Canvas叠加实现。",
+    "legacy_note": "此前NASA月面生成素材仅保留为历史开发文件，不作为现行主要月球视图。",
+    "internal_id_note": "pan_appear/pan_float/pan_fist与控制器pan仅为旧内部标识，用户可见对象是黑胶唱片。"
+  },
+  "revision_evidence": {
+    "current": [
+      "source-reaudit-v2.md",
+      "interaction-contract.md",
+      "revision-gesture-validation.json",
+      "revision-browser-validation.json"
+    ],
+    "historical_only": [
+      "source-gesture-replay.json",
+      "source-replay-controller-validation.json",
+      "interaction-validation.json",
+      "interaction-browser-validation.json"
+    ],
+    "limits": "旧原片模型重放只代表上一版，不能作为本轮控制器回放通过的证据；真人摄像头尚未实测。"
+  }
+}

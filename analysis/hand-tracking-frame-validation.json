@@ -1,0 +1,324 @@
+{
+  "cameraRequests": 0,
+  "delegate": "CPU",
+  "frames": [
+    {
+      "frame": "analysis/frames/frame-0050.jpg",
+      "hands": [
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": true,
+          "victory": false,
+          "extendedFingers": 2,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": false,
+            "ring": false,
+            "pinky": false
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0100.jpg",
+      "hands": [
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": true,
+          "victory": false,
+          "extendedFingers": 2,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": false,
+            "ring": false,
+            "pinky": false
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0138.jpg",
+      "hands": [
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 3,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": false,
+            "ring": false,
+            "pinky": true
+          }
+        },
+        {
+          "handedness": "Right",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0.459,
+          "openPalm": false,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 1,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": false,
+            "index": false,
+            "middle": false,
+            "ring": false,
+            "pinky": true
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0180.jpg",
+      "hands": [
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": true,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 5,
+          "spread": 1,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": true,
+            "ring": true,
+            "pinky": true
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0220.jpg",
+      "hands": [
+        {
+          "handedness": "Right",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 4,
+          "spread": 1,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": false,
+            "ring": true,
+            "pinky": true
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0266.jpg",
+      "hands": [
+        {
+          "handedness": "Right",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0.2,
+          "openPalm": false,
+          "fist": true,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 1,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": false,
+            "middle": false,
+            "ring": false,
+            "pinky": false
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0320.jpg",
+      "hands": [
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0.488,
+          "openPalm": false,
+          "fist": true,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 0,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": false,
+            "index": false,
+            "middle": false,
+            "ring": false,
+            "pinky": false
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0420.jpg",
+      "hands": []
+    },
+    {
+      "frame": "analysis/frames/frame-0520.jpg",
+      "hands": [
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0.077,
+          "openPalm": false,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 2,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": false,
+            "index": false,
+            "middle": false,
+            "ring": true,
+            "pinky": true
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0620.jpg",
+      "hands": []
+    },
+    {
+      "frame": "analysis/frames/frame-0720.jpg",
+      "hands": [
+        {
+          "handedness": "Right",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 4,
+          "spread": 1,
+          "fingerStates": {
+            "thumb": true,
+            "index": false,
+            "middle": true,
+            "ring": true,
+            "pinky": true
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-0820.jpg",
+      "hands": []
+    },
+    {
+      "frame": "analysis/frames/frame-0920.jpg",
+      "hands": []
+    },
+    {
+      "frame": "analysis/frames/frame-1020.jpg",
+      "hands": [
+        {
+          "handedness": "Right",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": false,
+          "victory": false,
+          "extendedFingers": 2,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": false,
+            "middle": true,
+            "ring": false,
+            "pinky": false
+          }
+        }
+      ]
+    },
+    {
+      "frame": "analysis/frames/frame-1120.jpg",
+      "hands": [
+        {
+          "handedness": "Right",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": true,
+          "victory": false,
+          "extendedFingers": 2,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": false,
+            "ring": false,
+            "pinky": false
+          }
+        },
+        {
+          "handedness": "Left",
+          "landmarks": 21,
+          "pinch": false,
+          "pinchStrength": 0,
+          "openPalm": false,
+          "fist": false,
+          "pointing": true,
+          "victory": false,
+          "extendedFingers": 2,
+          "spread": 0,
+          "fingerStates": {
+            "thumb": true,
+            "index": true,
+            "middle": false,
+            "ring": false,
+            "pinky": false
+          }
+        }
+      ]
+    }
+  ]
+}

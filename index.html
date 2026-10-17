@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#101110"><title>掌心宇宙 · 原片手势复刻</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main id="experience">
+  <header class="topbar">
+    <a class="brand" href="./">掌心宇宙 <small>GESTURE UNIVERSE</small></a>
+    <nav aria-label="操作方式">
+      <button id="demo-toggle" class="input-mode selected" aria-pressed="true">鼠标操作</button>
+      <button id="camera-toggle" class="input-mode" aria-pressed="false"><span id="camera-label">开启摄像头</span></button>
+      <button id="mirror-toggle" class="quiet-link" aria-pressed="true" title="摄像头与关键点同步镜像；手势左右以画面为准">镜像：开</button>
+      <span class="separator"></span><button id="reference-open" class="quiet-link">原片对照 ↗</button>
+      <a class="quiet-link analysis-link" href="./analysis/index.html" target="_blank" rel="noopener">逐帧解析 ↗</a>
+    </nav>
+  </header>
+  <section class="stage-shell" aria-label="互动区域">
+    <div id="stage">
+      <video id="camera" autoplay muted playsinline aria-hidden="true"></video>
+      <canvas id="universe" aria-label="按住收拢手指，松开张手，横向移动挥手"></canvas>
+      <div id="idle-message"><span class="idle-symbol">✦</span><h1>从收拢手指开始</h1><p id="idle-instruction">在画面里按住鼠标片刻，召出星星。</p><small>摄像头模式使用原片中的真实手势</small></div>
+      <div class="stage-top"><div class="live-status"><i id="status-dot"></i><span id="status-text">鼠标操作 · 按住收拢，松开张手</span></div><div class="stage-actions"><button id="guide-toggle" aria-pressed="false">看原片动作</button><button id="restart">↺ 重来</button><button id="fullscreen" title="全屏" aria-label="全屏">⛶</button></div></div>
+      <aside id="gesture-guide" hidden><div>原片当前动作 <button id="guide-close" aria-label="关闭动作示范">✕</button></div><video id="guide-video" muted playsinline preload="metadata" src="./明晚胡彦斌将携TRA_20261017122234.mp4"></video><p id="guide-caption"></p></aside>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+  <footer class="bottom">
+    <div class="hint"><span id="gesture-hint">按住鼠标片刻，对应原片的收拢握拳。</span></div>
+    <div class="control-row">
+      <div class="modes" aria-label="手势流程进度">
+        <span class="mode" data-mode="star">✦ <span>星星</span></span><i>›</i>
+        <span class="mode" data-mode="sun">☀ <span>太阳</span></span><i>›</i>
+        <span class="mode" data-mode="moon">● <span>月球</span></span><i>›</i>
+        <span class="mode" data-mode="phases">◐ <span>月相</span></span><i>›</i>
+        <span class="mode" data-mode="pan">◎ <span>黑胶唱片</span></span>
+      </div>
+      <div class="music-controls"><button id="music-toggle" class="icon-button" disabled title="唱片出现后自动播放" aria-label="唱片出现后自动播放"><span id="play-icon">▶</span></button><div class="track"><span id="track-name">茶花开了</span><small id="track-subtitle">唱片出现时播放</small></div><div id="equalizer" class="equalizer" aria-hidden="true"><i></i><i></i><i></i></div><button id="replace-music" class="icon-button" aria-label="替换唱片音乐" title="替换唱片音乐">↥</button><input id="music-file" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac" hidden></div>
+    </div>
+    <div class="bottom-meta"><span id="input-description">按住＝收拢 · 松开＝张手 · 横移＝挥手 · 按住拖动＝夹取移动</span><span>摄像头画面仅在本地处理</span></div>
+  </footer>
+</main>
+<dialog id="reference-dialog"><div class="dialog-head"><span>原片对照 · 39.79 秒</span><button id="reference-close" aria-label="关闭原片">✕</button></div><video id="reference-video" controls playsinline preload="metadata" src="./明晚胡彦斌将携TRA_20261017122234.mp4"></video><div class="dialog-foot">效果段落 14–34 秒 · 原片中的握拳、横扫、夹取、张指、爆散</div></dialog>
+  <audio id="music" loop preload="none" src="./茶花开了.m4a"></audio>
+<script type="module" src="./app.js"></script>
+</body></html>

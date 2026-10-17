@@ -1,0 +1,567 @@
+{
+  "source": "明晚胡彦斌将携TRA_20261017122234.mp4",
+  "duration": 39.786667,
+  "language": "zh-CN",
+  "time_unit": "seconds",
+  "text": "大家都知道，我最近很喜欢玩 Vibe Coding。把天马行空的想法变成现实，真的是一个很美好的过程。最近啊，我也玩到一个很有趣的AI Coding 的作品。\n[12.36–33.72 音乐与特效演示，无可靠可辨识的语音文字]\n2026 美好奇妙夜的舞台，我还有更多好玩的，期待一下吧。",
+  "method": {
+    "engine": "openai-whisper",
+    "model": "large-v3-turbo",
+    "device": "cpu",
+    "sample_rate": 16000,
+    "word_timestamps": true,
+    "primary_raw": "audio/whisper-turbo/source-16k.json",
+    "cross_check": "audio/whisper-small-intro/intro-0-12.7.json",
+    "verification": "主体语句已与画面字幕对照。当前环境不能直接听音频，转录依据是本地ASR与视频画面字幕；最近后的助词“啊”虽ASR词概率较低(0.213)，但已由原分辨率画面字幕交叉确认。",
+    "timing_precision_note": "自动对齐时间码，未人工听辨逐音素校时；语音时间与画面字幕出现时间并不完全相同。"
+  },
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 2.8,
+      "text": "大家都知道，我最近很喜欢玩 Vibe Coding。",
+      "raw_asr_text": "大家都知道我最近很喜欢玩Vibe Coding",
+      "confidence": "high",
+      "mean_word_probability": 0.8595,
+      "words": [
+        {
+          "word": "大家都",
+          "start": 0.0,
+          "end": 0.32,
+          "probability": 0.989314079284668
+        },
+        {
+          "word": "知道",
+          "start": 0.32,
+          "end": 0.7,
+          "probability": 0.9950397610664368
+        },
+        {
+          "word": "我",
+          "start": 0.7,
+          "end": 1.0,
+          "probability": 0.7129493951797485
+        },
+        {
+          "word": "最近",
+          "start": 1.0,
+          "end": 1.26,
+          "probability": 0.9948123693466187
+        },
+        {
+          "word": "很",
+          "start": 1.26,
+          "end": 1.44,
+          "probability": 0.9736228585243225
+        },
+        {
+          "word": "喜欢",
+          "start": 1.44,
+          "end": 1.68,
+          "probability": 0.8085002899169922
+        },
+        {
+          "word": "玩",
+          "start": 1.68,
+          "end": 2.0,
+          "probability": 0.9888043999671936
+        },
+        {
+          "word": "Vi",
+          "start": 2.0,
+          "end": 2.32,
+          "probability": 0.31897369027137756
+        },
+        {
+          "word": "be",
+          "start": 2.32,
+          "end": 2.44,
+          "probability": 0.9948327541351318
+        },
+        {
+          "word": " C",
+          "start": 2.44,
+          "end": 2.58,
+          "probability": 0.6790547370910645
+        },
+        {
+          "word": "oding",
+          "start": 2.58,
+          "end": 2.8,
+          "probability": 0.9981366395950317
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 3.22,
+      "end": 6.24,
+      "text": "把天马行空的想法变成现实，",
+      "raw_asr_text": "把天马行空的想法变成现实",
+      "confidence": "high",
+      "mean_word_probability": 0.918,
+      "words": [
+        {
+          "word": "把",
+          "start": 3.22,
+          "end": 3.46,
+          "probability": 0.29906919598579407
+        },
+        {
+          "word": "天",
+          "start": 3.46,
+          "end": 3.7,
+          "probability": 0.9550972580909729
+        },
+        {
+          "word": "马",
+          "start": 3.7,
+          "end": 3.9,
+          "probability": 0.9911016225814819
+        },
+        {
+          "word": "行",
+          "start": 3.9,
+          "end": 4.08,
+          "probability": 0.9659916758537292
+        },
+        {
+          "word": "空",
+          "start": 4.08,
+          "end": 4.24,
+          "probability": 0.9702688455581665
+        },
+        {
+          "word": "的",
+          "start": 4.24,
+          "end": 4.36,
+          "probability": 0.991854190826416
+        },
+        {
+          "word": "想",
+          "start": 4.36,
+          "end": 4.56,
+          "probability": 0.9966300129890442
+        },
+        {
+          "word": "法",
+          "start": 4.56,
+          "end": 4.88,
+          "probability": 0.9992341995239258
+        },
+        {
+          "word": "变",
+          "start": 4.88,
+          "end": 5.46,
+          "probability": 0.932059645652771
+        },
+        {
+          "word": "成",
+          "start": 5.46,
+          "end": 5.68,
+          "probability": 0.9192593097686768
+        },
+        {
+          "word": "现",
+          "start": 5.68,
+          "end": 5.9,
+          "probability": 0.9964888095855713
+        },
+        {
+          "word": "实",
+          "start": 5.9,
+          "end": 6.24,
+          "probability": 0.9984554052352905
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 6.24,
+      "end": 8.22,
+      "text": "真的是一个很美好的过程。",
+      "raw_asr_text": "真的是一个很美好的过程",
+      "confidence": "high",
+      "mean_word_probability": 0.971,
+      "words": [
+        {
+          "word": "真的是",
+          "start": 6.24,
+          "end": 6.76,
+          "probability": 0.8924302458763123
+        },
+        {
+          "word": "一个",
+          "start": 6.76,
+          "end": 7.12,
+          "probability": 0.9603846073150635
+        },
+        {
+          "word": "很",
+          "start": 7.12,
+          "end": 7.34,
+          "probability": 0.9586722254753113
+        },
+        {
+          "word": "美",
+          "start": 7.34,
+          "end": 7.54,
+          "probability": 0.9981729984283447
+        },
+        {
+          "word": "好的",
+          "start": 7.54,
+          "end": 7.8,
+          "probability": 0.9894243478775024
+        },
+        {
+          "word": "过",
+          "start": 7.8,
+          "end": 7.98,
+          "probability": 0.998428225517273
+        },
+        {
+          "word": "程",
+          "start": 7.98,
+          "end": 8.22,
+          "probability": 0.9997115731239319
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 8.22,
+      "end": 9.22,
+      "text": "最近啊，",
+      "raw_asr_text": "最近啊",
+      "confidence": "high",
+      "mean_word_probability": 0.5934,
+      "words": [
+        {
+          "word": "最近",
+          "start": 8.22,
+          "end": 8.98,
+          "probability": 0.9738958477973938
+        },
+        {
+          "word": "啊",
+          "start": 8.98,
+          "end": 9.22,
+          "probability": 0.2128572016954422
+        }
+      ],
+      "screen_text": "最近啊",
+      "screen_start": 8.666667,
+      "screen_end": 9.433333,
+      "verification_note": "ASR 助词“啊”的词概率为0.213，但原分辨率画面字幕已交叉确认为“最近啊”。"
+    },
+    {
+      "id": 4,
+      "start": 9.22,
+      "end": 10.9,
+      "text": "我也玩到一个很有趣的",
+      "raw_asr_text": "我也玩到一个很有趣的",
+      "confidence": "high",
+      "mean_word_probability": 0.8984,
+      "words": [
+        {
+          "word": "我也",
+          "start": 9.22,
+          "end": 9.56,
+          "probability": 0.3537044823169708
+        },
+        {
+          "word": "玩",
+          "start": 9.56,
+          "end": 9.72,
+          "probability": 0.9706380367279053
+        },
+        {
+          "word": "到",
+          "start": 9.72,
+          "end": 9.9,
+          "probability": 0.9895666837692261
+        },
+        {
+          "word": "一个",
+          "start": 9.9,
+          "end": 10.12,
+          "probability": 0.9861147403717041
+        },
+        {
+          "word": "很有",
+          "start": 10.12,
+          "end": 10.46,
+          "probability": 0.9937670230865479
+        },
+        {
+          "word": "趣",
+          "start": 10.46,
+          "end": 10.74,
+          "probability": 0.9997820258140564
+        },
+        {
+          "word": "的",
+          "start": 10.74,
+          "end": 10.9,
+          "probability": 0.9950706958770752
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 10.9,
+      "end": 12.36,
+      "text": "AI Coding 的作品。",
+      "raw_asr_text": "AI Coding的作品",
+      "confidence": "high",
+      "mean_word_probability": 0.8612,
+      "words": [
+        {
+          "word": "AI",
+          "start": 10.9,
+          "end": 11.36,
+          "probability": 0.853827178478241
+        },
+        {
+          "word": " C",
+          "start": 11.36,
+          "end": 11.66,
+          "probability": 0.6880049109458923
+        },
+        {
+          "word": "oding",
+          "start": 11.66,
+          "end": 11.84,
+          "probability": 0.9991211295127869
+        },
+        {
+          "word": "的",
+          "start": 11.84,
+          "end": 11.98,
+          "probability": 0.628050684928894
+        },
+        {
+          "word": "作",
+          "start": 11.98,
+          "end": 12.1,
+          "probability": 0.9989076852798462
+        },
+        {
+          "word": "品",
+          "start": 12.1,
+          "end": 12.36,
+          "probability": 0.9993695616722107
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "start": 33.72,
+      "end": 35.96,
+      "text": "2026 美好奇妙夜的舞台，",
+      "raw_asr_text": "2026美好奇妙夜的舞台",
+      "confidence": "high",
+      "mean_word_probability": 0.9528,
+      "words": [
+        {
+          "word": "20",
+          "start": 33.72,
+          "end": 34.12,
+          "probability": 0.6975998282432556
+        },
+        {
+          "word": "26",
+          "start": 34.12,
+          "end": 34.48,
+          "probability": 0.9988742470741272
+        },
+        {
+          "word": "美",
+          "start": 34.48,
+          "end": 34.88,
+          "probability": 0.8710480332374573
+        },
+        {
+          "word": "好",
+          "start": 34.88,
+          "end": 35.1,
+          "probability": 0.9990746974945068
+        },
+        {
+          "word": "奇",
+          "start": 35.1,
+          "end": 35.26,
+          "probability": 0.99764084815979
+        },
+        {
+          "word": "妙",
+          "start": 35.26,
+          "end": 35.44,
+          "probability": 0.9998264610767365
+        },
+        {
+          "word": "夜",
+          "start": 35.44,
+          "end": 35.56,
+          "probability": 0.967545747756958
+        },
+        {
+          "word": "的",
+          "start": 35.56,
+          "end": 35.66,
+          "probability": 0.9981973767280579
+        },
+        {
+          "word": "舞",
+          "start": 35.66,
+          "end": 35.8,
+          "probability": 0.9996281862258911
+        },
+        {
+          "word": "台",
+          "start": 35.8,
+          "end": 35.96,
+          "probability": 0.9989210367202759
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "start": 35.96,
+      "end": 38.06,
+      "text": "我还有更多好玩的，",
+      "raw_asr_text": "我还有更多好玩的",
+      "confidence": "high",
+      "mean_word_probability": 0.9744,
+      "words": [
+        {
+          "word": "我",
+          "start": 35.96,
+          "end": 36.54,
+          "probability": 0.8984577655792236
+        },
+        {
+          "word": "还有",
+          "start": 36.54,
+          "end": 36.84,
+          "probability": 0.9234392642974854
+        },
+        {
+          "word": "更",
+          "start": 36.84,
+          "end": 37.12,
+          "probability": 0.999704897403717
+        },
+        {
+          "word": "多",
+          "start": 37.12,
+          "end": 37.44,
+          "probability": 0.9999773502349854
+        },
+        {
+          "word": "好",
+          "start": 37.44,
+          "end": 37.7,
+          "probability": 0.9996507167816162
+        },
+        {
+          "word": "玩",
+          "start": 37.7,
+          "end": 37.88,
+          "probability": 0.9995843768119812
+        },
+        {
+          "word": "的",
+          "start": 37.88,
+          "end": 38.06,
+          "probability": 0.9997767806053162
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "start": 38.06,
+      "end": 39.04,
+      "text": "期待一下吧。",
+      "raw_asr_text": "期待一下吧",
+      "confidence": "high",
+      "mean_word_probability": 0.9948,
+      "words": [
+        {
+          "word": "期",
+          "start": 38.06,
+          "end": 38.5,
+          "probability": 0.9805969595909119
+        },
+        {
+          "word": "待",
+          "start": 38.5,
+          "end": 38.66,
+          "probability": 0.9998985528945923
+        },
+        {
+          "word": "一下",
+          "start": 38.66,
+          "end": 38.84,
+          "probability": 0.99901282787323
+        },
+        {
+          "word": "吧",
+          "start": 38.84,
+          "end": 39.04,
+          "probability": 0.9995848536491394
+        }
+      ]
+    }
+  ],
+  "audio_regions": [
+    {
+      "start": 0,
+      "end": 12.36,
+      "kind": "speech",
+      "description": "中文人物口播；包括 Vibe Coding / AI Coding 英文术语。"
+    },
+    {
+      "start": 12.36,
+      "end": 33.72,
+      "kind": "music_or_effects",
+      "description": "音乐及特效演示。整段主转录未输出人声文字；单独转录产生互相矛盾与重复的疑似幻觉，已弃用；不能把这些识别结果当成歌词。",
+      "recognizable_speech": "unconfirmed"
+    },
+    {
+      "start": 33.72,
+      "end": 39.04,
+      "kind": "speech",
+      "description": "中文结尾口播。"
+    },
+    {
+      "start": 39.04,
+      "end": 39.786667,
+      "kind": "tail",
+      "description": "口播后的尾部。"
+    }
+  ],
+  "uncertainties": [],
+  "rejected_asr_outputs": [
+    {
+      "file": "audio/whisper-small-middle/middle-12.3-33.8.json",
+      "reason": "文本反复出现 Please，compression_ratio=5.90、temperature=1.0；不可靠。"
+    },
+    {
+      "file": "audio/whisper-turbo-middle/middle-12.3-33.8.json",
+      "reason": "把无字幕特效展示段识别成单句“感谢观看”，与主转录及另一模型不一致；不可靠。"
+    }
+  ],
+  "resolved_uncertainties": [
+    {
+      "start": 8.98,
+      "end": 9.22,
+      "text": "啊",
+      "raw_asr_probability": 0.2128572016954422,
+      "confirmation": "原分辨率画面字幕为“最近啊”。经逐帧核对，字幕显示从frame-0261 (8.666667秒)至frame-0283 (9.400秒)，frame-0284 (9.433333秒)切换下一句。",
+      "evidence": "contact/caption-08-8.png"
+    }
+  ]
+}

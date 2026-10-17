@@ -1,0 +1,220 @@
+{
+  "purpose": "按原视频动作顺序验收交互；这是合成输入验收，不是摄像头识别准确率或与原程序代码相同的证明。",
+  "source": "analysis/visual-timeline.json",
+  "scope": "镜像后的屏幕归一化手势输入、有限动作顺序、空间抓取、释放驻留、方向约束、抖动和丢手",
+  "status": "failed-synthetic-sequence-validation",
+  "requirements": [
+    {
+      "id": "empty-start",
+      "evidence_frames": [
+        430,
+        482
+      ],
+      "expected": "无手、张掌、V、抬指均不产生天体；张掌后握拳才召出星星。"
+    },
+    {
+      "id": "directional-swipes",
+      "evidence_frames": [
+        518,
+        565
+      ],
+      "expected": "一次朝画面右侧的明确横挥只进行星星到太阳或太阳到月球的一次切换；反向、竖向或静态V手势不能乱跳。V分类误判不否决符合位移、方向、速度与连续路径的右横挥。"
+    },
+    {
+      "id": "spatial-grab",
+      "evidence_frames": [
+        566,
+        643
+      ],
+      "expected": "仅在月球附近以C形或拇食指捏合首次抓取；远处捏合和近球握拳均不能首次抓取。已握持时允许C形的fist分类误判，仍需连续近球轨迹；捏合越紧越小。"
+    },
+    {
+      "id": "anchored-release",
+      "evidence_frames": [
+        644,
+        703
+      ],
+      "expected": "松开月球后球留在释放位置，手离开不再牵动；张掌本身不自动展开月相。"
+    },
+    {
+      "id": "left-pull-phases",
+      "evidence_frames": [
+        704,
+        770
+      ],
+      "expected": "从驻留满月处向左拉开才展开五个月相，原满月作为右端锚点且整排高度固定；停留、向右移动或原地微抖不展开。"
+    },
+    {
+      "id": "collect-lift-release",
+      "evidence_frames": [
+        771,
+        830
+      ],
+      "expected": "在月相右端以C形或捏合收拢；保持抓取上举不套锅，拇食指张开释放后月球先落向释放手势左下再套锅；锅的位置由释放点决定，悬停后不可再次捏合拖动。"
+    },
+    {
+      "id": "armed-burst",
+      "evidence_frames": [
+        946,
+        1047
+      ],
+      "expected": "锅悬浮时必须先握拳再张掌才爆散；爆散只触发一次，之后空场直至显式重置。"
+    },
+    {
+      "id": "robustness",
+      "evidence_frames": [],
+      "expected": "短促手势噪声不可误切换；短于150ms的丢手可保留真实已观察右挥样本但不补造位置，长丢手或瞬移不能形成横挥。丢手不合成松开套锅/爆散；渲染tick只推进动画，不把单帧或过期观察补成稳定手势；重置清除抓取、锚点和爆散状态。"
+    }
+  ],
+  "test_results": [
+    {
+      "id": "empty-start",
+      "name": "无手/张掌/V/抬指保持空场，稳定握拳才召星",
+      "passed": false,
+      "error": "expected star at t=5.55; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "directional-swipes",
+      "name": "向右横挥每次仅切换一级；继续伸手不连续跳过太阳",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "unrelated-gestures",
+      "name": "静态V、反向横挥、竖直抬指不能切换天体",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "victory-classifier-tolerance",
+      "name": "明确向右横挥时模型短暂误判V不抹除空间动作证据",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "brief-tracking-dropout",
+      "name": "短丢手可保留真实右挥样本，长丢手或不可能瞬移不能补造横挥",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "spatial-grab",
+      "name": "远处捏合不抓取，月球附近C形可抓并随手拖动",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "fist-grab-boundary",
+      "name": "近球握拳不能首次抓取；已抓住的C形偶发fist误判仍能跟随",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "pinch-scale",
+      "name": "捏合越紧月球越小",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "anchored-release",
+      "name": "松开后月球留在释放处，张掌和竖向离开不展开月相",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "left-pull-phases",
+      "name": "驻留月球向右不展开，向左拉才展开并保留右端锚点",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "collect-lift-release",
+      "name": "只在月相右端捏合收拢；保持抓取上举不会套锅，松开才套锅",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "c-grip-lift",
+      "name": "C形抓取保持上举不能被误认为L形释放",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "l-release-aperture-growth",
+      "name": "L开口1.47倍手长且较夹持明显增大可释放，维持C或微增不能释放",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "pan-placement",
+      "name": "锅的位置由释放点决定：换一个释放点后锅同向同距离移动",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "frozen-pan",
+      "name": "套锅后再次捏合和拖动不能抓起或移动锅",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "phase-height",
+      "name": "拉开月相时手略向上移动，整排月相仍固定在释放高度",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "unarmed-pan",
+      "name": "锅悬浮期间仅张掌或V不爆散",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "armed-burst",
+      "name": "锅旁拳→张掌只爆散一次，之后空场直至reset",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "tracking-loss",
+      "name": "丢手不会合成释放、套锅或长距离挥手",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "threshold-noise",
+      "name": "单帧拳/捏合噪声和微小横向抖动不能触发动作",
+      "passed": false,
+      "error": "expected star at t=1.68; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "tick-without-observation",
+      "name": "渲染tick不能把单帧或过期手势补成稳定握拳/横挥",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "tick-animation",
+      "name": "tick独立推进锅落位/长大动画，爆散脉冲不重复",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    },
+    {
+      "id": "reset",
+      "name": "各抓取/展示阶段重置后无旧锚点、旧抓取或爆散",
+      "passed": false,
+      "error": "expected star at t=0.48; got idle\n\n'idle' !== 'star'\n"
+    }
+  ],
+  "limitations": [
+    "原视频不披露源代码，动作判定是依据可见行为重新实现。",
+    "自动测试直接向状态机提供合成手势，未调用真实用户摄像头。",
+    "识别模型对真人的遮挡、光照、手形和镜头尺寸适应性需要单独实测。"
+  ],
+  "test_command": "node tests/gesture-sequence.test.mjs",
+  "summary": {
+    "total": 23,
+    "passed": 0,
+    "failed": 23
+  }
+}

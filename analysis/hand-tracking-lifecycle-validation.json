@@ -1,0 +1,83 @@
+{
+  "statuses": [
+    {
+      "state": "camera",
+      "message": "正在请求摄像头权限…"
+    },
+    {
+      "state": "loading",
+      "message": "正在加载本地手势模型…"
+    },
+    {
+      "state": "running",
+      "message": "手势跟踪已就绪"
+    },
+    {
+      "state": "loading",
+      "message": "正在切换兼容手势模式…"
+    },
+    {
+      "state": "running",
+      "message": "手势跟踪已就绪"
+    }
+  ],
+  "frames": 92,
+  "worker": true,
+  "readyState": 4,
+  "dimensions": [
+    1280,
+    720
+  ],
+  "videoTime": 13.793774,
+  "hidden": false,
+  "inFlight": true,
+  "frameErrors": 0,
+  "lastAt": 14662.6,
+  "repeatedStartReusesStream": true,
+  "stoppedTrackState": "ended",
+  "stoppedRAF": 0,
+  "stoppedSrc": null,
+  "restarted": true,
+  "finalStatuses": [
+    {
+      "state": "camera",
+      "message": "正在请求摄像头权限…"
+    },
+    {
+      "state": "loading",
+      "message": "正在加载本地手势模型…"
+    },
+    {
+      "state": "running",
+      "message": "手势跟踪已就绪"
+    },
+    {
+      "state": "loading",
+      "message": "正在切换兼容手势模式…"
+    },
+    {
+      "state": "running",
+      "message": "手势跟踪已就绪"
+    },
+    {
+      "state": "stopped",
+      "message": "摄像头已关闭"
+    },
+    {
+      "state": "camera",
+      "message": "正在请求摄像头权限…"
+    },
+    {
+      "state": "loading",
+      "message": "正在加载本地手势模型…"
+    },
+    {
+      "state": "running",
+      "message": "手势跟踪已就绪"
+    },
+    {
+      "state": "stopped",
+      "message": "摄像头已关闭"
+    }
+  ]
+}

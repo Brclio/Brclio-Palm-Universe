@@ -1,0 +1,33 @@
+// Focused regression for an OS/browser-suspended AudioContext and one-click resume.
+// Reaches the record through real pointer events; does not request a webcam.
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{createHash}=require('node:crypto');
+const {chromium}=require('/Users/bornforthis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const root=path.resolve(__dirname,'..'),baseURL=process.env.INTERACTION_TEST_URL||'http://127.0.0.1:5173/';
+const sources=Object.fromEntries(['app.js','public/scene.js','public/record-audio.js'].map(f=>[f,createHash('sha256').update(fs.readFileSync(path.join(root,f))).digest('hex')]));
+const checks=[],observations=[],errors=[];let browser;
+async function point(page,x,y){const r=await page.locator('#universe').boundingBox();await page.mouse.move(r.x+x*r.width,r.y+y*r.height);}
+async function move(page,a,b,ms=450){for(let i=1;i<=15;i++){await point(page,a.x+(b.x-a.x)*i/15,a.y+(b.y-a.y)*i/15);await page.waitForTimeout(ms/15);}}
+async function stage(page,value){await page.waitForFunction(x=>window.palmUniverse.scene.sequenceSnapshot.stage===x,value);return page.evaluate(()=>window.palmUniverse.scene.sequenceSnapshot);}
+async function sample(page,event){const data=await page.evaluate(()=>{const {audio,scene}=window.palmUniverse;let rms=0;if(window.__recordAnalyser){const a=new Float32Array(2048);window.__recordAnalyser.getFloatTimeDomainData(a);rms=Math.sqrt(a.reduce((s,x)=>s+x*x,0)/a.length);}return {audio:audio.state,context:audio._context.state,videoPaused:scene.reference.recordVideo.paused,videoTime:scene.reference.recordVideo.currentTime,recordPlaying:scene.recordPlaying,rms,sameSource:audio._source===window.__suspendedAudioSource};});observations.push({event,...data});return data;}
+(async()=>{
+ browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
+ const page=await browser.newPage({viewport:{width:1280,height:900}});page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(baseURL,{waitUntil:'networkidle'});await page.evaluate(()=>window.palmUniverse.scene.assetsReady);
+ await point(page,.35,.6);await page.mouse.down();await page.waitForTimeout(360);await page.mouse.up();await stage(page,'star');
+ await point(page,.2,.6);await page.waitForTimeout(500);await move(page,{x:.2,y:.6},{x:.75,y:.6},400);await stage(page,'sun');
+ await move(page,{x:.75,y:.6},{x:.2,y:.6},450);await page.waitForTimeout(200);await move(page,{x:.2,y:.6},{x:.75,y:.6},400);const m=(await stage(page,'moon')).target;
+ await point(page,m.x,m.y);await page.mouse.down();await page.waitForTimeout(240);await move(page,m,{x:.79,y:.67},700);await page.mouse.up();const anchor=(await stage(page,'moonReleased')).target;
+ await page.waitForTimeout(650);await point(page,anchor.x,anchor.y);await move(page,anchor,{x:.4,y:anchor.y},450);await stage(page,'phases');await page.waitForTimeout(1300);
+ await point(page,anchor.x,anchor.y);await page.mouse.down();await page.waitForTimeout(240);await stage(page,'phaseHeld');await move(page,anchor,{x:.25,y:.25},800);await page.mouse.up();await stage(page,'pan');
+ await page.waitForFunction(()=>window.palmUniverse.audio.state.playing);await page.waitForTimeout(300);
+ await page.evaluate(()=>{const a=window.palmUniverse.audio,c=a._context;window.__suspendedAudioSource=a._source;const analyser=window.__recordAnalyser=c.createAnalyser();analyser.fftSize=2048;a._gain.connect(analyser);const silent=c.createGain();silent.gain.value=0;analyser.connect(silent);silent.connect(c.destination);});
+ await page.waitForTimeout(100);const before=await sample(page,'record-playing-before-context-suspension');assert.equal(before.audio.playing,true);
+ await page.evaluate(()=>window.palmUniverse.audio._context.suspend());await page.waitForTimeout(180);const suspended=await sample(page,'context-suspended');
+ assert.equal(suspended.context,'suspended');assert.equal(suspended.audio.playing,false);assert.equal(suspended.audio.active,true);assert.equal(suspended.videoPaused,true);assert.equal(await page.locator('#music-toggle').getAttribute('aria-label'),'播放唱片音乐');
+ await page.locator('#music-toggle').click();await page.waitForFunction(()=>window.palmUniverse.audio.state.playing);await page.waitForTimeout(350);const resumed=await sample(page,'single-click-resumed-context-and-record');
+ assert.equal(resumed.context,'running');assert.equal(resumed.audio.playing,true);assert.equal(resumed.sameSource,true,'resume keeps the suspended source rather than starting a duplicate');assert.ok(resumed.audio.currentTime>suspended.audio.currentTime+.15);assert.equal(resumed.videoPaused,false);assert.ok(resumed.videoTime>suspended.videoTime+.05);assert.ok(resumed.rms>1e-6,'resumed output has actual song energy');
+ checks.push({id:'suspended-context-single-click',passed:true});
+ await page.locator('#music-toggle').click();await page.waitForTimeout(100);const paused=await sample(page,'normal-pause-after-context-recovery');assert.equal(paused.audio.playing,false);assert.equal(paused.videoPaused,true);
+ await page.locator('#music-toggle').click();await page.waitForFunction(()=>window.palmUniverse.audio.state.playing);await page.waitForTimeout(250);const normal=await sample(page,'normal-resume-after-context-recovery');assert.equal(normal.audio.playing,true);assert.equal(normal.videoPaused,false);assert.ok(normal.audio.currentTime>paused.audio.currentTime+.1);checks.push({id:'normal-pause-resume-still-works',passed:true});
+ assert.deepEqual(errors,[]);checks.push({id:'no-browser-errors',passed:true});
+})().catch(e=>{checks.push({id:'regression',passed:false,error:e.stack||e.message});console.error(e);}).finally(async()=>{if(browser)await browser.close();const report={tested_at:new Date().toISOString(),purpose:'Focused real-browser regression after excluding the play button from the global context unlock handler',source_sha256:sources,browser_autoplay_policy:'Default Chrome; no autoplay-policy override',setup:'Full record stage reached through real mouse events; AudioContext.suspend() explicitly simulates OS/browser suspension.',test_results:checks,summary:{total:checks.length,passed:checks.filter(x=>x.passed).length,failed:checks.filter(x=>!x.passed).length},observations,page_errors:errors};fs.writeFileSync(path.join(root,'analysis/record-audio-suspend-validation.json'),JSON.stringify(report,null,2)+'\n');console.log(`${report.summary.passed}/${report.summary.total} suspend regression checks passed.`);if(report.summary.failed)process.exitCode=1;});

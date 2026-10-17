@@ -1,0 +1,763 @@
+{
+  "testedAt": "2026-10-17T04:53:29.745Z",
+  "url": "http://localhost:5173/",
+  "browser": "Chromium via installed Google Chrome, headless",
+  "cameraPolicy": "The three main viewport QA contexts replaced getUserMedia with a NotAllowedError mock before application scripts. The two focused follow-up contexts tested music/scroll only and did not click any camera-start control. No real camera device was requested.",
+  "checks": [
+    {
+      "scenario": "desktop",
+      "name": "no-horizontal-overflow",
+      "pass": true,
+      "details": {
+        "viewport": {
+          "w": 1280,
+          "h": 720
+        },
+        "document": {
+          "w": 1280,
+          "h": 720
+        },
+        "bodyWidth": 1280,
+        "experience": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720,
+          "top": 0,
+          "right": 1280,
+          "bottom": 720,
+          "left": 0
+        },
+        "canvas": {
+          "w": 1280,
+          "h": 720
+        }
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "mode-star",
+      "pass": true,
+      "details": {
+        "sceneMode": "star",
+        "active": "true",
+        "caption": "THE STAR"
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "mode-sun",
+      "pass": true,
+      "details": {
+        "sceneMode": "sun",
+        "active": "true",
+        "caption": "THE SUN"
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "mode-moon",
+      "pass": true,
+      "details": {
+        "sceneMode": "moon",
+        "active": "true",
+        "caption": "THE MOON"
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "mode-phases",
+      "pass": true,
+      "details": {
+        "sceneMode": "phases",
+        "active": "true",
+        "caption": "LUNAR PHASES"
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "mode-pan",
+      "pass": true,
+      "details": {
+        "sceneMode": "pan",
+        "active": "true",
+        "caption": "A MOON IN A PAN"
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "music-play",
+      "pass": true,
+      "details": {
+        "paused": false,
+        "currentTime": 0.176518,
+        "readyState": 4,
+        "error": null,
+        "events": [
+          {
+            "event": "play",
+            "time": 0,
+            "at": 9488.099999997765
+          },
+          {
+            "event": "playing",
+            "time": 0,
+            "at": 9488.099999997765
+          },
+          {
+            "event": "timeupdate",
+            "time": 0.169905,
+            "at": 9999.5
+          }
+        ],
+        "waitedMilliseconds": 575,
+        "testError": null
+      },
+      "initial300msObservation": {
+        "paused": false,
+        "time": 0,
+        "ready": 4,
+        "error": null
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "music-pause",
+      "pass": true,
+      "details": "暂停音乐"
+    },
+    {
+      "scenario": "desktop",
+      "name": "music-local-replacement",
+      "pass": true,
+      "details": {
+        "src": "blob:http://localhost:5173/063d0037-36cc-41d8-b0e0-acf29ab522b0",
+        "name": "replacement-test",
+        "subtitle": "本地音乐 · 正在播放",
+        "paused": false,
+        "error": null
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "reference-open",
+      "pass": true,
+      "details": {
+        "open": true,
+        "musicPaused": true,
+        "readyState": 4,
+        "error": null
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "reference-close",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "scenario": "desktop",
+      "name": "camera-permission-denial-fallback",
+      "pass": true,
+      "details": {
+        "camera": false,
+        "active": false,
+        "label": "开启摄像头",
+        "status": "鼠标体验 · 摄像头可稍后重试",
+        "toast": "摄像头权限未开启。允许访问后可重试；也可以继续用鼠标体验。",
+        "requests": 1,
+        "videoStream": false
+      }
+    },
+    {
+      "scenario": "desktop",
+      "name": "pointer-mapping-after-control-scroll",
+      "pass": true,
+      "details": {
+        "pointer": {
+          "x": 0.1953125,
+          "y": 0.4583333333333333
+        },
+        "canvasRect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720,
+          "top": 0,
+          "right": 1280,
+          "bottom": 720,
+          "left": 0
+        },
+        "scrollY": 0,
+        "input": {
+          "x": 250,
+          "y": 330
+        },
+        "expectedY": 0.4583333333333333
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "no-horizontal-overflow",
+      "pass": true,
+      "details": {
+        "viewport": {
+          "w": 390,
+          "h": 844
+        },
+        "document": {
+          "w": 390,
+          "h": 844
+        },
+        "bodyWidth": 390,
+        "experience": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "canvas": {
+          "w": 390,
+          "h": 844
+        }
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "mode-star",
+      "pass": true,
+      "details": {
+        "sceneMode": "star",
+        "active": "true",
+        "caption": "THE STAR"
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "mode-sun",
+      "pass": true,
+      "details": {
+        "sceneMode": "sun",
+        "active": "true",
+        "caption": "THE SUN"
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "mode-moon",
+      "pass": true,
+      "details": {
+        "sceneMode": "moon",
+        "active": "true",
+        "caption": "THE MOON"
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "mode-phases",
+      "pass": true,
+      "details": {
+        "sceneMode": "phases",
+        "active": "true",
+        "caption": "LUNAR PHASES"
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "mode-pan",
+      "pass": true,
+      "details": {
+        "sceneMode": "pan",
+        "active": "true",
+        "caption": "A MOON IN A PAN"
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "music-play",
+      "pass": true,
+      "details": {
+        "paused": false,
+        "time": 0.579103,
+        "ready": 4,
+        "error": null
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "music-pause",
+      "pass": true,
+      "details": "播放音乐"
+    },
+    {
+      "scenario": "mobile",
+      "name": "music-local-replacement",
+      "pass": true,
+      "details": {
+        "src": "blob:http://localhost:5173/e9d8b620-10a0-49a7-8734-5d27e6317b15",
+        "name": "replacement-test",
+        "subtitle": "本地音乐 · 正在播放",
+        "paused": false,
+        "error": null
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "reference-open",
+      "pass": true,
+      "details": {
+        "open": true,
+        "musicPaused": true,
+        "readyState": 4,
+        "error": null
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "reference-close",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "scenario": "mobile",
+      "name": "camera-permission-denial-fallback",
+      "pass": true,
+      "details": {
+        "camera": false,
+        "active": false,
+        "label": "开启摄像头",
+        "status": "鼠标体验 · 摄像头可稍后重试",
+        "toast": "摄像头权限未开启。允许访问后可重试；也可以继续用鼠标体验。",
+        "requests": 1,
+        "videoStream": false
+      }
+    },
+    {
+      "scenario": "mobile",
+      "name": "pointer-mapping-after-control-scroll",
+      "pass": true,
+      "details": {
+        "pointer": {
+          "x": 0.6410256410256411,
+          "y": 0.3909952606635071
+        },
+        "canvasRect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "scrollY": 0,
+        "input": {
+          "x": 250,
+          "y": 330
+        },
+        "expectedY": 0.3909952606635071
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "no-horizontal-overflow",
+      "pass": true,
+      "details": {
+        "viewport": {
+          "w": 390,
+          "h": 667
+        },
+        "document": {
+          "w": 390,
+          "h": 680
+        },
+        "bodyWidth": 390,
+        "experience": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 680,
+          "top": 0,
+          "right": 390,
+          "bottom": 680,
+          "left": 0
+        },
+        "canvas": {
+          "w": 390,
+          "h": 680
+        }
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "mode-star",
+      "pass": true,
+      "details": {
+        "sceneMode": "star",
+        "active": "true",
+        "caption": "THE STAR"
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "mode-sun",
+      "pass": true,
+      "details": {
+        "sceneMode": "sun",
+        "active": "true",
+        "caption": "THE SUN"
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "mode-moon",
+      "pass": true,
+      "details": {
+        "sceneMode": "moon",
+        "active": "true",
+        "caption": "THE MOON"
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "mode-phases",
+      "pass": true,
+      "details": {
+        "sceneMode": "phases",
+        "active": "true",
+        "caption": "LUNAR PHASES"
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "mode-pan",
+      "pass": true,
+      "details": {
+        "sceneMode": "pan",
+        "active": "true",
+        "caption": "A MOON IN A PAN"
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "music-play",
+      "pass": true,
+      "details": {
+        "paused": false,
+        "time": 0.203972,
+        "ready": 4,
+        "error": null
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "music-pause",
+      "pass": true,
+      "details": "暂停音乐"
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "music-local-replacement",
+      "pass": true,
+      "details": {
+        "src": "blob:http://localhost:5173/d1ceba9a-e3f1-4265-a90b-003954790bfb",
+        "name": "replacement-test",
+        "subtitle": "本地音乐 · 正在播放",
+        "paused": false,
+        "error": null
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "reference-open",
+      "pass": true,
+      "details": {
+        "open": true,
+        "musicPaused": true,
+        "readyState": 4,
+        "error": null
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "reference-close",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "camera-permission-denial-fallback",
+      "pass": true,
+      "details": {
+        "camera": false,
+        "active": false,
+        "label": "开启摄像头",
+        "status": "鼠标体验 · 摄像头可稍后重试",
+        "toast": "摄像头权限未开启。允许访问后可重试；也可以继续用鼠标体验。",
+        "requests": 1,
+        "videoStream": false
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "pointer-mapping-after-control-scroll",
+      "pass": true,
+      "details": {
+        "pointer": {
+          "x": 0.6410256410256411,
+          "y": 0.4852941176470588
+        },
+        "canvasRect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 680,
+          "top": 0,
+          "right": 390,
+          "bottom": 680,
+          "left": 0
+        },
+        "scrollY": 0,
+        "input": {
+          "x": 250,
+          "y": 330
+        },
+        "expectedY": 0.4852941176470588
+      }
+    },
+    {
+      "scenario": "mobile-short",
+      "name": "pointer-mapping-with-explicit-page-scroll",
+      "pass": true,
+      "details": {
+        "scrollY": 13,
+        "pointer": {
+          "x": 0.6410256410256411,
+          "y": 0.6808823529411765
+        },
+        "rect": {
+          "x": 0,
+          "y": -13,
+          "width": 390,
+          "height": 680,
+          "top": -13,
+          "right": 390,
+          "bottom": 667,
+          "left": 0
+        },
+        "input": {
+          "x": 250,
+          "y": 450
+        },
+        "expectedY": 0.6808823529411765
+      }
+    }
+  ],
+  "failures": [],
+  "consoleErrors": [
+    {
+      "scenario": "desktop",
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "scenario": "desktop",
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "scenario": "mobile",
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "scenario": "mobile-short",
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ],
+  "resourceErrors": [
+    {
+      "scenario": "desktop",
+      "status": "network-failed",
+      "url": "http://localhost:5173/public/audio/lunar-reverie.mp3",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "desktop",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "desktop",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile",
+      "status": "network-failed",
+      "url": "http://localhost:5173/public/audio/lunar-reverie.mp3",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/public/audio/lunar-reverie.mp3",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "pageErrors": [],
+  "local404s": [],
+  "passed": true,
+  "rechecks": [
+    {
+      "scenario": "desktop",
+      "name": "music-play-allow-initial-audio-startup",
+      "pass": true,
+      "details": {
+        "paused": false,
+        "currentTime": 0.176518,
+        "readyState": 4,
+        "error": null,
+        "events": [
+          {
+            "event": "play",
+            "time": 0,
+            "at": 9488.099999997765
+          },
+          {
+            "event": "playing",
+            "time": 0,
+            "at": 9488.099999997765
+          },
+          {
+            "event": "timeupdate",
+            "time": 0.169905,
+            "at": 9999.5
+          }
+        ],
+        "waitedMilliseconds": 575,
+        "testError": null
+      }
+    }
+  ],
+  "expectedMediaRequestCancellations": [
+    {
+      "scenario": "desktop",
+      "status": "network-failed",
+      "url": "http://localhost:5173/public/audio/lunar-reverie.mp3",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "desktop",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "desktop",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile",
+      "status": "network-failed",
+      "url": "http://localhost:5173/public/audio/lunar-reverie.mp3",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/public/audio/lunar-reverie.mp3",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "scenario": "mobile-short",
+      "status": "network-failed",
+      "url": "http://localhost:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "unexpectedNetworkErrors": [],
+  "notes": [
+    "No real camera device was requested. Permission denial was mocked before page scripts.",
+    "Media net::ERR_ABORTED entries correspond to replacing audio/closing reference media/context and are categorized as expected cancellations.",
+    "Initial desktop audio startup exceeded the first 300ms assertion; music play was retested with a condition-based 10s ceiling.",
+    "The frame-analysis viewer was outside this main-page QA scope."
+  ],
+  "screenshots": [
+    "preview-desktop.png",
+    "preview-mobile.png",
+    "preview-mobile-short.png"
+  ],
+  "summary": {
+    "checks": 40,
+    "passed": 40,
+    "failed": 0,
+    "pageErrors": 0,
+    "resource404s": 0,
+    "unexpectedNetworkErrors": 0
+  }
+}

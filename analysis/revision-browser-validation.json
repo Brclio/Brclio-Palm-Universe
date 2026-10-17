@@ -1,0 +1,3707 @@
+{
+  "tested_at": "2026-10-17T08:18:30.162Z",
+  "source_sha256": {
+    "app.js": "3ca03299d9849cf651d56b57d5bbeffd8fe61ae632c37d3b055099f040528899",
+    "public/scene.js": "4dac443eaef696cc99089633232f3981f1631d519268cceef996cc04e674c9cd",
+    "public/gesture-sequence.js": "ea0677d5b5d7fb1094465f666011a923c941c0b2d88368e2cd74058761446ab7",
+    "public/reference-effects.js": "16d519d28e4e1631a45890f0e995e0bf0e04392c3a4869e7d925040be0bd933e",
+    "public/record-audio.js": "a8296568121eceb302381dc9e84ed27b31507acae9e16b84a780ecff79f7653f"
+  },
+  "purpose": "浏览器开发验收：真实pointer事件和显式模型测试替身；无真实摄像头访问。",
+  "test_command": "node tests/revision-browser.cjs",
+  "base_url": "http://127.0.0.1:5173/",
+  "status": "passed-browser-development-validation",
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0
+  },
+  "test_results": [
+    {
+      "id": "record-audio-initial-gate",
+      "name": "进入和首次操作只静默解锁，唱片出现前音乐不可播放",
+      "passed": true
+    },
+    {
+      "id": "pointer-full-sequence",
+      "name": "桌面真实鼠标事件按原片动作完成空场→星→日→月→五相→唱片→爆散",
+      "passed": true
+    },
+    {
+      "id": "motion-and-phase-rendering",
+      "name": "太阳与唱片动态纹理按阶段播放，抓取后四个月相固定位置淡出",
+      "passed": true
+    },
+    {
+      "id": "source-assets-and-stage",
+      "name": "原片素材成功加载，主操作画布保持16:9，流程无跳级按钮",
+      "passed": true
+    },
+    {
+      "id": "mouse-mirror-independence",
+      "name": "镜像切换只影响摄像头，鼠标坐标和当前鼠标流程不受影响",
+      "passed": true
+    },
+    {
+      "id": "camera-denied-retry",
+      "name": "摄像头拒绝权限与重试均恢复可操作状态，未请求真实摄像头",
+      "passed": true
+    },
+    {
+      "id": "camera-observation-serial",
+      "name": "摄像头单帧握拳不会因渲染循环重复计时而召星，过期观察不触发动作",
+      "passed": true
+    },
+    {
+      "id": "camera-mirror-alignment",
+      "name": "镜像开关同步翻转画面和关键点，重置动作流程，非镜像下仍能识别屏幕位置",
+      "passed": true
+    },
+    {
+      "id": "camera-synthetic-sequence",
+      "name": "合成模型结果经过app回调、映射与serial机制完成当前观察动作全流程",
+      "passed": true
+    },
+    {
+      "id": "record-audio-reset-boundaries",
+      "name": "重来、切换摄像头、摄像头镜像重置会停止并归零唱片音频",
+      "passed": true
+    },
+    {
+      "id": "mobile-layout",
+      "name": "390×844手机布局无水平溢出，排练与重来入口可见",
+      "passed": true
+    },
+    {
+      "id": "browser-errors",
+      "name": "浏览器运行无JavaScript未捕获异常与HTTP 404/其他失败响应",
+      "passed": true
+    }
+  ],
+  "page_errors": [],
+  "http_errors": [],
+  "external_request_failures": [],
+  "screenshots": [
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-star.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-sun.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-moon.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-phases.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-record.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-burst.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/revision-mobile.png"
+  ],
+  "recorded_states": [
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 1.6325999999999987
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "在画面里按住鼠标片刻，对应原片的收拢握拳。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-start-empty",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 1.6325999999999987
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "在画面里按住鼠标片刻，对应原片的收拢握拳。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 2.3825999999999974
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.39539154488805,
+        "y": 0.6107010488896331
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "松开鼠标，从星星左侧向右横扫。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-sun",
+      "snapshot": {
+        "stage": "sun",
+        "mode": "sun",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+        "time": 4.299199999999997
+      },
+      "mode": "sun",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680000408352199,
+        "y": 0.6349999637752081
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "先移回左边，再向右横扫一次，换成月球。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-moon",
+      "snapshot": {
+        "stage": "moon",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+        "time": 6.899100000000025
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680000000000005,
+        "y": 0.6349999999999996
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "移到月球上按住，拇指与食指会夹住它。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-moon-held",
+      "snapshot": {
+        "stage": "moonHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.3679999881320529,
+          "y": 0.6349999698591821
+        },
+        "scale": 0.5977988952198608,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
+        "time": 7.649000000000033
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.3679999881320529,
+        "y": 0.6349999698591821
+      },
+      "position": {
+        "x": 0.3679999889296444,
+        "y": 0.6349999718848112
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "保持按住，月球逐渐缩小；拖到右侧后松开。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-moon-released",
+      "snapshot": {
+        "stage": "moonReleased",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 0.1943333333333334,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "月球已停住，五指张开向左横扫，展开五个月相",
+        "time": 9.349000000000014
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.8199999830457899,
+        "y": 0.670000015070409
+      },
+      "position": {
+        "x": 0.7922659097124566,
+        "y": 0.670000015070409
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "松开鼠标向左横扫，月相会依次展开。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-phase-trigger",
+      "snapshot": {
+        "stage": "phases",
+        "mode": "phases",
+        "visible": true,
+        "target": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "scale": 1,
+        "phaseProgress": 0.07581818181818113,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "pulling",
+        "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
+        "time": 11.248999999999983
+      },
+      "mode": "phases",
+      "target": {
+        "x": 0.8199999830457899,
+        "y": 0.670000015070409
+      },
+      "position": {
+        "x": 0.8199999830457899,
+        "y": 0.670000015070409
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "回到最右侧满月上按住，把它夹起来。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-five-phases",
+      "snapshot": {
+        "stage": "phases",
+        "mode": "phases",
+        "visible": true,
+        "target": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "scale": 1,
+        "phaseProgress": 1,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "pulling",
+        "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
+        "time": 12.598899999999967
+      },
+      "mode": "phases",
+      "target": {
+        "x": 0.8199999830457899,
+        "y": 0.670000015070409
+      },
+      "position": {
+        "x": 0.8199999830457899,
+        "y": 0.670000015070409
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "回到最右侧满月上按住，把它夹起来。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-phases-collected",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.8199999491373698,
+          "y": 0.670000015070409
+        },
+        "scale": 0.597798895219862,
+        "phaseProgress": 0.7574545454545456,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 13.69879999999995
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.8199999491373698,
+        "y": 0.670000015070409
+      },
+      "position": {
+        "x": 0.8199999514162026,
+        "y": 0.670000015070409
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "保持按住向左上方拖动，再松开手指，月球化为黑胶唱片。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-raised-still-held",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "scale": 0.035,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 15.265399999999921
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.25,
+        "y": 0.25
+      },
+      "position": {
+        "x": 0.2501397490409663,
+        "y": 0.2501029729554021
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "保持按住向左上方拖动，再松开手指，月球化为黑胶唱片。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-pan-drop",
+      "snapshot": {
+        "stage": "pan",
+        "mode": "pan",
+        "visible": true,
+        "target": {
+          "x": 0.14375,
+          "y": 0.47950000000000004
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0.2964444444444404,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
+        "time": 15.465499999999919
+      },
+      "mode": "pan",
+      "target": {
+        "x": 0.14375,
+        "y": 0.47950000000000004
+      },
+      "position": {
+        "x": 0.18075190884993203,
+        "y": 0.39957587688414675
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "移到唱片旁，按住片刻再松开，对应握拳后张开五指。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-burst",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.14375,
+          "y": 0.47950000000000004
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": true,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": {
+          "x": 0.14375,
+          "y": 0.47950000000000004
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 17.998599999999904
+      },
+      "mode": null,
+      "target": {
+        "x": 0.14375,
+        "y": 0.47950000000000004
+      },
+      "position": {
+        "x": 0.14375,
+        "y": 0.47950000000000004
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 4200,
+      "dissolved": true,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "月光散开了。点击「重来」重新开始。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-finale-empty",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.14375,
+          "y": 0.47950000000000004
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8199999830457899,
+          "y": 0.670000015070409
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7899999830457899,
+          "y": 0.670000015070409
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": {
+          "x": 0.14375,
+          "y": 0.47950000000000004
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 23.26509999999977
+      },
+      "mode": null,
+      "target": {
+        "x": 0.14375,
+        "y": 0.47950000000000004
+      },
+      "position": {
+        "x": 0.14375,
+        "y": 0.47950000000000004
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": true,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "月光散开了。点击「重来」重新开始。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-reset",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 23.298399999999766
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "在画面里按住鼠标片刻，对应原片的收拢握拳。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 24.064999999999724
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.39541072568196656,
+        "y": 0.6106840336692232
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "松开鼠标，从星星左侧向右横扫。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-start-empty",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 0.7993000000000001
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
+      "status": "摄像头手势 · 收拢手指召星",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-stale-one-frame-fist",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 1.4992999999999987
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 9,
+      "lastSequenceSerial": 9,
+      "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
+      "status": "手掌未进入识别范围",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-fresh-fist-star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 2.199199999999998
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3923695495833948,
+        "y": 0.6133818511760207
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 26,
+      "lastSequenceSerial": 26,
+      "hint": "松开拳头，像原片一样把手从左向右横扫",
+      "status": "已识别手掌 · 等待收拢手指",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "mirrored-screen-right-swipe",
+      "snapshot": {
+        "stage": "sun",
+        "mode": "sun",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+        "time": 4.215799999999995
+      },
+      "mode": "sun",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680000180409638,
+        "y": 0.6349999839959192
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 63,
+      "lastSequenceSerial": 63,
+      "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+      "status": "已识别手掌 · 星星",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 4.249199999999996
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 63,
+      "lastSequenceSerial": null,
+      "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
+      "status": "已识别手掌 · 星星",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 4.6491
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3923866142400364,
+        "y": 0.6133667131741614
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 72,
+      "lastSequenceSerial": 72,
+      "hint": "松开拳头，像原片一样把手从左向右横扫",
+      "status": "已识别手掌 · 等待收拢手指",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "unmirrored-screen-right-swipe",
+      "snapshot": {
+        "stage": "sun",
+        "mode": "sun",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+        "time": 5.615700000000011
+      },
+      "mode": "sun",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680280949449188,
+        "y": 0.6349750770649913
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 95,
+      "lastSequenceSerial": 95,
+      "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+      "status": "已识别手掌 · 太阳",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 5.649100000000011
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 95,
+      "lastSequenceSerial": null,
+      "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
+      "status": "已识别手掌 · 太阳",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 5.682400000000012
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 95,
+      "lastSequenceSerial": null,
+      "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
+      "status": "已识别手掌 · 太阳",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 6.482400000000021
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3923866142400362,
+        "y": 0.6133667131741615
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 112,
+      "lastSequenceSerial": 112,
+      "hint": "松开拳头，像原片一样把手从左向右横扫",
+      "status": "已识别手掌 · 等待收拢手指",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "sun",
+      "snapshot": {
+        "stage": "sun",
+        "mode": "sun",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+        "time": 7.44900000000003
+      },
+      "mode": "sun",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680280949449188,
+        "y": 0.6349750770649913
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 135,
+      "lastSequenceSerial": 135,
+      "hint": "手收回左边，伸出食指和拇指，再向右横扫",
+      "status": "已识别手掌 · 太阳",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "moon",
+      "snapshot": {
+        "stage": "moon",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+        "time": 8.599000000000022
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680000089651509,
+        "y": 0.6349999920470436
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 162,
+      "lastSequenceSerial": 162,
+      "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+      "status": "已识别手掌 · 月球",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "moon",
+      "snapshot": {
+        "stage": "moon",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+        "time": 8.86560000000002
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.36800000138700245,
+        "y": 0.6349999987695946
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 168,
+      "lastSequenceSerial": 168,
+      "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+      "status": "已识别手掌 · 月球",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "moonHeld",
+      "snapshot": {
+        "stage": "moonHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 0.6985600869125919,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
+        "time": 9.132300000000017
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.3680000000285512,
+        "y": 0.6349999999746723
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 174,
+      "lastSequenceSerial": 174,
+      "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
+      "status": "已识别手掌 · 夹取月球",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-release-anchor",
+      "snapshot": {
+        "stage": "moonReleased",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 0.33333333333332626,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "月球已停住，五指张开向左横扫，展开五个月相",
+        "time": 10.698899999999988
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.8200000000000002,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7966666666666665,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 210,
+      "lastSequenceSerial": 210,
+      "hint": "月球已停住，五指张开向左横扫，展开五个月相",
+      "status": "已识别手掌 · 夹取月球",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "moonReleased",
+      "snapshot": {
+        "stage": "moonReleased",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 0.7776666666666484,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "月球已停住，五指张开向左横扫，展开五个月相",
+        "time": 10.965499999999981
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.8200000000000002,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.817034073333333,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 217,
+      "lastSequenceSerial": 217,
+      "hint": "月球已停住，五指张开向左横扫，展开五个月相",
+      "status": "已识别手掌 · 月球已释放",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "phases",
+      "snapshot": {
+        "stage": "phases",
+        "mode": "phases",
+        "visible": true,
+        "target": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 0.19709090909090513,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "pulling",
+        "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
+        "time": 11.448899999999972
+      },
+      "mode": "phases",
+      "target": {
+        "x": 0.8200000000000002,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.8200000000000002,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 229,
+      "lastSequenceSerial": 229,
+      "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
+      "status": "已识别手掌 · 月球已释放",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "phaseHeld",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "scale": 0.035,
+        "phaseProgress": 0.7270909090909186,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 13.015499999999944
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.8200000000000002,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.8200000000000002,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 235,
+      "lastSequenceSerial": 235,
+      "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+      "status": "手掌未进入识别范围",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "phaseHeld",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "scale": 0.035,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 14.215399999999931
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.25,
+        "y": 0.25
+      },
+      "position": {
+        "x": 0.25005724493211867,
+        "y": 0.25004218047629795
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 263,
+      "lastSequenceSerial": 263,
+      "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+      "status": "已识别手掌 · 夹取后上举",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-pan",
+      "snapshot": {
+        "stage": "pan",
+        "mode": "pan",
+        "visible": true,
+        "target": {
+          "x": 0.19023437500000004,
+          "y": 0.3790937499999999
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0.37022222222221995,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
+        "time": 14.481999999999928
+      },
+      "mode": "pan",
+      "target": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "position": {
+        "x": 0.20516278182746933,
+        "y": 0.34684839125266625
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 269,
+      "lastSequenceSerial": 269,
+      "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
+      "status": "已识别手掌 · 黑胶唱片",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "pan",
+      "snapshot": {
+        "stage": "pan",
+        "mode": "pan",
+        "visible": true,
+        "target": {
+          "x": 0.19023437500000004,
+          "y": 0.3790937499999999
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
+        "time": 15.815299999999905
+      },
+      "mode": "pan",
+      "target": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "position": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 296,
+      "lastSequenceSerial": 296,
+      "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
+      "status": "已识别手掌 · 黑胶唱片",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-burst",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.19023437500000004,
+          "y": 0.3790937499999999
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": {
+          "x": 0.19023437500000004,
+          "y": 0.3790937499999999
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 16.298599999999908
+      },
+      "mode": null,
+      "target": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "position": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 4200,
+      "dissolved": true,
+      "handSerial": 308,
+      "lastSequenceSerial": 308,
+      "hint": "演示结束，点击重来可重新开始",
+      "status": "已识别手掌 · 月光散开",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "burst",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.19023437500000004,
+          "y": 0.3790937499999999
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.8200000000000002,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "releaseOrigin": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "releaseProgress": 1,
+        "releaseScale": 0.035,
+        "burstTarget": {
+          "x": 0.19023437500000004,
+          "y": 0.3790937499999999
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 16.8318999999999
+      },
+      "mode": null,
+      "target": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "position": {
+        "x": 0.19023437500000004,
+        "y": 0.3790937499999999
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 4045,
+      "dissolved": true,
+      "handSerial": 322,
+      "lastSequenceSerial": 322,
+      "hint": "演示结束，点击重来可重新开始",
+      "status": "已识别手掌 · 月光散开",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    }
+  ],
+  "dynamic_texture_observations": [
+    {
+      "expectedMode": "sun",
+      "before": {
+        "sun": {
+          "time": 0.218626,
+          "paused": false,
+          "readyState": 4,
+          "frames": 40,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 0,
+          "paused": true,
+          "readyState": 4,
+          "frames": 4,
+          "duration": 3.733008
+        }
+      },
+      "after": {
+        "sun": {
+          "time": 0.029203,
+          "paused": false,
+          "readyState": 4,
+          "frames": 50,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 0,
+          "paused": true,
+          "readyState": 4,
+          "frames": 4,
+          "duration": 3.733008
+        }
+      }
+    },
+    {
+      "expectedMode": null,
+      "before": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 0,
+          "paused": true,
+          "readyState": 4,
+          "frames": 4,
+          "duration": 3.733008
+        }
+      },
+      "after": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 0,
+          "paused": true,
+          "readyState": 4,
+          "frames": 4,
+          "duration": 3.733008
+        }
+      }
+    },
+    {
+      "expectedMode": "pan",
+      "before": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 0.427866,
+          "paused": false,
+          "readyState": 4,
+          "frames": 17,
+          "duration": 3.733008
+        }
+      },
+      "after": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 0.74073,
+          "paused": false,
+          "readyState": 4,
+          "frames": 26,
+          "duration": 3.733008
+        }
+      }
+    },
+    {
+      "expectedMode": "pan",
+      "before": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 1.376626,
+          "paused": false,
+          "readyState": 4,
+          "frames": 45,
+          "duration": 3.733008
+        }
+      },
+      "after": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 1.688535,
+          "paused": false,
+          "readyState": 4,
+          "frames": 54,
+          "duration": 3.733008
+        }
+      }
+    },
+    {
+      "expectedMode": null,
+      "before": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 2.035418,
+          "paused": true,
+          "readyState": 4,
+          "frames": 65,
+          "duration": 3.733008
+        }
+      },
+      "after": {
+        "sun": {
+          "time": 0.07944,
+          "paused": true,
+          "readyState": 4,
+          "frames": 81,
+          "duration": 0.5
+        },
+        "pan": {
+          "time": 2.035418,
+          "paused": true,
+          "readyState": 4,
+          "frames": 65,
+          "duration": 3.733008
+        }
+      }
+    }
+  ],
+  "phase_fade_observations": [
+    {
+      "before": [
+        {
+          "x": 0.09999998304579,
+          "y": 0.670000015070409,
+          "texture": 8,
+          "alpha": 0.7574545454545456
+        },
+        {
+          "x": 0.27999998304578994,
+          "y": 0.670000015070409,
+          "texture": 7,
+          "alpha": 0.7574545454545456
+        },
+        {
+          "x": 0.45999998304579,
+          "y": 0.670000015070409,
+          "texture": 6,
+          "alpha": 0.7574545454545456
+        },
+        {
+          "x": 0.63999998304579,
+          "y": 0.670000015070409,
+          "texture": 5,
+          "alpha": 0.7574545454545456
+        }
+      ],
+      "after": [
+        {
+          "x": 0.09999998304579,
+          "y": 0.670000015070409,
+          "texture": 8,
+          "alpha": 0.48472727272727545
+        },
+        {
+          "x": 0.27999998304578994,
+          "y": 0.670000015070409,
+          "texture": 7,
+          "alpha": 0.48472727272727545
+        },
+        {
+          "x": 0.45999998304579,
+          "y": 0.670000015070409,
+          "texture": 6,
+          "alpha": 0.48472727272727545
+        },
+        {
+          "x": 0.63999998304579,
+          "y": 0.670000015070409,
+          "texture": 5,
+          "alpha": 0.48472727272727545
+        }
+      ]
+    }
+  ],
+  "audio_observations": [
+    {
+      "event": "entry-before-any-input",
+      "state": {
+        "ready": false,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 0,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "not-created",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "first-pointer-silently-unlocked",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "space-cannot-skip-record-gate",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "idle",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-start-empty",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-sun",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-moon",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-moon-held",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-moon-released",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-phase-trigger",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-phases-collected",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-raised-still-held",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "mouse-record-auto-start",
+      "state": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.21333333333333293,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 1,
+      "stops": 0,
+      "liveSources": 1,
+      "connectedToDestination": true,
+      "rms": 3.623051387178225e-05,
+      "recordPlaying": true,
+      "recordVideoPaused": false,
+      "recordVideoTime": 0.197218,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "record-user-pause-stays-paused",
+      "state": {
+        "ready": true,
+        "active": true,
+        "playing": false,
+        "currentTime": 0.2560000000000002,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 1,
+      "stops": 1,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0.25028,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "record-user-resume",
+      "state": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.3626666666666676,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 1,
+      "liveSources": 1,
+      "connectedToDestination": true,
+      "rms": 3.52252018789809e-05,
+      "recordPlaying": true,
+      "recordVideoPaused": false,
+      "recordVideoTime": 0.343536,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "mouse-burst-faded-and-stopped",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 2,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 2.035418,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "pointer-reset",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 2,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 2,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "camera-start-empty",
+      "state": {
+        "ready": false,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 0,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "camera-stale-one-frame-fist",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "camera-fresh-fist-star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "mirrored-screen-right-swipe",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "idle",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "unmirrored-screen-right-swipe",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "idle",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "idle",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "replacement-before-record-stays-silent",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "sun",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "moon",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "moon",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "moonHeld",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "camera-release-anchor",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "moonReleased",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "phases",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "phaseHeld",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "phaseHeld",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "camera-model-callback-auto-start-without-new-click",
+      "state": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.2400000000000002,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 1,
+      "stops": 0,
+      "liveSources": 1,
+      "connectedToDestination": true,
+      "rms": 0.009741937728224374,
+      "recordPlaying": true,
+      "recordVideoPaused": false,
+      "recordVideoTime": 0.224677,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "camera-burst-faded-and-stopped",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 1,
+      "stops": 1,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 1.63563,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "cleanup-restart",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 2,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "cleanup-camera-switch",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 3,
+      "stops": 3,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "cleanup-camera-mirror",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 48,
+        "trackName": "lunar-reverie",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 4,
+      "stops": 4,
+      "liveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    }
+  ],
+  "browser_autoplay_policy": "Chrome default; no autoplay-policy override",
+  "limitations": [
+    "摄像头成功流程用显式HandTracker测试替身输入合成模型结果，未验证真实模型识别准确率或真实摄像头画质。",
+    "摄像头权限拒绝使用getUserMedia测试替身；成功mock路径禁止调用真实getUserMedia。",
+    "手机此次仅验收布局与入口，不代表所有触屏手势或浏览器均已实测。",
+    "音频重置边界用显式 audio.activate() 建立隔离清理fixture；正常自动起播另由完整鼠标和相机模型回调流程验证。",
+    "AudioContext/BufferSource 观测与旁接 Analyser 仅用于测量，不替换播放器或使用自动播放策略豁免。"
+  ],
+  "subsequent_change_validation": {
+    "report": "record-audio-suspend-validation.json",
+    "change": "app.js excludes the music button and Space from the global context unlock; focused real-browser regression covers one-click resume from a suspended AudioContext and normal pause/resume.",
+    "note": "The main 12 checks retain their originally tested source hashes. The focused report records the final source hashes."
+  }
+}

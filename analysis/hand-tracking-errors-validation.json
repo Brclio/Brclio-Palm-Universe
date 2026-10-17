@@ -1,0 +1,26 @@
+{
+  "denied": {
+    "rejection": "NotAllowedError",
+    "status": {
+      "state": "error",
+      "message": "摄像头权限未开启，请在浏览器地址栏允许摄像头后重试。",
+      "error": {
+        "code": "permission-denied",
+        "message": "摄像头权限未开启，请在浏览器地址栏允许摄像头后重试。",
+        "name": "NotAllowedError",
+        "detail": "Test permission denial"
+      },
+      "code": "permission-denied"
+    },
+    "stream": null,
+    "worker": null,
+    "raf": 0
+  },
+  "retried": true,
+  "concurrentStartSamePromise": true,
+  "cancelPendingRejection": "AbortError",
+  "lateStreamTrackState": "ended",
+  "finalRAF": 0,
+  "finalStream": null,
+  "externalRequests": []
+}

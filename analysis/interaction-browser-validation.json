@@ -1,0 +1,1737 @@
+{
+  "purpose": "浏览器开发验收：真实pointer事件和显式模型测试替身；无真实摄像头访问。",
+  "test_command": "node tests/interaction-browser.cjs",
+  "base_url": "http://localhost:5173/",
+  "status": "passed-browser-development-validation",
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "test_results": [
+    {
+      "id": "pointer-full-sequence",
+      "name": "桌面真实鼠标事件按原片动作完成空场→星→日→月→五相→锅→爆散",
+      "passed": true
+    },
+    {
+      "id": "camera-denied-retry",
+      "name": "摄像头拒绝权限与重试均恢复可操作状态，未请求真实摄像头",
+      "passed": true
+    },
+    {
+      "id": "camera-observation-serial",
+      "name": "摄像头单帧握拳不会因渲染循环重复计时而召星，过期观察不触发动作",
+      "passed": true
+    },
+    {
+      "id": "camera-synthetic-sequence",
+      "name": "合成模型结果经过app回调、映射与serial机制完成原片全流程",
+      "passed": true
+    },
+    {
+      "id": "mobile-layout",
+      "name": "390×844手机布局无水平溢出，排练与重来入口可见",
+      "passed": true
+    },
+    {
+      "id": "browser-errors",
+      "name": "浏览器运行无JavaScript未捕获异常与HTTP 404/其他失败响应",
+      "passed": true
+    }
+  ],
+  "page_errors": [],
+  "http_errors": [],
+  "external_request_failures": [],
+  "screenshots": [
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/preview-interaction-sequence.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/preview-interaction-mobile.png"
+  ],
+  "recorded_states": [
+    {
+      "label": "pointer-start-empty",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 4.499082000000002
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "鼠标排练：先移动鼠标，再按住片刻召出星星",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "张开手，向画面右侧横挥，星星变成太阳",
+        "time": 5.13248200000001
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.35,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.3779754302721218,
+        "y": 0.5930061424319695
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "松开按键，向画面右侧快速移动鼠标，切换太阳",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-sun",
+      "snapshot": {
+        "stage": "sun",
+        "mode": "sun",
+        "visible": true,
+        "target": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "手向左收回，再向画面右侧横挥，太阳变成月球",
+        "time": 6.282382000000024
+      },
+      "mode": "sun",
+      "target": {
+        "x": 0.35,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.3500089332646792,
+        "y": 0.5999977666838302
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "先向左收回，再向右快速移动鼠标，切换月球",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-moon",
+      "snapshot": {
+        "stage": "moon",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+        "time": 7.715682000000041
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.35,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.350000000392365,
+        "y": 0.5999999999019087
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "移到月球上，按住鼠标夹取月球",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-moon-held",
+      "snapshot": {
+        "stage": "moonHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "scale": 0.12,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.35,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹紧缩小月球，移到右侧后张开手掌释放",
+        "time": 8.115682000000042
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.35,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.35000000000073234,
+        "y": 0.5999999999998168
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "保持按住拖向右侧，松开鼠标释放月球",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-moon-released",
+      "snapshot": {
+        "stage": "moonReleased",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "月球已停住，张开手掌从右向左拉开月相",
+        "time": 9.365582000000025
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.7899999830457899,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7899999830457899,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "月球已停住，松开鼠标向左移动，拉出月相",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-five-phases",
+      "snapshot": {
+        "stage": "phases",
+        "mode": "phases",
+        "visible": true,
+        "target": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 1,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "pulling",
+        "hint": "向左继续拉开五个月相，再回到最右端夹住满月",
+        "time": 11.215581999999994
+      },
+      "mode": "phases",
+      "target": {
+        "x": 0.7899999830457899,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7899999830457899,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "继续向左展开，再移到最右端满月上按住",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-phases-collected",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "scale": 0.12,
+        "phaseProgress": 0.7576363636363601,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 12.498781999999972
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.7899999830457899,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7899999830457899,
+        "y": 0.67
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "保持按住，拖向左上方，再松开生成月亮锅",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-raised-still-held",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "scale": 0.12,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 13.898781999999951
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.25,
+        "y": 0.25
+      },
+      "position": {
+        "x": 0.2501786923417917,
+        "y": 0.2501389829261753
+      },
+      "down": true,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "保持按住，拖向左上方，再松开生成月亮锅",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-pan-drop",
+      "snapshot": {
+        "stage": "pan",
+        "mode": "pan",
+        "visible": true,
+        "target": {
+          "x": 0.16499999999999998,
+          "y": 0.3775
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0.2962222222222148,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "锅已悬停，把手移到锅旁握拳，再快速张开五指",
+        "time": 14.115381999999945
+      },
+      "mode": "pan",
+      "target": {
+        "x": 0.16499999999999998,
+        "y": 0.3775
+      },
+      "position": {
+        "x": 0.1913606763851033,
+        "y": 0.33795898542234504
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "在锅旁按住片刻，再松开，让月光爆散",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-burst",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.16499999999999998,
+          "y": 0.3775
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": true,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": {
+          "x": 0.16499999999999998,
+          "y": 0.3775
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 14.865381999999931
+      },
+      "mode": null,
+      "target": {
+        "x": 0.16499999999999998,
+        "y": 0.3775
+      },
+      "position": {
+        "x": 0.16499999999999998,
+        "y": 0.3775
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 900,
+      "dissolved": true,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "原片流程已完成，点击「重新开始」再来一遍",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-finale-empty",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.16499999999999998,
+          "y": 0.3775
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7899999830457899,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": {
+          "x": 0.16499999999999998,
+          "y": 0.3775
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 19.16528199999985
+      },
+      "mode": null,
+      "target": {
+        "x": 0.16499999999999998,
+        "y": 0.3775
+      },
+      "position": {
+        "x": 0.16499999999999998,
+        "y": 0.3775
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": true,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "原片流程已完成，点击「重新开始」再来一遍",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pointer-reset",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 19.198581999999845
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "鼠标排练：先移动鼠标，再按住片刻召出星星",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-start-empty",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 5.098800000000001
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "hint": "先把手掌放入镜头，张掌后收拢握拳",
+      "status": "摄像头已开启 · 先张掌，再握拳召星",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-stale-one-frame-fist",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 5.815500000000007
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 9,
+      "lastSequenceSerial": 9,
+      "hint": "先把手掌放入镜头，张掌后收拢握拳",
+      "status": "原片手势流程 · 等待张掌握拳",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-fresh-fist-star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "张开手，向画面右侧横挥，星星变成太阳",
+        "time": 6.398800000000014
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.3500000000000001,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.3721741375529268,
+        "y": 0.5944564656117683
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 25,
+      "lastSequenceSerial": 25,
+      "hint": "张开手，向画面右侧横挥，星星变成太阳",
+      "status": "原片手势流程 · 等待张掌握拳",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 7.482100000000023
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 39,
+      "lastSequenceSerial": null,
+      "hint": "先把手掌放入镜头，张掌后收拢握拳",
+      "status": "原片手势流程 · 星星悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "张开手，向画面右侧横挥，星星变成太阳",
+        "time": 8.098700000000024
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.3500000000000001,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.365625850633332,
+        "y": 0.596093537341667
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 55,
+      "lastSequenceSerial": 55,
+      "hint": "张开手，向画面右侧横挥，星星变成太阳",
+      "status": "原片手势流程 · 等待张掌握拳",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "sun",
+      "snapshot": {
+        "stage": "sun",
+        "mode": "sun",
+        "visible": true,
+        "target": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "手向左收回，再向画面右侧横挥，太阳变成月球",
+        "time": 9.048700000000016
+      },
+      "mode": "sun",
+      "target": {
+        "x": 0.3500000000000001,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.3500202201961364,
+        "y": 0.599994944950966
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 78,
+      "lastSequenceSerial": 78,
+      "hint": "手向左收回，再向画面右侧横挥，太阳变成月球",
+      "status": "原片手势流程 · 星星悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "moon",
+      "snapshot": {
+        "stage": "moon",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+        "time": 10.148600000000009
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.3500000000000001,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.3500000091626662,
+        "y": 0.5999999977093335
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 105,
+      "lastSequenceSerial": 105,
+      "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+      "status": "原片手势流程 · 太阳悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "moon",
+      "snapshot": {
+        "stage": "moon",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+        "time": 10.415300000000007
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.3500000000000001,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.3500000014165683,
+        "y": 0.599999999645858
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 111,
+      "lastSequenceSerial": 111,
+      "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
+      "status": "原片手势流程 · 太阳悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "moonHeld",
+      "snapshot": {
+        "stage": "moonHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "scale": 0.7039093346814289,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.3500000000000001,
+          "y": 0.6
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹紧缩小月球，移到右侧后张开手掌释放",
+        "time": 10.665200000000002
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.3500000000000001,
+        "y": 0.6
+      },
+      "position": {
+        "x": 0.35000000003941295,
+        "y": 0.5999999999901467
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 117,
+      "lastSequenceSerial": 117,
+      "hint": "夹紧缩小月球，移到右侧后张开手掌释放",
+      "status": "原片手势流程 · 正在夹取月球",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-release-anchor",
+      "snapshot": {
+        "stage": "moonReleased",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "月球已停住，张开手掌从右向左拉开月相",
+        "time": 12.21519999999999
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 153,
+      "lastSequenceSerial": 153,
+      "hint": "月球已停住，张开手掌从右向左拉开月相",
+      "status": "原片手势流程 · 月球已释放",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "moonReleased",
+      "snapshot": {
+        "stage": "moonReleased",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "月球已停住，张开手掌从右向左拉开月相",
+        "time": 12.48179999999999
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 160,
+      "lastSequenceSerial": 160,
+      "hint": "月球已停住，张开手掌从右向左拉开月相",
+      "status": "原片手势流程 · 月球已释放",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "phases",
+      "snapshot": {
+        "stage": "phases",
+        "mode": "phases",
+        "visible": true,
+        "target": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "scale": 1,
+        "phaseProgress": 1,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "pulling",
+        "hint": "向左继续拉开五个月相，再回到最右端夹住满月",
+        "time": 13.448399999999987
+      },
+      "mode": "phases",
+      "target": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 183,
+      "lastSequenceSerial": 183,
+      "hint": "向左继续拉开五个月相，再回到最右端夹住满月",
+      "status": "原片手势流程 · 拉开五个月相",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "phaseHeld",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "scale": 0.15462235539816616,
+        "phaseProgress": 0.8181818181818188,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 13.731799999999984
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "position": {
+        "x": 0.7900000000000001,
+        "y": 0.67
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 189,
+      "lastSequenceSerial": 189,
+      "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+      "status": "原片手势流程 · 拉开五个月相",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "phaseHeld",
+      "snapshot": {
+        "stage": "phaseHeld",
+        "mode": "moon",
+        "visible": true,
+        "target": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "scale": 0.15462235539816616,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": true,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "burstTarget": null,
+        "interaction": "holding",
+        "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+        "time": 14.898299999999976
+      },
+      "mode": "moon",
+      "target": {
+        "x": 0.25,
+        "y": 0.25
+      },
+      "position": {
+        "x": 0.25006392366028424,
+        "y": 0.2500497184024433
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 217,
+      "lastSequenceSerial": 217,
+      "hint": "夹住小月球向左上方举起，再张开拇指与食指",
+      "status": "原片手势流程 · 收起月相并上举",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-pan",
+      "snapshot": {
+        "stage": "pan",
+        "mode": "pan",
+        "visible": true,
+        "target": {
+          "x": 0.16500000000000004,
+          "y": 0.37749999999999995
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0.3335555555555558,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "锅已悬停，把手移到锅旁握拳，再快速张开五指",
+        "time": 15.131699999999974
+      },
+      "mode": "pan",
+      "target": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "position": {
+        "x": 0.18738420923629046,
+        "y": 0.34392368614556434
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 223,
+      "lastSequenceSerial": 223,
+      "hint": "锅已悬停，把手移到锅旁握拳，再快速张开五指",
+      "status": "原片手势流程 · 月亮锅悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "pan",
+      "snapshot": {
+        "stage": "pan",
+        "mode": "pan",
+        "visible": true,
+        "target": {
+          "x": 0.16500000000000004,
+          "y": 0.37749999999999995
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "锅已悬停，把手移到锅旁握拳，再快速张开五指",
+        "time": 16.464899999999975
+      },
+      "mode": "pan",
+      "target": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "position": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 250,
+      "lastSequenceSerial": 250,
+      "hint": "锅已悬停，把手移到锅旁握拳，再快速张开五指",
+      "status": "原片手势流程 · 月亮锅悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "camera-burst",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.16500000000000004,
+          "y": 0.37749999999999995
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": {
+          "x": 0.16500000000000004,
+          "y": 0.37749999999999995
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 17.048199999999976
+      },
+      "mode": null,
+      "target": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "position": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 900,
+      "dissolved": true,
+      "handSerial": 262,
+      "lastSequenceSerial": 262,
+      "hint": "演示结束，点击重来可重新开始",
+      "status": "原片手势流程 · 月亮锅悬浮",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "burst",
+      "snapshot": {
+        "stage": "burst",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.16500000000000004,
+          "y": 0.37749999999999995
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.7900000000000001,
+          "y": 0.67
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 1,
+        "panOrigin": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": {
+          "x": 0.25,
+          "y": 0.25
+        },
+        "burstTarget": {
+          "x": 0.16500000000000004,
+          "y": 0.37749999999999995
+        },
+        "interaction": "waiting",
+        "hint": "演示结束，点击重来可重新开始",
+        "time": 17.598199999999984
+      },
+      "mode": null,
+      "target": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "position": {
+        "x": 0.16500000000000004,
+        "y": 0.37749999999999995
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": true,
+      "rehearsal": false,
+      "particles": 900,
+      "dissolved": true,
+      "handSerial": 276,
+      "lastSequenceSerial": 276,
+      "hint": "演示结束，点击重来可重新开始",
+      "status": "原片手势流程 · 流程完成",
+      "disabledModes": 5,
+      "restartHidden": false
+    },
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": false,
+        "releaseTarget": null,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 0.13269999999999982
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "鼠标排练：先移动鼠标，再按住片刻召出星星",
+      "status": "鼠标排练 · 完整原片动作顺序",
+      "disabledModes": 5,
+      "restartHidden": false
+    }
+  ],
+  "limitations": [
+    "摄像头成功流程用显式HandTracker测试替身输入合成模型结果，未验证真实模型识别准确率或真实摄像头画质。",
+    "摄像头权限拒绝使用getUserMedia测试替身；成功mock路径禁止调用真实getUserMedia。",
+    "手机此次仅验收布局与入口，不代表所有触屏手势或浏览器均已实测。"
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "testedAt": "2026-10-17T08:13:19.578Z",
+  "autoplayPolicy": "document-user-activation-required",
+  "source": "actual supplied 茶花开了.m4a then generated local WAV for replacement",
+  "cameraUsed": false,
+  "checks": [
+    {
+      "name": "Before interaction: no context, no track advancement, no playback",
+      "passed": true,
+      "evidence": {
+        "state": {
+          "ready": false,
+          "active": false,
+          "playing": false,
+          "currentTime": 0,
+          "duration": 0,
+          "trackName": "茶花开了",
+          "blocked": false
+        },
+        "context": false,
+        "htmlAudioPaused": true
+      }
+    },
+    {
+      "name": "Trusted click unlocks context silently; decoded M4A remains at zero",
+      "passed": true,
+      "evidence": {
+        "state": {
+          "ready": true,
+          "active": false,
+          "playing": false,
+          "currentTime": 0,
+          "duration": 270,
+          "trackName": "茶花开了",
+          "blocked": false
+        },
+        "context": "running",
+        "maxSignal": 0,
+        "audioErrors": []
+      }
+    },
+    {
+      "name": "An asynchronous record callback starts audible song without another click",
+      "passed": true,
+      "evidence": {
+        "state": {
+          "ready": true,
+          "active": true,
+          "playing": true,
+          "currentTime": 1.504,
+          "duration": 270,
+          "trackName": "茶花开了",
+          "blocked": false
+        },
+        "maxSignal": 0.04225490242242813,
+        "htmlAudioPaused": true
+      }
+    },
+    {
+      "name": "Pause freezes position; resume continues only while record active",
+      "passed": true,
+      "evidence": {
+        "frozen": {
+          "ready": true,
+          "active": true,
+          "playing": false,
+          "currentTime": 1.504,
+          "duration": 270,
+          "trackName": "茶花开了",
+          "blocked": false
+        },
+        "resumed": {
+          "ready": true,
+          "active": true,
+          "playing": true,
+          "currentTime": 1.8079999999999998,
+          "duration": 270,
+          "trackName": "茶花开了",
+          "blocked": false
+        }
+      }
+    },
+    {
+      "name": "Reset closes record gate and restores zero; resume cannot bypass gate",
+      "passed": true,
+      "evidence": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      }
+    },
+    {
+      "name": "Replacing music before record remains silent and unadvanced",
+      "passed": true,
+      "evidence": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 1,
+        "trackName": "本地测试",
+        "blocked": false
+      }
+    },
+    {
+      "name": "Replacing music on record starts new track from beginning",
+      "passed": true,
+      "evidence": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.1546666666666665,
+        "duration": 1,
+        "trackName": "第二首",
+        "blocked": false
+      }
+    },
+    {
+      "name": "Dissolve fades for 350ms, then stops and returns zero",
+      "passed": true,
+      "evidence": {
+        "mid": {
+          "state": {
+            "ready": true,
+            "active": false,
+            "playing": true,
+            "currentTime": 0.3359999999999994,
+            "duration": 1,
+            "trackName": "第二首",
+            "blocked": false
+          },
+          "gain": 0.3132767677307129
+        },
+        "end": {
+          "ready": true,
+          "active": false,
+          "playing": false,
+          "currentTime": 0,
+          "duration": 1,
+          "trackName": "第二首",
+          "blocked": false
+        }
+      }
+    },
+    {
+      "name": "Reset during delayed decode cannot resurrect playback",
+      "passed": true,
+      "evidence": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 1,
+        "trackName": "延迟",
+        "blocked": false
+      }
+    },
+    {
+      "name": "No page or audio errors",
+      "passed": true,
+      "evidence": {
+        "errors": [],
+        "audioErrors": []
+      }
+    }
+  ],
+  "passed": true
+}

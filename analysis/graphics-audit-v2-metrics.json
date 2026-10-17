@@ -1,0 +1,71 @@
+{
+  "view": "development-headless",
+  "cameraRequested": false,
+  "errors": [],
+  "metrics": {
+    "star": {
+      "canvas": [
+        180,
+        180
+      ],
+      "opaqueBounds": [
+        16,
+        21,
+        162,
+        164
+      ],
+      "opaqueSize": [
+        147,
+        144
+      ]
+    },
+    "sun": {
+      "canvas": [
+        136,
+        136
+      ],
+      "opaqueBounds": [
+        2,
+        2,
+        133,
+        133
+      ],
+      "opaqueSize": [
+        132,
+        132
+      ]
+    },
+    "moon": {
+      "canvas": [
+        138,
+        138
+      ],
+      "opaqueBounds": [
+        2,
+        2,
+        135,
+        135
+      ],
+      "opaqueSize": [
+        134,
+        134
+      ]
+    },
+    "record": {
+      "canvas": [
+        302,
+        316
+      ],
+      "opaqueBounds": [
+        2,
+        2,
+        299,
+        313
+      ],
+      "opaqueSize": [
+        298,
+        312
+      ]
+    }
+  }
+}

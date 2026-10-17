@@ -1,0 +1,245 @@
+{
+  "testedAt": "2026-10-17T04:59:10.555Z",
+  "scope": "Only changed moon shrink/release, pan anchor/pinch/dissolution, camera star/sun sizing",
+  "method": "Headless local page with stopped RAF and deterministic update(dt); synthetic hand results via scene API; mocked camera denial and zero camera requests.",
+  "checks": [
+    {
+      "name": "camera-moon-pinch-gradual-shrink",
+      "pass": true,
+      "details": {
+        "start": 1,
+        "afterOneSixthSecond": 0.39614965325489593,
+        "after1_5Seconds": 0.18000503825412972,
+        "target": 0.18
+      }
+    },
+    {
+      "name": "camera-moon-release-restores-size",
+      "pass": true,
+      "details": {
+        "after1_5Seconds": 0.9999949617768265,
+        "target": 1
+      }
+    },
+    {
+      "name": "pointer-moon-hold-and-release",
+      "pass": true,
+      "details": {
+        "held": 0.18000503825412972,
+        "released": 0.9999949617768265
+      }
+    },
+    {
+      "name": "camera-pan-anchor-without-tracked-hand",
+      "pass": true,
+      "details": {
+        "target": {
+          "x": 0.185,
+          "y": 0.366
+        },
+        "position": {
+          "x": 0.18501368434067167,
+          "y": 0.36600168797513216
+        },
+        "panAnchor": {
+          "x": 0.185,
+          "y": 0.366
+        }
+      },
+      "initialFailedObservation": {
+        "target": {
+          "x": 0.6,
+          "y": 0.43
+        },
+        "position": {
+          "x": 0.6000000000000001,
+          "y": 0.42999917390651954
+        },
+        "panAnchor": {
+          "x": 0.185,
+          "y": 0.366
+        }
+      }
+    },
+    {
+      "name": "camera-pan-anchor-with-tracked-unpinched-hand",
+      "pass": true,
+      "details": {
+        "target": {
+          "x": 0.185,
+          "y": 0.366
+        },
+        "position": {
+          "x": 0.18501142762648012,
+          "y": 0.3660017623100107
+        }
+      }
+    },
+    {
+      "name": "camera-pan-pinch-drag-and-release-retains-anchor",
+      "pass": true,
+      "details": {
+        "dragged": {
+          "anchor": {
+            "x": 0.7,
+            "y": 0.5
+          },
+          "position": {
+            "x": 0.699999999999032,
+            "y": 0.49999999999974815
+          }
+        },
+        "releasedPosition": {
+          "x": 0.6999999999999995,
+          "y": 0.4999999999999998
+        }
+      }
+    },
+    {
+      "name": "pan-dissolved-remains-hidden-after-particles-expire",
+      "pass": true,
+      "details": {
+        "first": {
+          "dissolved": true,
+          "particles": 900,
+          "at": 15.949300000000376
+        },
+        "after5Seconds": {
+          "dissolved": true,
+          "particles": 0
+        },
+        "drawCalls": [
+          {
+            "mode": "pan",
+            "alpha": 0,
+            "r": 51.408
+          }
+        ]
+      }
+    },
+    {
+      "name": "dissolved-pan-cannot-reburst-before-reset",
+      "pass": true,
+      "details": {
+        "before": 15.949300000000376,
+        "after": 15.949300000000376,
+        "particles": 0
+      }
+    },
+    {
+      "name": "setMode-resets-pan-dissolution",
+      "pass": true,
+      "details": {
+        "dissolved": false,
+        "orbScale": 1,
+        "anchor": {
+          "x": 0.185,
+          "y": 0.366
+        },
+        "particles": 0
+      }
+    },
+    {
+      "name": "camera-star-sun-radii-increase",
+      "pass": true,
+      "details": {
+        "pointer-star": 54.5076,
+        "pointer-sun": 54.5076,
+        "camera-star": 59.1192,
+        "camera-sun": 66.8304
+      }
+    },
+    {
+      "name": "dissolved-to-star-clears-old-object-transition",
+      "pass": true,
+      "details": {
+        "before": {
+          "dissolved": true,
+          "transition": {
+            "mode": "moon",
+            "start": 4.415899999999997
+          }
+        },
+        "after": {
+          "mode": "star",
+          "dissolved": false,
+          "transition": null,
+          "particles": 0
+        }
+      }
+    }
+  ],
+  "cameraRequests": 0,
+  "dimensions": {
+    "width": 1280,
+    "height": 720
+  },
+  "pageErrors": [],
+  "passed": true,
+  "rechecks": [
+    {
+      "testedAt": "2026-10-17T05:02:32.616Z",
+      "scope": "Only anchor failure and dissolved-to-star transition",
+      "checks": [
+        {
+          "name": "camera-pan-anchor-without-tracked-hand",
+          "pass": true,
+          "details": {
+            "target": {
+              "x": 0.185,
+              "y": 0.366
+            },
+            "position": {
+              "x": 0.18501368434067167,
+              "y": 0.36600168797513216
+            },
+            "panAnchor": {
+              "x": 0.185,
+              "y": 0.366
+            }
+          },
+          "initialFailedObservation": {
+            "target": {
+              "x": 0.6,
+              "y": 0.43
+            },
+            "position": {
+              "x": 0.6000000000000001,
+              "y": 0.42999917390651954
+            },
+            "panAnchor": {
+              "x": 0.185,
+              "y": 0.366
+            }
+          }
+        },
+        {
+          "name": "dissolved-to-star-clears-old-object-transition",
+          "pass": true,
+          "details": {
+            "before": {
+              "dissolved": true,
+              "transition": {
+                "mode": "moon",
+                "start": 4.415899999999997
+              }
+            },
+            "after": {
+              "mode": "star",
+              "dissolved": false,
+              "transition": null,
+              "particles": 0
+            }
+          }
+        }
+      ],
+      "cameraRequests": 0,
+      "pageErrors": []
+    }
+  ],
+  "summary": {
+    "checks": 11,
+    "passed": 11,
+    "failed": 0
+  }
+}
