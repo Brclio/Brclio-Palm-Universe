@@ -6,10 +6,10 @@ const { createHash } = require('node:crypto');
 const { chromium } = require('/Users/bornforthis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 
 const root = path.resolve(__dirname, '..');
-const sourceSha256 = Object.fromEntries(['app.js','public/scene.js','public/gesture-sequence.js','public/reference-effects.js','public/record-audio.js'].map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));
+const sourceSha256 = Object.fromEntries(['app.js','public/scene.js','public/gesture-sequence.js','public/reference-effects.js','public/record-audio.js','public/interaction-audio.js','public/audio/sfx/manifest.json'].map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));
 const baseURL = process.env.INTERACTION_TEST_URL || 'http://localhost:5173/';
 const checks = [], pageErrors = [], httpErrors = [], externalFailures = [];
-const states = [], screenshots = [], dynamicTextures = [], phaseFadeEvidence = [], audioEvidence = [];
+const states = [], screenshots = [], dynamicTextures = [], phaseFadeEvidence = [], audioEvidence = [], sfxEvidence = [];
 let browser;
 
 function installAudioObservation(){
@@ -19,22 +19,61 @@ function installAudioObservation(){
   const connect=AudioNode.prototype.connect;
   AudioNode.prototype.connect=function(target,...rest){window.__audioProbe.edges.push({from:this,to:target});return connect.call(this,target,...rest);};
   const start=AudioBufferSourceNode.prototype.start,stop=AudioBufferSourceNode.prototype.stop;
-  AudioBufferSourceNode.prototype.start=function(...args){window.__audioProbe.starts++;window.__audioProbe.sources.push({node:this,stopped:false});return start.apply(this,args);};
+  AudioBufferSourceNode.prototype.start=function(...args){
+    const p=window.__audioProbe,a=window.palmUniverse?.audio,sfx=window.palmUniverse?.sfx,ctx=this.context;
+    p.starts++;const first=p.edges.find(e=>e.from===this)?.to;
+    const channel=first===a?._gain?'record':p.edges.some(e=>e.from===first&&e.to===sfx?._gain)?'sfx':'unknown';
+    const entry={node:this,stopped:false,ended:false,channel,stage:window.palmUniverse?.scene.sequenceSnapshot?.stage,panProgress:window.palmUniverse?.scene.sequenceSnapshot?.panProgress,peakRms:0,sampleCount:0};p.sources.push(entry);
+    let analyser,sink,timer;
+    if(channel==='sfx'){
+      entry.connectedToDestination=p.edges.some(e=>e.from===sfx._gain&&e.to===ctx.destination);
+      analyser=ctx.createAnalyser();analyser.fftSize=1024;sink=ctx.createGain();sink.gain.value=0;first.connect(analyser);analyser.connect(sink);sink.connect(ctx.destination);
+      timer=setInterval(()=>{const samples=new Float32Array(analyser.fftSize);analyser.getFloatTimeDomainData(samples);const rms=Math.sqrt(samples.reduce((sum,x)=>sum+x*x,0)/samples.length);entry.peakRms=Math.max(entry.peakRms,rms);entry.sampleCount++;},15);
+    }
+    this.addEventListener('ended',()=>{entry.ended=true;clearInterval(timer);analyser?.disconnect();sink?.disconnect();},{once:true});return start.apply(this,args);
+  };
   AudioBufferSourceNode.prototype.stop=function(...args){window.__audioProbe.stops++;for(const entry of window.__audioProbe.sources)if(entry.node===this)entry.stopped=true;return stop.apply(this,args);};
   window.AudioContext=class extends NativeContext{constructor(...args){super(...args);window.__audioProbe.contexts.push(this);}};
 }
 async function sampleAudio(page,label){
   const result=await page.evaluate(()=>{
-    const a=window.palmUniverse.audio,p=window.__audioProbe,ctx=p.contexts.at(-1),edge=ctx&&p.edges.find(e=>e.to===ctx.destination&&e.from.constructor.name==='GainNode');
+    const a=window.palmUniverse.audio,p=window.__audioProbe,ctx=p.contexts.at(-1),edge=ctx&&p.edges.find(e=>e.to===ctx.destination&&e.from===a._gain);
     if(edge&&!p.analyser){p.analyser=ctx.createAnalyser();p.analyser.fftSize=2048;edge.from.connect(p.analyser);const sink=ctx.createGain();sink.gain.value=0;p.analyser.connect(sink);sink.connect(ctx.destination);}
     let rms=0;if(p.analyser){const samples=new Float32Array(p.analyser.fftSize);p.analyser.getFloatTimeDomainData(samples);rms=Math.sqrt(samples.reduce((sum,x)=>sum+x*x,0)/samples.length);}
-    const live=p.sources.filter(x=>!x.stopped),connected=live.some(x=>p.edges.some(e=>e.from===x.node&&p.edges.some(f=>f.from===e.to&&f.to===ctx?.destination)));
-    return {state:a.state,contextState:ctx?.state||'not-created',starts:p.starts,stops:p.stops,liveSources:live.length,connectedToDestination:connected,rms,recordPlaying:window.palmUniverse.scene.recordPlaying,recordVideoPaused:window.palmUniverse.scene.reference?.recordVideo.paused,recordVideoTime:window.palmUniverse.scene.reference?.recordVideo.currentTime,mediaElementPaused:document.querySelector('#music').paused};
+    const channelSources=p.sources.filter(x=>p.edges.some(e=>e.from===x.node&&e.to===a._gain));
+    const live=channelSources.filter(x=>!x.stopped&&!x.ended),connected=live.some(x=>p.edges.some(e=>e.from===x.node&&p.edges.some(f=>f.from===e.to&&f.to===ctx?.destination)));
+    return {state:a.state,contextState:ctx?.state||'not-created',starts:channelSources.length,stops:channelSources.filter(x=>x.stopped||x.ended).length,liveSources:live.length,allChannelsLiveSources:p.sources.filter(x=>!x.stopped&&!x.ended).length,connectedToDestination:connected,rms,recordPlaying:window.palmUniverse.scene.recordPlaying,recordVideoPaused:window.palmUniverse.scene.reference?.recordVideo.paused,recordVideoTime:window.palmUniverse.scene.reference?.recordVideo.currentTime,mediaElementPaused:document.querySelector('#music').paused};
   });if(label)audioEvidence.push({event:label,...result});return result;
 }
+const SFX_IDS=['summon','sweepSun','sweepMoon','grab','release','phases','collect','record','burst'];
+async function sampleSfx(page,label){
+  const result=await page.evaluate(()=>{
+    const s=window.palmUniverse.sfx,p=window.__audioProbe;
+    return {state:s.state,contextCount:p.contexts.length,sharedContext:s._context===window.palmUniverse.audio.context,separateGain:s._gain!==window.palmUniverse.audio._gain,voices:p.sources.filter(e=>e.channel==='sfx').map(({node,...entry})=>entry)};
+  });if(label)sfxEvidence.push({event:label,...result});return result;
+}
+async function assertSfxSequence(page,baseline,label){
+  await page.waitForTimeout(100);
+  const result=await sampleSfx(page,label),history=result.state.history.slice(baseline.history),voices=result.voices.slice(baseline.voices);
+  assert.deepEqual(history.map(e=>e.id),SFX_IDS,'one cue for each stage, record visibility, and burst');
+  assert.equal(voices.length,9,'exactly nine actual SFX BufferSource starts');
+  for(let i=0;i<voices.length;i++){assert.ok(voices[i].connectedToDestination,'SFX source routes to actual destination');assert.ok(voices[i].peakRms>1e-5,history[i].id+' actual per-voice output contains audio energy');}
+  assert.ok(voices[7].panProgress>=.28,'record SFX begins only when record becomes visible');
+  assert.equal(result.contextCount,1);assert.equal(result.sharedContext,true);assert.equal(result.separateGain,true);
+}
+async function sfxBaseline(page){const result=await sampleSfx(page);return {history:result.state.history.length,voices:result.voices.length};}
+async function verifyIndependentSfxMute(page){
+  const initial=await sampleAudio(page),before=await sampleSfx(page);
+  await page.locator('#sfx-toggle').click();await page.waitForTimeout(100);
+  const muted=await sampleSfx(page,'sfx-mute-during-record'),song=await sampleAudio(page,'song-continues-with-sfx-muted');
+  assert.equal(muted.state.enabled,false);assert.equal(muted.state.activeVoices,0);assert.equal(song.state.playing,true);assert.ok(song.state.currentTime>initial.state.currentTime);assert.ok(song.rms>1e-5);assert.equal(song.recordVideoPaused,false);
+  await page.locator('#sfx-toggle').click();await page.waitForTimeout(100);const unmuted=await sampleSfx(page,'sfx-reenable-does-not-replay');
+  assert.equal(unmuted.state.enabled,true);assert.equal(unmuted.state.history.length,before.state.history.length);assert.equal(unmuted.voices.length,before.voices.length);
+}
+
 async function assertAudioSilent(page,label){
   let result=await sampleAudio(page);if(result.rms>1e-5){await page.waitForTimeout(100);result=await sampleAudio(page);}
-  audioEvidence.push({event:label,...result});assert.equal(result.state.active,false,label+' must keep record gate closed');assert.equal(result.state.playing,false,label+' cannot be playing');assert.equal(result.state.currentTime,0,label+' cannot advance audio clock');assert.equal(result.liveSources,0,label+' cannot have a live audio source');assert.ok(result.rms<1e-5,label+' output must be silent');assert.equal(result.mediaElementPaused,true,'HTML audio never plays in parallel');return result;
+  audioEvidence.push({event:label,...result});assert.equal(result.state.active,false,label+' must keep record gate closed');assert.equal(result.state.playing,false,label+' cannot be playing');assert.equal(result.state.currentTime,0,label+' cannot advance audio clock');assert.equal(result.liveSources,0,label+' cannot have a live record-music source');assert.ok(result.rms<1e-5,label+' record-music channel must be silent');assert.equal(result.mediaElementPaused,true,'HTML audio never plays in parallel');return result;
 }
 async function verifyRecordAudio(page,label){
   await page.waitForFunction(()=>window.palmUniverse.audio.state.playing);
@@ -60,10 +99,10 @@ function observe(page, label) {
       externalFailures.push({ page: label, url: request.url(), error: request.failure()?.errorText });
   });
 }
-async function openPage(context, label) {
+async function openPage(context, label, waitUntil = 'networkidle') {
   const page = await context.newPage(); observe(page, label);
   await page.addInitScript(installAudioObservation);
-  await page.goto(baseURL, { waitUntil: 'networkidle' });
+  await page.goto(baseURL, { waitUntil });
   await page.waitForFunction(() => Boolean(window.palmUniverse?.scene));
   await page.evaluate(() => window.palmUniverse.scene.assetsReady);
   return page;
@@ -220,19 +259,21 @@ async function moveHand(page, kind, from, to, seconds = .5) {
   const page = await openPage(desktop, 'desktop-pointer');
 
   await check('record-audio-initial-gate', '进入和首次操作只静默解锁，唱片出现前音乐不可播放', async () => {
-    await assertAudioSilent(page,'entry-before-any-input');
+    const entry=await assertAudioSilent(page,'entry-before-any-input');assert.equal(entry.allChannelsLiveSources,0);const sfx=await sampleSfx(page,'initial-page-silent');assert.equal(sfx.state.enabled,true);assert.equal(sfx.state.history.length,0);assert.equal(sfx.contextCount,0,'silent WAV prefetch must not create an AudioContext');
     const element=await page.locator('#music').evaluate(a=>({src:a.currentSrc||a.src,autoplay:a.autoplay,paused:a.paused}));
     assert.equal(await page.locator('#track-name').textContent(),'茶花开了');assert.equal(element.autoplay,false);assert.equal(element.paused,true);
     assert.equal(decodeURIComponent(new URL(element.src).pathname),'/茶花开了.m4a');assert.equal(await page.locator('#music-toggle').isDisabled(),true);
     const response=await page.evaluate(async()=>{const r=await fetch(document.querySelector('#music').src,{headers:{Range:'bytes=0-99'}});await r.arrayBuffer();return {status:r.status,type:r.headers.get('content-type')};});assert.equal(response.status,206);assert.match(response.type,/^audio\/mp4/);
     await pointer(page,.15,.45);await page.mouse.down();await page.waitForTimeout(30);await page.mouse.up();
     await page.waitForFunction(()=>window.palmUniverse.audio.state.ready);await page.waitForTimeout(250);
+    await page.waitForFunction(()=>window.palmUniverse.sfx.state.ready);
     const ready=await assertAudioSilent(page,'first-pointer-silently-unlocked');assert.equal(ready.contextState,'running');assert.equal(ready.state.duration,270);assert.equal(ready.starts,0);
     await page.keyboard.press('Space');await assertAudioSilent(page,'space-cannot-skip-record-gate');
     await page.locator('#restart').click();await stage(page,'idle');
   });
 
   await check('pointer-full-sequence', '桌面真实鼠标事件按原片动作完成空场→星→日→月→五相→唱片→爆散', async () => {
+    const sfxStart=await sfxBaseline(page);
     // Default page is already in the real mouse sequence.
     let result = await stage(page, 'idle', 'pointer-start-empty');
     assert.equal(result.mode, null); assert.equal(result.modeButtons, 0); assert.equal(result.restartHidden, false);
@@ -273,11 +314,12 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     await page.mouse.up(); await page.waitForTimeout(200); result = await stage(page, 'pan', 'pointer-pan-drop');
     samePoint(result.snapshot.panOrigin, { x: .25, y: .25 }, 'pan drop must start at raised pointer release');
     assert.ok(result.target.x < .25 && result.target.y > .25, 'pan must settle below-left of raised pointer');
-    const settled = { ...result.target }; await verifyRecordAudio(page,'mouse-record-auto-start'); await verifyRecordPauseResume(page); await page.waitForTimeout(550); await verifyTexturePlayback(page,'pan'); await saveScreenshot(page, 'revision-record.png');
+    const settled = { ...result.target }; await verifyRecordAudio(page,'mouse-record-auto-start'); await verifyIndependentSfxMute(page); await verifyRecordPauseResume(page); await page.waitForTimeout(550); await verifyTexturePlayback(page,'pan'); await saveScreenshot(page, 'revision-record.png');
     await pointer(page, settled.x, settled.y); await page.mouse.down(); await page.waitForTimeout(180); await page.mouse.up();
     result = await stage(page, 'burst', 'pointer-burst'); assert.equal(result.mode, null); assert.ok(result.particles > 0, 'burst must produce visible particles');
     await saveScreenshot(page, 'revision-burst.png'); await page.waitForTimeout(450); await assertAudioSilent(page,'mouse-burst-faded-and-stopped'); await verifyTexturePlayback(page,null); await page.waitForTimeout(4300); result = await state(page, 'pointer-finale-empty');
     assert.equal(result.snapshot.stage, 'burst'); assert.equal(result.mode, null); assert.equal(result.particles, 0);
+    await assertSfxSequence(page,sfxStart,'mouse-nine-cues-once');
     await page.locator('#restart').click(); result = await stage(page, 'idle', 'pointer-reset');
     assert.equal(result.mode, null); assert.equal(result.snapshot.held, false); assert.equal(result.modeButtons, 0);
   });
@@ -310,6 +352,20 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     const before=await stage(page,'star');samePoint(before.snapshot.target,{x:.368,y:.635},'mirror off does not alter mouse screen coordinates');
     await page.locator('#mirror-toggle').click();const after=await state(page);assert.equal(after.snapshot.stage,'star');samePoint(after.snapshot.target,before.snapshot.target,'mouse stage remains unchanged when mirror toggles');
     await page.locator('#restart').click();
+  });
+
+
+  await check('sfx-reset-and-reference-pause', '原片对照暂停操作音效，关闭不补播；重来立即停止在播音效', async()=>{
+    await page.locator('#restart').click();await pointer(page,.35,.6);await page.mouse.down();await page.waitForTimeout(280);await page.mouse.up();await stage(page,'star');
+    let playing=await sampleSfx(page);assert.ok(playing.state.activeVoices>0,'summon cue is still playing before dialog opens');
+    await page.locator('#reference-open').click();await page.waitForTimeout(60);
+    const suspended=await sampleSfx(page,'reference-dialog-suspends-sfx');assert.equal(suspended.state.suspended,true);assert.equal(suspended.state.enabled,true);assert.equal(suspended.state.activeVoices,0);
+    await page.locator('#reference-close').click();await page.waitForTimeout(80);
+    const resumed=await sampleSfx(page,'reference-close-no-replay');assert.equal(resumed.state.suspended,false);assert.equal(resumed.state.history.length,playing.state.history.length);assert.equal(resumed.voices.length,playing.voices.length);
+    await page.locator('#restart').click();await pointer(page,.35,.6);await page.mouse.down();await page.waitForTimeout(280);await page.mouse.up();await stage(page,'star');
+    playing=await sampleSfx(page);assert.ok(playing.state.activeVoices>0);
+    await page.locator('#restart').click();await page.waitForTimeout(80);
+    const cleared=await sampleSfx(page,'reset-stops-live-sfx');assert.equal(cleared.state.activeVoices,0);assert.equal(cleared.state.lastCue,null);assert.equal(cleared.voices.filter(v=>!v.stopped&&!v.ended).length,0);assert.equal(cleared.state.history.length,playing.state.history.length);
   });
 
   await desktop.close();
@@ -349,17 +405,19 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     let result = await stage(camera, 'idle', 'camera-stale-one-frame-fist'); assert.equal(result.snapshot.tracked, false);
     await holdHand(camera, 'open', .35, .6, .28); await holdHand(camera, 'fist', .35, .6, .36);
     result = await stage(camera, 'star', 'camera-fresh-fist-star'); assert.ok(result.handSerial > 5);
+    const cueCount=(await sampleSfx(camera)).state.history.length;
+    await camera.evaluate(()=>window.__mockHandTracker.onResults({hands:[],timestamp:performance.now()}));
     await holdHand(camera, 'open', .15, .6, .5); await camera.waitForTimeout(400);
     await emitHand(camera, 'open', .85, .6); await camera.waitForTimeout(100);
     result = await state(camera); assert.equal(result.snapshot.stage, 'star', 'far observation after a stall cannot form a swipe');
-    assert.equal(await camera.evaluate(() => window.__realCameraRequests), 0);
+    assert.equal(await camera.evaluate(() => window.__realCameraRequests), 0);assert.equal((await sampleSfx(camera,'tracking-hint-no-retrigger')).state.history.length,cueCount);
   });
 
   await check('camera-mirror-alignment', '镜像开关同步翻转画面和关键点，重置动作流程，非镜像下仍能识别屏幕位置', async () => {
     const mapping=()=>camera.evaluate(()=>{const s=window.palmUniverse.scene,p=s.map({x:.2,y:.4});return {mirror:s.mirror,x:p.x/s.w,y:p.y/s.h,css:document.querySelector('#camera').style.transform};});
     const before=await mapping();assert.equal(before.mirror,true);samePoint(before,{x:.8,y:.4},'mirrored map');assert.equal(before.css,'scaleX(-1)');
     await holdHand(camera,'open',.20,.6,.5);await moveHand(camera,'open',{x:.20,y:.6},{x:.75,y:.6},.4);await stage(camera,'sun','mirrored-screen-right-swipe');
-    await camera.locator('#mirror-toggle').click();await stage(camera,'idle');
+    await camera.locator('#mirror-toggle').click();await stage(camera,'idle');await camera.waitForTimeout(70);assert.equal((await sampleSfx(camera,'camera-mirror-stops-sfx')).state.activeVoices,0);
     const after=await mapping();assert.equal(after.mirror,false);samePoint(after,{x:.2,y:.4},'unmirrored map');assert.equal(after.css,'none');
     await holdHand(camera,'fist',.35,.6,.36);const star=await stage(camera,'star');samePoint(star.snapshot.target,{x:.368,y:.635},'unmirrored real input must summon in the correct screen location');
     await holdHand(camera,'open',.20,.6,.5);await moveHand(camera,'open',{x:.20,y:.6},{x:.75,y:.6},.4);await stage(camera,'sun','unmirrored-screen-right-swipe');
@@ -368,6 +426,7 @@ async function moveHand(page, kind, from, to, seconds = .5) {
 
   await check('camera-synthetic-sequence', '合成模型结果经过app回调、映射与serial机制完成当前观察动作全流程', async () => {
     await camera.locator('#restart').click(); await stage(camera, 'idle');
+    const sfxStart=await sfxBaseline(camera);
     await camera.locator('#music-file').setInputFiles(path.join(root,'public/audio/lunar-reverie.mp3'));
     await camera.waitForFunction(()=>window.palmUniverse.audio.state.ready&&window.palmUniverse.audio.state.trackName==='lunar-reverie');
     const replacement=await assertAudioSilent(camera,'replacement-before-record-stays-silent');assert.equal(replacement.state.duration,48);
@@ -401,8 +460,9 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     result = await stage(camera, 'burst', 'camera-burst'); assert.equal(result.mode, null); assert.ok(result.particles > 0);
     await holdHand(camera, 'open', .35, .6, .25); await holdHand(camera, 'fist', .35, .6, .25); await stage(camera, 'burst');
     await assertAudioSilent(camera,'camera-burst-faded-and-stopped');
+    await assertSfxSequence(camera,sfxStart,'camera-async-nine-cues-once');
     assert.equal(await camera.evaluate(() => window.__realCameraRequests), 0);
-    await camera.locator('#camera-toggle').click(); result = await state(camera); assert.equal(result.camera, false); assert.equal(result.sequenceEnabled, true);
+    await camera.locator('#camera-toggle').click(); result = await state(camera); assert.equal(result.camera, false); assert.equal(result.sequenceEnabled, true);await camera.waitForTimeout(70);assert.equal((await sampleSfx(camera,'camera-switch-stops-sfx')).state.activeVoices,0);
   });
 
   await check('record-audio-reset-boundaries', '重来、切换摄像头、摄像头镜像重置会停止并归零唱片音频', async()=>{
@@ -420,6 +480,31 @@ async function moveHand(page, kind, from, to, seconds = .5) {
 
   await cameraContext.close();
 
+
+  await check('sfx-delayed-decode-reset', '真实延迟WAV响应：正常在期限内播一次，重来使相同待解码动作失效', async()=>{
+    for(const cancel of [false,true]){
+      const delayedContext=await browser.newContext({viewport:{width:1440,height:1000}}),pending=[];
+      await delayedContext.route('**/public/audio/sfx/*.wav',route=>{pending.push(route);});
+      const delayed=await openPage(delayedContext,cancel?'sfx-delay-cancel':'sfx-delay-control','domcontentloaded');
+      await pointer(delayed,.35,.6);await delayed.mouse.down();
+      await delayed.waitForFunction(()=>window.palmUniverse.scene.sequenceSnapshot?.stage==='star',null,{polling:10});
+      const atStage=Date.now();
+      assert.equal((await sampleSfx(delayed)).state.history.length,0,'cue awaits actual network response');
+      if(cancel){await delayed.mouse.up();await delayed.locator('#restart').click({force:true});assert.equal((await state(delayed)).snapshot.stage,'idle','reset must actually occur before releasing the pending response');}
+      const releaseDelayMs=Date.now()-atStage;
+      assert.ok(releaseDelayMs<200,'response cancellation tested before late-cue expiry');
+      assert.equal(pending.length,9,'all nine real WAV requests are pending');
+      await Promise.all(pending.splice(0).map(route=>route.continue()));
+      await delayed.mouse.up();await delayed.waitForFunction(()=>window.palmUniverse.sfx.state.ready);
+      await delayed.waitForTimeout(100);
+      const result=await sampleSfx(delayed,cancel?'delayed-reset-cancels-cue':'delayed-control-plays-cue');sfxEvidence.push({event:'delayed-response-timing',cancel,releaseDelayMs});
+      assert.equal(result.state.history.length,cancel?0:1);assert.equal(result.voices.length,cancel?0:1);
+      if(cancel){assert.equal(result.state.activeVoices,0);await stage(delayed,'idle');}
+      else{assert.equal(result.state.history[0].id,'summon');assert.ok(result.voices[0].peakRms>1e-5);}
+      await delayedContext.close();
+    }
+  });
+
   const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
   const mobile = await openPage(mobileContext, 'mobile-layout');
   await check('mobile-layout', '390×844手机布局无水平溢出，排练与重来入口可见', async () => {
@@ -427,7 +512,7 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     const metrics = await mobile.evaluate(() => ({ width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth }));
     assert.ok(metrics.scrollWidth <= metrics.width, 'mobile page must not overflow horizontally');
     const result=await state(mobile); assert.ok(Math.abs(result.sceneSize.w/result.sceneSize.h-16/9)<.005, 'mobile keeps the original composition ratio');
-    for (const selector of ['#camera-toggle', '#mirror-toggle', '#restart', '#demo-toggle', '#music-toggle', '#replace-music']) {
+    for (const selector of ['#camera-toggle', '#mirror-toggle', '#restart', '#demo-toggle', '#music-toggle', '#replace-music', '#sfx-toggle']) {
       const box = await mobile.locator(selector).boundingBox();
       assert.ok(box && box.x >= 0 && box.y >= 0 && box.x + box.width <= metrics.width + 1 && box.y + box.height <= metrics.height + 1, `${selector} must be visible within mobile viewport`);
     }
@@ -452,11 +537,12 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     status: checks.every(check => check.passed) ? 'passed-browser-development-validation' : 'failed-browser-development-validation',
     summary: { total: checks.length, passed: checks.filter(check => check.passed).length, failed: checks.filter(check => !check.passed).length },
     test_results: checks, page_errors: pageErrors, http_errors: httpErrors, external_request_failures: externalFailures,
-    screenshots, recorded_states: states, dynamic_texture_observations: dynamicTextures, phase_fade_observations: phaseFadeEvidence, audio_observations: audioEvidence, browser_autoplay_policy: 'Chrome default; no autoplay-policy override',
+    screenshots, recorded_states: states, dynamic_texture_observations: dynamicTextures, phase_fade_observations: phaseFadeEvidence, audio_observations: audioEvidence, sfx_observations: sfxEvidence, browser_autoplay_policy: 'Chrome default; no autoplay-policy override',
     limitations: [
       '摄像头成功流程用显式HandTracker测试替身输入合成模型结果，未验证真实模型识别准确率或真实摄像头画质。',
       '摄像头权限拒绝使用getUserMedia测试替身；成功mock路径禁止调用真实getUserMedia。',
       '手机此次仅验收布局与入口，不代表所有触屏手势或浏览器均已实测。',
+      '唱片前段静默断言仅观测RecordAudio独立GainNode通道；手势SFX可在同一个AudioContext的独立通道正常发声。',
       '音频重置边界用显式 audio.activate() 建立隔离清理fixture；正常自动起播另由完整鼠标和相机模型回调流程验证。',
       'AudioContext/BufferSource 观测与旁接 Analyser 仅用于测量，不替换播放器或使用自动播放策略豁免。',
     ],

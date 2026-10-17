@@ -1,5 +1,6 @@
 import { UniverseScene } from './public/scene.js';
 import { RecordAudio } from './public/record-audio.js';
+import { InteractionAudio } from './public/interaction-audio.js';
 
 const $=s=>document.querySelector(s);
 const stage=$('#stage'),shell=$('.stage-shell'),canvas=$('#universe'),music=$('#music');
@@ -12,6 +13,8 @@ const stageLabels={idle:'等待收拢手指',star:'星星',sun:'太阳',moon:'�
 const guideRanges={idle:[14.5,16.6],star:[16.65,17.75],sun:[17.8,18.95],moon:[19.15,20.4],moonHeld:[19.5,21.9],moonReleased:[22.15,24.3],phases:[24.45,25.85],phaseHeld:[25.5,27.35],pan:[31.65,33.65],burst:[32.7,34.7]};
 let tracker=null,cameraBusy=false,cameraRequest=0,toastTimer,lastStage='',guideRange=guideRanges.idle;
 const recordAudio=new RecordAudio({audio:music,onState:musicUi,onError:error=>toast(error.message)});
+const interactionAudio=new InteractionAudio({getContext:()=>recordAudio.context,onState:sfxUi,onError:error=>toast(error.message)});
+void interactionAudio.prefetch();
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),4500);}
 function status(state,message){$('#status-text').textContent=message;$('#status-dot').classList.toggle('loading',state==='loading');}
 function refreshGuide(){guideRange=guideRanges[scene.sequence.stage]||guideRanges.idle;$('#guide-caption').textContent=scene.sequenceSnapshot?.hint||'';const video=$('#guide-video');if(!$('#gesture-guide').hidden){video.currentTime=guideRange[0];video.play().catch(()=>{});}}
@@ -24,15 +27,16 @@ function updateModeUi(){
   $('#input-description').textContent=scene.camera?'左右以画面为准：向右扫过星球切换 · 张掌向左扫展开月相':'按住＝收拢 · 松开＝张手 · 横移＝挥手 · 按住拖动＝夹取移动';
 }
 scene.onSequence=s=>{
-  if(s.stage==='idle')recordAudio.reset();
+  if(s.stage==='idle'){recordAudio.reset();interactionAudio.reset();}
   else if(s.stage==='burst'&&lastStage!=='burst')recordAudio.dissolve();
+  interactionAudio.observe(s);
   $('#gesture-hint').textContent=scene.camera?(s.stage==='idle'&&!s.tracked?'把手放进镜头，四指收拢握拳，拇指可伸出。':s.hint):mouseHints[s.stage];
   document.body.classList.toggle('has-input',s.stage!=='idle'||scene.pointerActive||scene.camera&&s.tracked);
   const mode=s.stage==='phaseHeld'?'phases':s.stage==='burst'?'pan':s.mode;
   document.querySelectorAll('.mode').forEach(e=>{e.classList.toggle('active',e.dataset.mode===mode);e.classList.toggle('done',modes.indexOf(e.dataset.mode)<modes.indexOf(mode));});
   if(lastStage!==s.stage){lastStage=s.stage;refreshGuide();}
 };
-scene.onRecordVisible=()=>recordAudio.activate();
+scene.onRecordVisible=()=>{recordAudio.activate();interactionAudio.visibleRecord();};
 function pointer(e,down){const r=canvas.getBoundingClientRect();scene.setPointer(e.clientX-r.left,e.clientY-r.top,down);document.body.classList.add('has-input');}
 canvas.addEventListener('pointermove',e=>{if(!scene.camera)pointer(e,scene.down);});
 canvas.addEventListener('pointerdown',e=>{if(scene.camera)return;canvas.setPointerCapture(e.pointerId);pointer(e,true);});
@@ -52,13 +56,15 @@ function musicUi(state){
 }
 // The initial trusted input unlocks a silent context. Only the visible record
 // opens the audio gate; camera/model callbacks need no additional play click.
-function unlockMusic(e){if(e.target.closest?.('#music-toggle')||e.code==='Space')return;recordAudio.unlock();}
+function unlockMusic(e){if(e.target.closest?.('#music-toggle')||e.code==='Space')return;recordAudio.unlock();interactionAudio.unlock();}
 document.addEventListener('pointerdown',unlockMusic,{capture:true});
 document.addEventListener('keydown',unlockMusic,{capture:true});
 $('#music-toggle').addEventListener('click',()=>{
   if(recordAudio.state.playing)recordAudio.pause();
   else{recordAudio.unlock();recordAudio.resume();}
 });
+function sfxUi(state){const button=$('#sfx-toggle');button.textContent=`音效：${state.enabled?'开':'关'}`;button.setAttribute('aria-pressed',String(state.enabled));}
+$('#sfx-toggle').addEventListener('click',()=>interactionAudio.setEnabled(!interactionAudio.state.enabled));
 $('#replace-music').addEventListener('click',()=>$('#music-file').click());
 $('#music-file').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;if(!file.type.startsWith('audio/')&&!/\.(mp3|wav|m4a|ogg|flac|aac|opus)$/i.test(file.name)){toast('请选择音频文件。');return;}await recordAudio.setFile(file);e.target.value='';});
 
@@ -88,12 +94,13 @@ function setGuide(open){guide.hidden=!open;$('#guide-toggle').setAttribute('aria
 $('#guide-toggle').addEventListener('click',()=>setGuide(guide.hidden));$('#guide-close').addEventListener('click',()=>setGuide(false));
 guideVideo.addEventListener('timeupdate',()=>{if(!guide.hidden&&guideVideo.currentTime>=guideRange[1]){guideVideo.currentTime=guideRange[0];guideVideo.play().catch(()=>{});}});
 const dialog=$('#reference-dialog'),reference=$('#reference-video');
-$('#reference-open').addEventListener('click',()=>{recordAudio.pause();dialog.showModal();if(reference.currentTime<14)reference.currentTime=14;});
-$('#reference-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>reference.pause());
+$('#reference-open').addEventListener('click',()=>{recordAudio.pause();interactionAudio.suspend();dialog.showModal();if(reference.currentTime<14)reference.currentTime=14;});
+$('#reference-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{reference.pause();interactionAudio.resume();});
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 window.addEventListener('keydown',e=>{if(dialog.open||e.target.matches('input,textarea'))return;if(e.code==='Space'&&!e.target.matches('button,a')){e.preventDefault();$('#music-toggle').click();}else if(e.key.toLowerCase()==='h'){document.body.classList.toggle('clean');}else if(e.key==='Escape'&&document.body.classList.contains('clean'))document.body.classList.remove('clean');});
-window.addEventListener('pagehide',e=>{stopCamera();recordAudio.reset();guideVideo.pause();if(!e.persisted){scene.destroy();recordAudio.destroy();}});
+window.addEventListener('pagehide',e=>{stopCamera();recordAudio.reset();interactionAudio.reset();guideVideo.pause();if(!e.persisted){scene.destroy();interactionAudio.destroy();recordAudio.destroy();}});
 setInterval(()=>{if(scene.camera)status('ready',scene.tracking?`已识别手掌 · ${stageLabels[scene.sequence.stage]}`:'手掌未进入识别范围');},600);
-window.palmUniverse={scene,stopCamera,audio:recordAudio};
+window.palmUniverse={scene,stopCamera,audio:recordAudio,sfx:interactionAudio};
 scene.startRehearsal();updateModeUi();
 musicUi(recordAudio.state);
+sfxUi(interactionAudio.state);

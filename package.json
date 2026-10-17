@@ -2,7 +2,15 @@
   "name": "palm-universe",
   "version": "1.0.0",
   "private": true,
-  "repository": { "type": "git", "url": "https://github.com/Brclio/Brclio-Palm-Universe.git" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Brclio/Brclio-Palm-Universe.git"
+  },
   "type": "module",
-  "scripts": { "start": "node server.mjs", "dev": "node server.mjs", "check": "node --check app.js && node --check public/scene.js && node --check public/reference-effects.js && node --check public/record-audio.js && node --check public/gesture-sequence.js && node --check public/hand-tracking.js && node --check public/hand-tracking-worker.js && node --check server.mjs", "test": "node tests/gesture-sequence.test.mjs" }
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "check": "node --check app.js && node --check public/scene.js && node --check public/reference-effects.js && node --check public/record-audio.js && node --check public/interaction-audio.js && node --check public/gesture-sequence.js && node --check public/hand-tracking.js && node --check public/hand-tracking-worker.js && node --check server.mjs",
+    "test": "node tests/gesture-sequence.test.mjs && node tests/interaction-audio.test.mjs"
+  }
 }

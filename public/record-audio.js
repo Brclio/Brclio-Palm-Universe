@@ -55,6 +55,10 @@ export class RecordAudio {
     };
   }
 
+  // Gesture sounds share the already unlocked clock, with a separate gain.
+  // Reading this does not create or resume an audio context.
+  get context() { return this._context; }
+
   /** Must be invoked without an await before it in a trusted input handler. */
   unlock() {
     if (this._destroyed) return Promise.resolve(false);

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "summon",
+    "file": "summon.wav",
+    "stage": "star",
+    "duration": 0.66,
+    "gain": 0.8,
+    "sourceRange": [
+      15.76,
+      16.42
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "sweepSun",
+    "file": "sweepSun.wav",
+    "stage": "sun",
+    "duration": 0.42,
+    "gain": 0.8,
+    "sourceRange": [
+      16.98,
+      17.4
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "sweepMoon",
+    "file": "sweepMoon.wav",
+    "stage": "moon",
+    "duration": 0.44,
+    "gain": 0.8,
+    "sourceRange": [
+      18.2,
+      18.64
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "grab",
+    "file": "grab.wav",
+    "stage": "moonHeld",
+    "duration": 0.36,
+    "gain": 0.8,
+    "sourceRange": [
+      19.62,
+      19.98
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "release",
+    "file": "release.wav",
+    "stage": "moonReleased",
+    "duration": 0.62,
+    "gain": 0.8,
+    "sourceRange": [
+      21.44,
+      22.06
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "phases",
+    "file": "phases.wav",
+    "stage": "phases",
+    "duration": 1.12,
+    "gain": 0.8,
+    "sourceRange": [
+      22.98,
+      24.1
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "collect",
+    "file": "collect.wav",
+    "stage": "phaseHeld",
+    "duration": 0.36,
+    "gain": 0.8,
+    "sourceRange": [
+      24.92,
+      25.28
+    ],
+    "method": "source-excerpt"
+  },
+  {
+    "id": "record",
+    "file": "record.wav",
+    "stage": "pan",
+    "duration": 0.62,
+    "gain": 0.8,
+    "sourceRange": [
+      26.66,
+      27.28
+    ],
+    "method": "envelope-reconstruction"
+  },
+  {
+    "id": "burst",
+    "file": "burst.wav",
+    "stage": "burst",
+    "duration": 0.98,
+    "gain": 0.8,
+    "sourceRange": [
+      32.67,
+      33.65
+    ],
+    "method": "envelope-reconstruction"
+  }
+]

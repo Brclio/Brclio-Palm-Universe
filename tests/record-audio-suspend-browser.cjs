@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{createHash}=require('node:crypto');
 const {chromium}=require('/Users/bornforthis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const root=path.resolve(__dirname,'..'),baseURL=process.env.INTERACTION_TEST_URL||'http://127.0.0.1:5173/';
-const sources=Object.fromEntries(['app.js','public/scene.js','public/record-audio.js'].map(f=>[f,createHash('sha256').update(fs.readFileSync(path.join(root,f))).digest('hex')]));
+const sources=Object.fromEntries(['app.js','public/scene.js','public/record-audio.js','public/interaction-audio.js'].map(f=>[f,createHash('sha256').update(fs.readFileSync(path.join(root,f))).digest('hex')]));
 const checks=[],observations=[],errors=[];let browser;
 async function point(page,x,y){const r=await page.locator('#universe').boundingBox();await page.mouse.move(r.x+x*r.width,r.y+y*r.height);}
 async function move(page,a,b,ms=450){for(let i=1;i<=15;i++){await point(page,a.x+(b.x-a.x)*i/15,a.y+(b.y-a.y)*i/15);await page.waitForTimeout(ms/15);}}

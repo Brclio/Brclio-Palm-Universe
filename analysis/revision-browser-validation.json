@@ -1,19 +1,21 @@
 {
-  "tested_at": "2026-10-17T08:18:30.162Z",
+  "tested_at": "2026-10-17T09:10:21.308Z",
   "source_sha256": {
-    "app.js": "3ca03299d9849cf651d56b57d5bbeffd8fe61ae632c37d3b055099f040528899",
+    "app.js": "092e08e846565f83a897352363a82b0e215cfab816eb4f1f67ab41f84a6169b2",
     "public/scene.js": "4dac443eaef696cc99089633232f3981f1631d519268cceef996cc04e674c9cd",
     "public/gesture-sequence.js": "ea0677d5b5d7fb1094465f666011a923c941c0b2d88368e2cd74058761446ab7",
     "public/reference-effects.js": "16d519d28e4e1631a45890f0e995e0bf0e04392c3a4869e7d925040be0bd933e",
-    "public/record-audio.js": "a8296568121eceb302381dc9e84ed27b31507acae9e16b84a780ecff79f7653f"
+    "public/record-audio.js": "8811e650f671d89b021169295cf60a2d688007b0c4be0d715b255005b6d1b1b0",
+    "public/interaction-audio.js": "2dd4e92edebe72cbde3af67538498342cb5d9c24a9d5038f233afc9c6ff7d361",
+    "public/audio/sfx/manifest.json": "86540b9194878284021624f4be3c1ab1c8bdfa6c8a3297083f163769b13cf475"
   },
   "purpose": "浏览器开发验收：真实pointer事件和显式模型测试替身；无真实摄像头访问。",
   "test_command": "node tests/revision-browser.cjs",
   "base_url": "http://127.0.0.1:5173/",
   "status": "passed-browser-development-validation",
   "summary": {
-    "total": 12,
-    "passed": 12,
+    "total": 14,
+    "passed": 14,
     "failed": 0
   },
   "test_results": [
@@ -43,6 +45,11 @@
       "passed": true
     },
     {
+      "id": "sfx-reset-and-reference-pause",
+      "name": "原片对照暂停操作音效，关闭不补播；重来立即停止在播音效",
+      "passed": true
+    },
+    {
       "id": "camera-denied-retry",
       "name": "摄像头拒绝权限与重试均恢复可操作状态，未请求真实摄像头",
       "passed": true
@@ -65,6 +72,11 @@
     {
       "id": "record-audio-reset-boundaries",
       "name": "重来、切换摄像头、摄像头镜像重置会停止并归零唱片音频",
+      "passed": true
+    },
+    {
+      "id": "sfx-delayed-decode-reset",
+      "name": "真实延迟WAV响应：正常在期限内播一次，重来使相同待解码动作失效",
       "passed": true
     },
     {
@@ -120,7 +132,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 1.6325999999999987
+        "time": 1.6657999999999993
       },
       "mode": null,
       "target": {
@@ -170,15 +182,15 @@
         "panProgress": 0,
         "panOrigin": null,
         "burst": false,
-        "tracked": false,
+        "tracked": true,
         "releaseTarget": null,
         "releaseOrigin": null,
         "releaseProgress": 0,
         "releaseScale": 1,
         "burstTarget": null,
         "interaction": "waiting",
-        "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 1.6325999999999987
+        "hint": "四指收拢握拳，拇指可伸出，停留片刻召出星星",
+        "time": 1.6825999999999994
       },
       "mode": null,
       "target": {
@@ -236,7 +248,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 2.3825999999999974
+        "time": 2.4324999999999988
       },
       "mode": "star",
       "target": {
@@ -244,8 +256,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.39539154488805,
-        "y": 0.6107010488896331
+        "x": 0.3923866142400363,
+        "y": 0.6133667131741612
       },
       "down": true,
       "sequenceEnabled": true,
@@ -294,7 +306,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 4.299199999999997
+        "time": 4.332399999999997
       },
       "mode": "sun",
       "target": {
@@ -302,8 +314,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000408352199,
-        "y": 0.6349999637752081
+        "x": 0.3680000408638146,
+        "y": 0.6349999637498419
       },
       "down": false,
       "sequenceEnabled": true,
@@ -352,7 +364,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-        "time": 6.899100000000025
+        "time": 6.932300000000028
       },
       "mode": "moon",
       "target": {
@@ -391,7 +403,7 @@
           "x": 0.3679999881320529,
           "y": 0.6349999698591821
         },
-        "scale": 0.5977988952198608,
+        "scale": 0.5977297659076877,
         "phaseProgress": 0,
         "phaseAnchor": {
           "x": 0.368,
@@ -410,7 +422,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
-        "time": 7.649000000000033
+        "time": 7.682300000000037
       },
       "mode": "moon",
       "target": {
@@ -469,12 +481,12 @@
           "x": 0.7899999830457899,
           "y": 0.670000015070409
         },
-        "releaseProgress": 0.1943333333333334,
+        "releaseProgress": 0.19449999999999376,
         "releaseScale": 0.035,
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-        "time": 9.349000000000014
+        "time": 9.382200000000022
       },
       "mode": "moon",
       "target": {
@@ -482,7 +494,7 @@
         "y": 0.670000015070409
       },
       "position": {
-        "x": 0.7922659097124566,
+        "x": 0.7922697980457898,
         "y": 0.670000015070409
       },
       "down": false,
@@ -514,7 +526,7 @@
           "y": 0.670000015070409
         },
         "scale": 1,
-        "phaseProgress": 0.07581818181818113,
+        "phaseProgress": 0.07581818181817952,
         "phaseAnchor": {
           "x": 0.8199999830457899,
           "y": 0.670000015070409
@@ -538,7 +550,7 @@
         "burstTarget": null,
         "interaction": "pulling",
         "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-        "time": 11.248999999999983
+        "time": 11.29889999999999
       },
       "mode": "phases",
       "target": {
@@ -602,7 +614,7 @@
         "burstTarget": null,
         "interaction": "pulling",
         "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-        "time": 12.598899999999967
+        "time": 12.648699999999966
       },
       "mode": "phases",
       "target": {
@@ -641,8 +653,8 @@
           "x": 0.8199999491373698,
           "y": 0.670000015070409
         },
-        "scale": 0.597798895219862,
-        "phaseProgress": 0.7574545454545456,
+        "scale": 0.5977988952198645,
+        "phaseProgress": 0.7576363636363698,
         "phaseAnchor": {
           "x": 0.8199999830457899,
           "y": 0.670000015070409
@@ -666,7 +678,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 13.69879999999995
+        "time": 13.748699999999946
       },
       "mode": "moon",
       "target": {
@@ -674,7 +686,7 @@
         "y": 0.670000015070409
       },
       "position": {
-        "x": 0.8199999514162026,
+        "x": 0.8199999514162025,
         "y": 0.670000015070409
       },
       "down": true,
@@ -730,7 +742,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 15.265399999999921
+        "time": 15.315299999999926
       },
       "mode": "moon",
       "target": {
@@ -738,8 +750,8 @@
         "y": 0.25
       },
       "position": {
-        "x": 0.2501397490409663,
-        "y": 0.2501029729554021
+        "x": 0.25013986528613846,
+        "y": 0.25010305860966564
       },
       "down": true,
       "sequenceEnabled": true,
@@ -777,7 +789,7 @@
         },
         "phaseSpan": 0.72,
         "held": false,
-        "panProgress": 0.2964444444444404,
+        "panProgress": 0.2962222222222187,
         "panOrigin": {
           "x": 0.25,
           "y": 0.25
@@ -797,7 +809,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-        "time": 15.465499999999919
+        "time": 15.515299999999923
       },
       "mode": "pan",
       "target": {
@@ -805,8 +817,8 @@
         "y": 0.47950000000000004
       },
       "position": {
-        "x": 0.18075190884993203,
-        "y": 0.39957587688414675
+        "x": 0.1807869817469827,
+        "y": 0.39950011942651736
       },
       "down": false,
       "sequenceEnabled": true,
@@ -867,7 +879,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 17.998599999999904
+        "time": 18.331899999999884
       },
       "mode": null,
       "target": {
@@ -937,7 +949,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 23.26509999999977
+        "time": 23.598299999999767
       },
       "mode": null,
       "target": {
@@ -995,7 +1007,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 23.298399999999766
+        "time": 23.731699999999762
       },
       "mode": null,
       "target": {
@@ -1053,7 +1065,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 24.064999999999724
+        "time": 24.515099999999734
       },
       "mode": "star",
       "target": {
@@ -1061,8 +1073,124 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.39541072568196656,
-        "y": 0.6106840336692232
+        "x": 0.3923695495833946,
+        "y": 0.6133818511760208
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "松开鼠标，从星星左侧向右横扫。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 24.91499999999972
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.41169066156256023,
+        "y": 0.5962421550654707
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "松开鼠标，从星星左侧向右横扫。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "star",
+      "snapshot": {
+        "stage": "star",
+        "mode": "star",
+        "visible": true,
+        "target": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.368,
+          "y": 0.635
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "松开拳头，像原片一样把手从左向右横扫",
+        "time": 25.46509999999972
+      },
+      "mode": "star",
+      "target": {
+        "x": 0.368,
+        "y": 0.635
+      },
+      "position": {
+        "x": 0.41169066156256023,
+        "y": 0.5962421550654707
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1111,7 +1239,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 0.7993000000000001
+        "time": 0.7660000000000002
       },
       "mode": null,
       "target": {
@@ -1129,6 +1257,7 @@
       "particles": 0,
       "dissolved": false,
       "handSerial": 0,
+      "lastSequenceSerial": null,
       "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
       "status": "摄像头手势 · 收拢手指召星",
       "modeButtons": 0,
@@ -1168,7 +1297,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 1.4992999999999987
+        "time": 1.4826999999999992
       },
       "mode": null,
       "target": {
@@ -1188,7 +1317,7 @@
       "handSerial": 9,
       "lastSequenceSerial": 9,
       "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
-      "status": "手掌未进入识别范围",
+      "status": "已识别手掌 · 等待收拢手指",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -1226,7 +1355,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 2.199199999999998
+        "time": 2.1826999999999974
       },
       "mode": "star",
       "target": {
@@ -1284,7 +1413,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 4.215799999999995
+        "time": 4.215899999999996
       },
       "mode": "sun",
       "target": {
@@ -1292,8 +1421,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000180409638,
-        "y": 0.6349999839959192
+        "x": 0.36800001606181865,
+        "y": 0.6349999857516127
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1301,8 +1430,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 63,
-      "lastSequenceSerial": 63,
+      "handSerial": 64,
+      "lastSequenceSerial": 64,
       "hint": "手收回左边，伸出食指和拇指，再向右横扫",
       "status": "已识别手掌 · 星星",
       "modeButtons": 0,
@@ -1342,7 +1471,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 4.249199999999996
+        "time": 4.2491999999999965
       },
       "mode": null,
       "target": {
@@ -1359,10 +1488,10 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 63,
+      "handSerial": 64,
       "lastSequenceSerial": null,
       "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
-      "status": "已识别手掌 · 星星",
+      "status": "已识别手掌 · 太阳",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -1400,7 +1529,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 4.6491
+        "time": 4.7325
       },
       "mode": "star",
       "target": {
@@ -1408,8 +1537,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3923866142400364,
-        "y": 0.6133667131741614
+        "x": 0.39240369084611915,
+        "y": 0.6133515645719911
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1417,10 +1546,10 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 72,
-      "lastSequenceSerial": 72,
+      "handSerial": 73,
+      "lastSequenceSerial": 73,
       "hint": "松开拳头，像原片一样把手从左向右横扫",
-      "status": "已识别手掌 · 等待收拢手指",
+      "status": "已识别手掌 · 太阳",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -1458,7 +1587,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 5.615700000000011
+        "time": 5.715800000000013
       },
       "mode": "sun",
       "target": {
@@ -1466,8 +1595,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680280949449188,
-        "y": 0.6349750770649913
+        "x": 0.3680250128492799,
+        "y": 0.6349778111820903
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1475,8 +1604,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 95,
-      "lastSequenceSerial": 95,
+      "handSerial": 96,
+      "lastSequenceSerial": 96,
       "hint": "手收回左边，伸出食指和拇指，再向右横扫",
       "status": "已识别手掌 · 太阳",
       "modeButtons": 0,
@@ -1516,7 +1645,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 5.649100000000011
+        "time": 5.749200000000013
       },
       "mode": null,
       "target": {
@@ -1533,7 +1662,7 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 95,
+      "handSerial": 96,
       "lastSequenceSerial": null,
       "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
       "status": "已识别手掌 · 太阳",
@@ -1574,7 +1703,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 5.682400000000012
+        "time": 5.782500000000014
       },
       "mode": null,
       "target": {
@@ -1591,7 +1720,7 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 95,
+      "handSerial": 96,
       "lastSequenceSerial": null,
       "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
       "status": "已识别手掌 · 太阳",
@@ -1632,7 +1761,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 6.482400000000021
+        "time": 6.599200000000024
       },
       "mode": "star",
       "target": {
@@ -1640,8 +1769,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3923866142400362,
-        "y": 0.6133667131741615
+        "x": 0.38730249544160433,
+        "y": 0.6178768185598672
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1649,8 +1778,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 112,
-      "lastSequenceSerial": 112,
+      "handSerial": 113,
+      "lastSequenceSerial": 113,
       "hint": "松开拳头，像原片一样把手从左向右横扫",
       "status": "已识别手掌 · 等待收拢手指",
       "modeButtons": 0,
@@ -1690,7 +1819,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 7.44900000000003
+        "time": 7.582400000000034
       },
       "mode": "sun",
       "target": {
@@ -1698,8 +1827,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680280949449188,
-        "y": 0.6349750770649913
+        "x": 0.36801979817306557,
+        "y": 0.6349824371045386
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1707,8 +1836,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 135,
-      "lastSequenceSerial": 135,
+      "handSerial": 136,
+      "lastSequenceSerial": 136,
       "hint": "手收回左边，伸出食指和拇指，再向右横扫",
       "status": "已识别手掌 · 太阳",
       "modeButtons": 0,
@@ -1748,7 +1877,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-        "time": 8.599000000000022
+        "time": 8.732400000000029
       },
       "mode": "moon",
       "target": {
@@ -1756,8 +1885,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000089651509,
-        "y": 0.6349999920470436
+        "x": 0.3680000063176351,
+        "y": 0.6349999943956461
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1765,8 +1894,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 162,
-      "lastSequenceSerial": 162,
+      "handSerial": 163,
+      "lastSequenceSerial": 163,
       "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
       "status": "已识别手掌 · 月球",
       "modeButtons": 0,
@@ -1806,7 +1935,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-        "time": 8.86560000000002
+        "time": 8.999100000000025
       },
       "mode": "moon",
       "target": {
@@ -1814,8 +1943,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.36800000138700245,
-        "y": 0.6349999987695946
+        "x": 0.3680000009767202,
+        "y": 0.6349999991335546
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1823,8 +1952,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 168,
-      "lastSequenceSerial": 168,
+      "handSerial": 169,
+      "lastSequenceSerial": 169,
       "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
       "status": "已识别手掌 · 月球",
       "modeButtons": 0,
@@ -1864,7 +1993,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
-        "time": 9.132300000000017
+        "time": 9.265700000000024
       },
       "mode": "moon",
       "target": {
@@ -1872,8 +2001,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000000285512,
-        "y": 0.6349999999746723
+        "x": 0.36800000002009764,
+        "y": 0.6349999999821715
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1881,10 +2010,10 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 174,
-      "lastSequenceSerial": 174,
+      "handSerial": 175,
+      "lastSequenceSerial": 175,
       "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
-      "status": "已识别手掌 · 夹取月球",
+      "status": "已识别手掌 · 月球",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -1923,12 +2052,12 @@
           "x": 0.7900000000000001,
           "y": 0.67
         },
-        "releaseProgress": 0.33333333333332626,
+        "releaseProgress": 0.3333333333333292,
         "releaseScale": 0.035,
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-        "time": 10.698899999999988
+        "time": 10.848999999999993
       },
       "mode": "moon",
       "target": {
@@ -1936,7 +2065,7 @@
         "y": 0.67
       },
       "position": {
-        "x": 0.7966666666666665,
+        "x": 0.7966666666666666,
         "y": 0.67
       },
       "down": false,
@@ -1945,10 +2074,10 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 210,
-      "lastSequenceSerial": 210,
+      "handSerial": 211,
+      "lastSequenceSerial": 211,
       "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-      "status": "已识别手掌 · 夹取月球",
+      "status": "已识别手掌 · 月球已释放",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -1987,12 +2116,12 @@
           "x": 0.7900000000000001,
           "y": 0.67
         },
-        "releaseProgress": 0.7776666666666484,
+        "releaseProgress": 0.8054999999999879,
         "releaseScale": 0.035,
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-        "time": 10.965499999999981
+        "time": 11.132299999999988
       },
       "mode": "moon",
       "target": {
@@ -2000,7 +2129,7 @@
         "y": 0.67
       },
       "position": {
-        "x": 0.817034073333333,
+        "x": 0.8177301849999998,
         "y": 0.67
       },
       "down": false,
@@ -2009,8 +2138,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 217,
-      "lastSequenceSerial": 217,
+      "handSerial": 218,
+      "lastSequenceSerial": 218,
       "hint": "月球已停住，五指张开向左横扫，展开五个月相",
       "status": "已识别手掌 · 月球已释放",
       "modeButtons": 0,
@@ -2032,7 +2161,7 @@
           "y": 0.67
         },
         "scale": 1,
-        "phaseProgress": 0.19709090909090513,
+        "phaseProgress": 0.2120909090909073,
         "phaseAnchor": {
           "x": 0.8200000000000002,
           "y": 0.67
@@ -2056,7 +2185,7 @@
         "burstTarget": null,
         "interaction": "pulling",
         "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-        "time": 11.448899999999972
+        "time": 11.615599999999983
       },
       "mode": "phases",
       "target": {
@@ -2073,10 +2202,10 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 229,
-      "lastSequenceSerial": 229,
+      "handSerial": 230,
+      "lastSequenceSerial": 230,
       "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-      "status": "已识别手掌 · 月球已释放",
+      "status": "已识别手掌 · 月相展开",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -2096,7 +2225,7 @@
           "y": 0.67
         },
         "scale": 0.035,
-        "phaseProgress": 0.7270909090909186,
+        "phaseProgress": 0.697090909090911,
         "phaseAnchor": {
           "x": 0.8200000000000002,
           "y": 0.67
@@ -2120,7 +2249,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 13.015499999999944
+        "time": 13.182199999999956
       },
       "mode": "moon",
       "target": {
@@ -2137,8 +2266,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 235,
-      "lastSequenceSerial": 235,
+      "handSerial": 236,
+      "lastSequenceSerial": 236,
       "hint": "夹住小月球向左上方举起，再张开拇指与食指",
       "status": "手掌未进入识别范围",
       "modeButtons": 0,
@@ -2184,7 +2313,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 14.215399999999931
+        "time": 14.382099999999934
       },
       "mode": "moon",
       "target": {
@@ -2192,8 +2321,8 @@
         "y": 0.25
       },
       "position": {
-        "x": 0.25005724493211867,
-        "y": 0.25004218047629795
+        "x": 0.2500561320845998,
+        "y": 0.2500413604833894
       },
       "down": false,
       "sequenceEnabled": true,
@@ -2201,8 +2330,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 263,
-      "lastSequenceSerial": 263,
+      "handSerial": 264,
+      "lastSequenceSerial": 264,
       "hint": "夹住小月球向左上方举起，再张开拇指与食指",
       "status": "已识别手掌 · 夹取后上举",
       "modeButtons": 0,
@@ -2251,7 +2380,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-        "time": 14.481999999999928
+        "time": 14.648799999999932
       },
       "mode": "pan",
       "target": {
@@ -2268,10 +2397,10 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 269,
-      "lastSequenceSerial": 269,
+      "handSerial": 270,
+      "lastSequenceSerial": 270,
       "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-      "status": "已识别手掌 · 黑胶唱片",
+      "status": "已识别手掌 · 夹取后上举",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -2318,7 +2447,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-        "time": 15.815299999999905
+        "time": 15.998799999999912
       },
       "mode": "pan",
       "target": {
@@ -2335,8 +2464,8 @@
       "rehearsal": false,
       "particles": 0,
       "dissolved": false,
-      "handSerial": 296,
-      "lastSequenceSerial": 296,
+      "handSerial": 297,
+      "lastSequenceSerial": 297,
       "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
       "status": "已识别手掌 · 黑胶唱片",
       "modeButtons": 0,
@@ -2388,7 +2517,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 16.298599999999908
+        "time": 16.49879999999991
       },
       "mode": null,
       "target": {
@@ -2405,10 +2534,10 @@
       "rehearsal": false,
       "particles": 4200,
       "dissolved": true,
-      "handSerial": 308,
-      "lastSequenceSerial": 308,
+      "handSerial": 309,
+      "lastSequenceSerial": 309,
       "hint": "演示结束，点击重来可重新开始",
-      "status": "已识别手掌 · 月光散开",
+      "status": "已识别手掌 · 黑胶唱片",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -2458,7 +2587,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 16.8318999999999
+        "time": 17.03199999999989
       },
       "mode": null,
       "target": {
@@ -2475,10 +2604,68 @@
       "rehearsal": false,
       "particles": 4045,
       "dissolved": true,
-      "handSerial": 322,
-      "lastSequenceSerial": 322,
+      "handSerial": 323,
+      "lastSequenceSerial": 323,
       "hint": "演示结束，点击重来可重新开始",
       "status": "已识别手掌 · 月光散开",
+      "modeButtons": 0,
+      "sceneSize": {
+        "w": 1440,
+        "h": 810
+      },
+      "referenceLoaded": true,
+      "restartHidden": false
+    },
+    {
+      "label": "idle",
+      "snapshot": {
+        "stage": "idle",
+        "mode": null,
+        "visible": false,
+        "target": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "scale": 1,
+        "phaseProgress": 0,
+        "phaseAnchor": {
+          "x": 0.43,
+          "y": 0.58
+        },
+        "phaseSpan": 0.72,
+        "held": false,
+        "panProgress": 0,
+        "panOrigin": null,
+        "burst": false,
+        "tracked": true,
+        "releaseTarget": null,
+        "releaseOrigin": null,
+        "releaseProgress": 0,
+        "releaseScale": 1,
+        "burstTarget": null,
+        "interaction": "waiting",
+        "hint": "四指收拢握拳，拇指可伸出，停留片刻召出星星",
+        "time": 0.5826
+      },
+      "mode": null,
+      "target": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "position": {
+        "x": 0.43,
+        "y": 0.58
+      },
+      "down": false,
+      "sequenceEnabled": true,
+      "camera": false,
+      "rehearsal": true,
+      "particles": 0,
+      "dissolved": false,
+      "handSerial": 0,
+      "lastSequenceSerial": null,
+      "hint": "在画面里按住鼠标片刻，对应原片的收拢握拳。",
+      "status": "鼠标操作 · 按住收拢，松开张手",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
@@ -2493,7 +2680,7 @@
       "expectedMode": "sun",
       "before": {
         "sun": {
-          "time": 0.218626,
+          "time": 0.225729,
           "paused": false,
           "readyState": 4,
           "frames": 40,
@@ -2509,7 +2696,7 @@
       },
       "after": {
         "sun": {
-          "time": 0.029203,
+          "time": 0.035751,
           "paused": false,
           "readyState": 4,
           "frames": 50,
@@ -2528,7 +2715,7 @@
       "expectedMode": null,
       "before": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
@@ -2544,7 +2731,7 @@
       },
       "after": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
@@ -2563,33 +2750,33 @@
       "expectedMode": "pan",
       "before": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
           "duration": 0.5
         },
         "pan": {
-          "time": 0.427866,
+          "time": 0.695546,
           "paused": false,
           "readyState": 4,
-          "frames": 17,
+          "frames": 25,
           "duration": 3.733008
         }
       },
       "after": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
           "duration": 0.5
         },
         "pan": {
-          "time": 0.74073,
+          "time": 1.018586,
           "paused": false,
           "readyState": 4,
-          "frames": 26,
+          "frames": 35,
           "duration": 3.733008
         }
       }
@@ -2598,33 +2785,33 @@
       "expectedMode": "pan",
       "before": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
           "duration": 0.5
         },
         "pan": {
-          "time": 1.376626,
+          "time": 1.656277,
           "paused": false,
           "readyState": 4,
-          "frames": 45,
+          "frames": 53,
           "duration": 3.733008
         }
       },
       "after": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
           "duration": 0.5
         },
         "pan": {
-          "time": 1.688535,
+          "time": 1.968897,
           "paused": false,
           "readyState": 4,
-          "frames": 54,
+          "frames": 63,
           "duration": 3.733008
         }
       }
@@ -2633,33 +2820,33 @@
       "expectedMode": null,
       "before": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
           "duration": 0.5
         },
         "pan": {
-          "time": 2.035418,
+          "time": 2.318156,
           "paused": true,
           "readyState": 4,
-          "frames": 65,
+          "frames": 73,
           "duration": 3.733008
         }
       },
       "after": {
         "sun": {
-          "time": 0.07944,
+          "time": 0.081882,
           "paused": true,
           "readyState": 4,
           "frames": 81,
           "duration": 0.5
         },
         "pan": {
-          "time": 2.035418,
+          "time": 2.318156,
           "paused": true,
           "readyState": 4,
-          "frames": 65,
+          "frames": 73,
           "duration": 3.733008
         }
       }
@@ -2672,25 +2859,25 @@
           "x": 0.09999998304579,
           "y": 0.670000015070409,
           "texture": 8,
-          "alpha": 0.7574545454545456
+          "alpha": 0.7576363636363698
         },
         {
           "x": 0.27999998304578994,
           "y": 0.670000015070409,
           "texture": 7,
-          "alpha": 0.7574545454545456
+          "alpha": 0.7576363636363698
         },
         {
           "x": 0.45999998304579,
           "y": 0.670000015070409,
           "texture": 6,
-          "alpha": 0.7574545454545456
+          "alpha": 0.7576363636363698
         },
         {
           "x": 0.63999998304579,
           "y": 0.670000015070409,
           "texture": 5,
-          "alpha": 0.7574545454545456
+          "alpha": 0.7576363636363698
         }
       ],
       "after": [
@@ -2698,25 +2885,25 @@
           "x": 0.09999998304579,
           "y": 0.670000015070409,
           "texture": 8,
-          "alpha": 0.48472727272727545
+          "alpha": 0.4849090909090964
         },
         {
           "x": 0.27999998304578994,
           "y": 0.670000015070409,
           "texture": 7,
-          "alpha": 0.48472727272727545
+          "alpha": 0.4849090909090964
         },
         {
           "x": 0.45999998304579,
           "y": 0.670000015070409,
           "texture": 6,
-          "alpha": 0.48472727272727545
+          "alpha": 0.4849090909090964
         },
         {
           "x": 0.63999998304579,
           "y": 0.670000015070409,
           "texture": 5,
-          "alpha": 0.48472727272727545
+          "alpha": 0.4849090909090964
         }
       ]
     }
@@ -2737,6 +2924,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2759,6 +2947,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2781,6 +2970,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2803,6 +2993,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2825,6 +3016,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2847,6 +3039,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2869,6 +3062,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2891,6 +3085,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2913,6 +3108,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2935,6 +3131,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2957,6 +3154,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -2979,6 +3177,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3001,6 +3200,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3023,11 +3223,35 @@
       "starts": 1,
       "stops": 0,
       "liveSources": 1,
+      "allChannelsLiveSources": 2,
       "connectedToDestination": true,
       "rms": 3.623051387178225e-05,
       "recordPlaying": true,
       "recordVideoPaused": false,
-      "recordVideoTime": 0.197218,
+      "recordVideoTime": 0.19832,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "song-continues-with-sfx-muted",
+      "state": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.35733333333333306,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 1,
+      "stops": 0,
+      "liveSources": 1,
+      "allChannelsLiveSources": 1,
+      "connectedToDestination": true,
+      "rms": 3.571362767816328e-05,
+      "recordPlaying": true,
+      "recordVideoPaused": false,
+      "recordVideoTime": 0.345311,
       "mediaElementPaused": true
     },
     {
@@ -3036,7 +3260,7 @@
         "ready": true,
         "active": true,
         "playing": false,
-        "currentTime": 0.2560000000000002,
+        "currentTime": 0.5173333333333332,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
@@ -3045,11 +3269,12 @@
       "starts": 1,
       "stops": 1,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
       "recordVideoPaused": true,
-      "recordVideoTime": 0.25028,
+      "recordVideoTime": 0.516556,
       "mediaElementPaused": true
     },
     {
@@ -3058,7 +3283,7 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.3626666666666676,
+        "currentTime": 0.6293333333333333,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
@@ -3067,11 +3292,12 @@
       "starts": 2,
       "stops": 1,
       "liveSources": 1,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": true,
-      "rms": 3.52252018789809e-05,
+      "rms": 3.7519378087029246e-05,
       "recordPlaying": true,
       "recordVideoPaused": false,
-      "recordVideoTime": 0.343536,
+      "recordVideoTime": 0.610686,
       "mediaElementPaused": true
     },
     {
@@ -3089,11 +3315,12 @@
       "starts": 2,
       "stops": 2,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
       "recordVideoPaused": true,
-      "recordVideoTime": 2.035418,
+      "recordVideoTime": 2.318156,
       "mediaElementPaused": true
     },
     {
@@ -3111,6 +3338,7 @@
       "starts": 2,
       "stops": 2,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3133,6 +3361,53 @@
       "starts": 2,
       "stops": 2,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 2,
+      "liveSources": 0,
+      "allChannelsLiveSources": 1,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "star",
+      "state": {
+        "ready": true,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 2,
+      "stops": 2,
+      "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3155,6 +3430,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3177,6 +3453,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3199,6 +3476,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3221,6 +3499,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3243,6 +3522,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3265,6 +3545,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3287,6 +3568,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3309,6 +3591,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3331,6 +3614,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3353,6 +3637,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3375,6 +3660,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3397,6 +3683,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3419,6 +3706,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3441,6 +3729,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3463,6 +3752,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3485,6 +3775,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3507,6 +3798,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3529,6 +3821,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3551,6 +3844,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3573,6 +3867,7 @@
       "starts": 0,
       "stops": 0,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3586,7 +3881,7 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.2400000000000002,
+        "currentTime": 0.2506666666666657,
         "duration": 48,
         "trackName": "lunar-reverie",
         "blocked": false
@@ -3595,11 +3890,12 @@
       "starts": 1,
       "stops": 0,
       "liveSources": 1,
+      "allChannelsLiveSources": 2,
       "connectedToDestination": true,
-      "rms": 0.009741937728224374,
+      "rms": 0.010004606388086883,
       "recordPlaying": true,
       "recordVideoPaused": false,
-      "recordVideoTime": 0.224677,
+      "recordVideoTime": 0.232477,
       "mediaElementPaused": true
     },
     {
@@ -3617,11 +3913,12 @@
       "starts": 1,
       "stops": 1,
       "liveSources": 0,
+      "allChannelsLiveSources": 1,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
       "recordVideoPaused": true,
-      "recordVideoTime": 1.63563,
+      "recordVideoTime": 1.670808,
       "mediaElementPaused": true
     },
     {
@@ -3639,6 +3936,7 @@
       "starts": 2,
       "stops": 2,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3661,6 +3959,7 @@
       "starts": 3,
       "stops": 3,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3683,6 +3982,30 @@
       "starts": 4,
       "stops": 4,
       "liveSources": 0,
+      "allChannelsLiveSources": 0,
+      "connectedToDestination": false,
+      "rms": 0,
+      "recordPlaying": false,
+      "recordVideoPaused": true,
+      "recordVideoTime": 0,
+      "mediaElementPaused": true
+    },
+    {
+      "event": "idle",
+      "state": {
+        "ready": false,
+        "active": false,
+        "playing": false,
+        "currentTime": 0,
+        "duration": 0,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "contextState": "running",
+      "starts": 0,
+      "stops": 0,
+      "liveSources": 0,
+      "allChannelsLiveSources": 0,
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
@@ -3691,17 +4014,1764 @@
       "mediaElementPaused": true
     }
   ],
+  "sfx_observations": [
+    {
+      "event": "initial-page-silent",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": false,
+        "lastCue": null,
+        "activeVoices": 0,
+        "history": []
+      },
+      "contextCount": 0,
+      "sharedContext": true,
+      "separateGain": false,
+      "voices": []
+    },
+    {
+      "event": "sfx-mute-during-record",
+      "state": {
+        "enabled": false,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "record",
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.5253333333333334,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.056,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 5.658666666666667,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 6.757333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 8.474666666666666,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.421333333333333,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.821333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 14.725333333333333,
+            "duration": 0.62,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.1542936257359201,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07310211530676275,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.2962222222222187,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 16,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "sfx-reenable-does-not-replay",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "record",
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.5253333333333334,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.056,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 5.658666666666667,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 6.757333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 8.474666666666666,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.421333333333333,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.821333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 14.725333333333333,
+            "duration": 0.62,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.1542936257359201,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07310211530676275,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.2962222222222187,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 16,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "mouse-nine-cues-once",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "burst",
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.5253333333333334,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.056,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 5.658666666666667,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 6.757333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 8.474666666666666,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.421333333333333,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.821333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 14.725333333333333,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "burst",
+            "stage": "burst",
+            "at": 17.561666666666667,
+            "duration": 0.98,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.1542936257359201,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07310211530676275,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.2962222222222187,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 16,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "burst",
+          "panProgress": 1,
+          "peakRms": 0.08410729059045932,
+          "sampleCount": 66,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "reference-dialog-suspends-sfx",
+      "state": {
+        "enabled": true,
+        "suspended": true,
+        "ready": true,
+        "lastCue": "summon",
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.5253333333333334,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.056,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 5.658666666666667,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 6.757333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 8.474666666666666,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.421333333333333,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.821333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 14.725333333333333,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "burst",
+            "stage": "burst",
+            "at": 17.561666666666667,
+            "duration": 0.98,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 23.621333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 24.106666666666666,
+            "duration": 0.66,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.1542936257359201,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07310211530676275,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.2962222222222187,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 16,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "burst",
+          "panProgress": 1,
+          "peakRms": 0.08410729059045932,
+          "sampleCount": 66,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 12,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.019963504588612478,
+          "sampleCount": 4,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "reference-close-no-replay",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "summon",
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.5253333333333334,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.056,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 5.658666666666667,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 6.757333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 8.474666666666666,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.421333333333333,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.821333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 14.725333333333333,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "burst",
+            "stage": "burst",
+            "at": 17.561666666666667,
+            "duration": 0.98,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 23.621333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 24.106666666666666,
+            "duration": 0.66,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.1542936257359201,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07310211530676275,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.2962222222222187,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 16,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "burst",
+          "panProgress": 1,
+          "peakRms": 0.08410729059045932,
+          "sampleCount": 66,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 12,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.019963504588612478,
+          "sampleCount": 4,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "reset-stops-live-sfx",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": null,
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.5253333333333334,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.056,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 5.658666666666667,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 6.757333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 8.474666666666666,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.421333333333333,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.821333333333333,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 14.725333333333333,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "burst",
+            "stage": "burst",
+            "at": 17.561666666666667,
+            "duration": 0.98,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 23.621333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 24.106666666666666,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 24.672,
+            "duration": 0.66,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.1542936257359201,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07310211530676275,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.2962222222222187,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 16,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "burst",
+          "panProgress": 1,
+          "peakRms": 0.08410729059045932,
+          "sampleCount": 66,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 12,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.019963504588612478,
+          "sampleCount": 4,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.019963504588612478,
+          "sampleCount": 4,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "tracking-hint-no-retrigger",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "summon",
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.3173333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "camera-mirror-stops-sfx",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": null,
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.3173333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.136,
+            "duration": 0.42,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "camera-async-nine-cues-once",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "burst",
+        "activeVoices": 1,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.3173333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.136,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 3.8666666666666667,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 4.634666666666667,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 5.701333333333333,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 6.501333333333333,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 7.653333333333333,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 8.352,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 9.904,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.634666666666666,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.266666666666667,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 13.866666666666667,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "burst",
+            "stage": "burst",
+            "at": 15.572333333333335,
+            "duration": 0.98,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.0542626883678584,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 25,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.0542626883678584,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07417631131887688,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.295999999999997,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": false,
+          "channel": "sfx",
+          "stage": "burst",
+          "panProgress": 1,
+          "peakRms": 0.07804752924040548,
+          "sampleCount": 55,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "camera-switch-stops-sfx",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": null,
+        "activeVoices": 0,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 1.3173333333333332,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 3.136,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 3.8666666666666667,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 4.634666666666667,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 5.701333333333333,
+            "duration": 0.66,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepSun",
+            "stage": "sun",
+            "at": 6.501333333333333,
+            "duration": 0.42,
+            "gain": 0.8
+          },
+          {
+            "id": "sweepMoon",
+            "stage": "moon",
+            "at": 7.653333333333333,
+            "duration": 0.44,
+            "gain": 0.8
+          },
+          {
+            "id": "grab",
+            "stage": "moonHeld",
+            "at": 8.352,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "release",
+            "stage": "moonReleased",
+            "at": 9.904,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "phases",
+            "stage": "phases",
+            "at": 10.634666666666666,
+            "duration": 1.12,
+            "gain": 0.8
+          },
+          {
+            "id": "collect",
+            "stage": "phaseHeld",
+            "at": 12.266666666666667,
+            "duration": 0.36,
+            "gain": 0.8
+          },
+          {
+            "id": "record",
+            "stage": "pan",
+            "at": 13.866666666666667,
+            "duration": 0.62,
+            "gain": 0.8
+          },
+          {
+            "id": "burst",
+            "stage": "burst",
+            "at": 15.572333333333335,
+            "duration": 0.98,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.05230846671813697,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 24,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.0542626883678584,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 25,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.0542626883678584,
+          "sampleCount": 43,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "sun",
+          "panProgress": 0,
+          "peakRms": 0.11631389090201434,
+          "sampleCount": 27,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moon",
+          "panProgress": 0,
+          "peakRms": 0.11943769178408474,
+          "sampleCount": 29,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonHeld",
+          "panProgress": 0,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "moonReleased",
+          "panProgress": 0,
+          "peakRms": 0.07380896823205689,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phases",
+          "panProgress": 0,
+          "peakRms": 0.07417631131887688,
+          "sampleCount": 74,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "phaseHeld",
+          "panProgress": 0,
+          "peakRms": 0.15395433167815892,
+          "sampleCount": 23,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": false,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "pan",
+          "panProgress": 0.295999999999997,
+          "peakRms": 0.08367257312709002,
+          "sampleCount": 41,
+          "connectedToDestination": true
+        },
+        {
+          "stopped": true,
+          "ended": true,
+          "channel": "sfx",
+          "stage": "burst",
+          "panProgress": 1,
+          "peakRms": 0.07804752924040548,
+          "sampleCount": 57,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "delayed-control-plays-cue",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": "summon",
+        "activeVoices": 1,
+        "history": [
+          {
+            "id": "summon",
+            "stage": "star",
+            "at": 0.23466666666666666,
+            "duration": 0.66,
+            "gain": 0.8
+          }
+        ]
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": [
+        {
+          "stopped": false,
+          "ended": false,
+          "channel": "sfx",
+          "stage": "star",
+          "panProgress": 0,
+          "peakRms": 0.030848958666087768,
+          "sampleCount": 7,
+          "connectedToDestination": true
+        }
+      ]
+    },
+    {
+      "event": "delayed-response-timing",
+      "cancel": false,
+      "releaseDelayMs": 1
+    },
+    {
+      "event": "delayed-reset-cancels-cue",
+      "state": {
+        "enabled": true,
+        "suspended": false,
+        "ready": true,
+        "lastCue": null,
+        "activeVoices": 0,
+        "history": []
+      },
+      "contextCount": 1,
+      "sharedContext": true,
+      "separateGain": true,
+      "voices": []
+    },
+    {
+      "event": "delayed-response-timing",
+      "cancel": true,
+      "releaseDelayMs": 12
+    }
+  ],
   "browser_autoplay_policy": "Chrome default; no autoplay-policy override",
   "limitations": [
     "摄像头成功流程用显式HandTracker测试替身输入合成模型结果，未验证真实模型识别准确率或真实摄像头画质。",
     "摄像头权限拒绝使用getUserMedia测试替身；成功mock路径禁止调用真实getUserMedia。",
     "手机此次仅验收布局与入口，不代表所有触屏手势或浏览器均已实测。",
+    "唱片前段静默断言仅观测RecordAudio独立GainNode通道；手势SFX可在同一个AudioContext的独立通道正常发声。",
     "音频重置边界用显式 audio.activate() 建立隔离清理fixture；正常自动起播另由完整鼠标和相机模型回调流程验证。",
     "AudioContext/BufferSource 观测与旁接 Analyser 仅用于测量，不替换播放器或使用自动播放策略豁免。"
   ],
-  "subsequent_change_validation": {
-    "report": "record-audio-suspend-validation.json",
-    "change": "app.js excludes the music button and Space from the global context unlock; focused real-browser regression covers one-click resume from a suspended AudioContext and normal pause/resume.",
-    "note": "The main 12 checks retain their originally tested source hashes. The focused report records the final source hashes."
+  "supplemental_validation": {
+    "report": "analysis/record-audio-suspend-validation.json",
+    "purpose": "AudioContext suspension followed by one trusted play click; existing pause/resume behavior after SFX integration",
+    "summary": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0
+    }
   }
 }

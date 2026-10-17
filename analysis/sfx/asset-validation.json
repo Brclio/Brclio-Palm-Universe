@@ -1,0 +1,147 @@
+{
+  "source": "明晚胡彦斌将携TRA_20261017122234.mp4",
+  "sampleRate": 24000,
+  "channels": 2,
+  "cues": [
+    {
+      "id": "summon",
+      "peak": 0.5242662923597597,
+      "rms": 0.08425186691005429,
+      "firstSample": [
+        -0.0,
+        0.0
+      ],
+      "lastSample": [
+        0.0,
+        -0.0
+      ],
+      "bytes": 63404,
+      "sha256": "48c519f4415559b3bef96a469feb4c68af157afbb15c3753d2b7d71486e96514"
+    },
+    {
+      "id": "sweepSun",
+      "peak": 0.41863683896121523,
+      "rms": 0.08441353380878847,
+      "firstSample": [
+        -0.0,
+        -0.0
+      ],
+      "lastSample": [
+        0.0,
+        -0.0
+      ],
+      "bytes": 40364,
+      "sha256": "98823a4987be86d4c15a717485b6799209abb5e5f6198187bab30f39ddc95275"
+    },
+    {
+      "id": "sweepMoon",
+      "peak": 0.47446371849924607,
+      "rms": 0.08381611178969854,
+      "firstSample": [
+        -0.0,
+        0.0
+      ],
+      "lastSample": [
+        -0.0,
+        -0.0
+      ],
+      "bytes": 42284,
+      "sha256": "61493efa1dd26d42e549606544b843470ec11a357622c2824680ec76a6388ad2"
+    },
+    {
+      "id": "grab",
+      "peak": 0.56,
+      "rms": 0.07915275404172363,
+      "firstSample": [
+        0.0,
+        0.0
+      ],
+      "lastSample": [
+        -0.0,
+        0.0
+      ],
+      "bytes": 34604,
+      "sha256": "f567cff306d2b97bb59af2a03b72bd457887b8a3ff3dcf290713dee82ad71721"
+    },
+    {
+      "id": "release",
+      "peak": 0.32294941778332636,
+      "rms": 0.08204656266869727,
+      "firstSample": [
+        0.0,
+        0.0
+      ],
+      "lastSample": [
+        -0.0,
+        0.0
+      ],
+      "bytes": 59564,
+      "sha256": "dc83accedb7f251c86b6cf2472d846918dbf960300b8d620b7f50eff03085ccf"
+    },
+    {
+      "id": "phases",
+      "peak": 0.36373276072840943,
+      "rms": 0.08440059445385878,
+      "firstSample": [
+        0.0,
+        -0.0
+      ],
+      "lastSample": [
+        -0.0,
+        -0.0
+      ],
+      "bytes": 107564,
+      "sha256": "7e279ae9b493e9f6a16d5d1a2e1cc40b628e9e01c29bf9d4f0ce12016cfdb9ff"
+    },
+    {
+      "id": "collect",
+      "peak": 0.56,
+      "rms": 0.07613956728876758,
+      "firstSample": [
+        0.0,
+        0.0
+      ],
+      "lastSample": [
+        -0.0,
+        -0.0
+      ],
+      "bytes": 34604,
+      "sha256": "c2100ffc39f2f19caef0ed2d45187d1dac57551b3125ccb5fc9a1fe11d3e3c9d"
+    },
+    {
+      "id": "record",
+      "peak": 0.49158381461949774,
+      "rms": 0.08479803854513106,
+      "firstSample": [
+        -0.0,
+        0.0
+      ],
+      "lastSample": [
+        0.0,
+        -0.0
+      ],
+      "bytes": 59564,
+      "sha256": "66be3c9f0b864e0a56b12aa145b5f8ca3bc9aa2680cf6909a2d99545457e7c55"
+    },
+    {
+      "id": "burst",
+      "peak": 0.5325810804308545,
+      "rms": 0.08497035363090445,
+      "firstSample": [
+        0.0,
+        -0.0
+      ],
+      "lastSample": [
+        0.0,
+        0.0
+      ],
+      "bytes": 94124,
+      "sha256": "03048c9b289b03b46649ac81d3b4e251d9b1d1500bab93cc5e0cbbcf6ac93a9f"
+    }
+  ],
+  "notes": [
+    "Seven short source excerpts with spectral bed attenuation; mixed-source residue may remain.",
+    "Record and burst use only source envelope and broad spectral shape with generated noise.",
+    "No auditory review was possible; signal checks do not prove perceptual identity."
+  ]
+}

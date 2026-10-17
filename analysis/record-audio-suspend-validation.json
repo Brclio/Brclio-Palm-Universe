@@ -1,10 +1,11 @@
 {
-  "tested_at": "2026-10-17T08:21:55.308Z",
+  "tested_at": "2026-10-17T09:10:58.446Z",
   "purpose": "Focused real-browser regression after excluding the play button from the global context unlock handler",
   "source_sha256": {
-    "app.js": "00805114f96650d7b7f00efe1b96a205cdf235e1e2e1870a05f14d0e98fb9a49",
+    "app.js": "092e08e846565f83a897352363a82b0e215cfab816eb4f1f67ab41f84a6169b2",
     "public/scene.js": "4dac443eaef696cc99089633232f3981f1631d519268cceef996cc04e674c9cd",
-    "public/record-audio.js": "a8296568121eceb302381dc9e84ed27b31507acae9e16b84a780ecff79f7653f"
+    "public/record-audio.js": "8811e650f671d89b021169295cf60a2d688007b0c4be0d715b255005b6d1b1b0",
+    "public/interaction-audio.js": "2dd4e92edebe72cbde3af67538498342cb5d9c24a9d5038f233afc9c6ff7d361"
   },
   "browser_autoplay_policy": "Default Chrome; no autoplay-policy override",
   "setup": "Full record stage reached through real mouse events; AudioContext.suspend() explicitly simulates OS/browser suspension.",
@@ -34,16 +35,16 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.41066666666666585,
+        "currentTime": 0.4053333333333349,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
       "videoPaused": false,
-      "videoTime": 0.392131,
+      "videoTime": 0.390974,
       "recordPlaying": true,
-      "rms": 3.653691981180541e-05,
+      "rms": 0.00003665879433863983,
       "sameSource": true
     },
     {
@@ -52,16 +53,16 @@
         "ready": true,
         "active": true,
         "playing": false,
-        "currentTime": 0.41066666666666585,
+        "currentTime": 0.4053333333333349,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": true
       },
       "context": "suspended",
       "videoPaused": true,
-      "videoTime": 0.400148,
+      "videoTime": 0.401325,
       "recordPlaying": false,
-      "rms": 3.653691981180541e-05,
+      "rms": 0.00003665879433863983,
       "sameSource": true
     },
     {
@@ -70,16 +71,16 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.7786666666666662,
+        "currentTime": 0.7573333333333334,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
       "videoPaused": false,
-      "videoTime": 0.752053,
+      "videoTime": 0.742763,
       "recordPlaying": true,
-      "rms": 3.5733475243660944e-05,
+      "rms": 0.00003710373683097411,
       "sameSource": true
     },
     {
@@ -88,14 +89,14 @@
         "ready": true,
         "active": true,
         "playing": false,
-        "currentTime": 0.8106666666666662,
+        "currentTime": 0.7840000000000007,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
       "videoPaused": true,
-      "videoTime": 0.800039,
+      "videoTime": 0.784163,
       "recordPlaying": false,
       "rms": 0,
       "sameSource": false
@@ -106,19 +107,18 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 1.0666666666666664,
+        "currentTime": 1.0346666666666664,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
       "videoPaused": false,
-      "videoTime": 1.039496,
+      "videoTime": 1.025259,
       "recordPlaying": true,
-      "rms": 0.03089892129713177,
+      "rms": 0.03286731097861595,
       "sameSource": false
     }
   ],
-  "page_errors": [],
-  "measurement_note": "A suspended AudioContext freezes analyser samples as well as its clock; the cached RMS during suspension is not evidence of ongoing output. Suspension is checked through context.state, stopped currentTime and paused record video."
+  "page_errors": []
 }
