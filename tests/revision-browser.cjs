@@ -6,10 +6,10 @@ const { createHash } = require('node:crypto');
 const { chromium } = require('/Users/bornforthis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 
 const root = path.resolve(__dirname, '..');
-const sourceSha256 = Object.fromEntries(['app.js','public/scene.js','public/gesture-sequence.js','public/reference-effects.js','public/record-audio.js','public/interaction-audio.js','public/audio/sfx/manifest.json'].map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));
+const sourceSha256 = Object.fromEntries(['app.js','public/scene.js','public/gesture-sequence.js','public/objects-3d.js','public/models/celestial.js','public/models/sculpted.js','public/models/lunar-surface.js','public/vendor/three/three.module.js','public/vendor/three/three.core.js','public/record-audio.js','public/interaction-audio.js','public/audio/sfx/manifest.json'].map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));
 const baseURL = process.env.INTERACTION_TEST_URL || 'http://localhost:5173/';
-const checks = [], pageErrors = [], httpErrors = [], externalFailures = [];
-const states = [], screenshots = [], dynamicTextures = [], phaseFadeEvidence = [], audioEvidence = [], sfxEvidence = [];
+const checks = [], pageErrors = [], httpErrors = [], externalFailures = [], webglErrors = [], requests = [], geometryEvidence = [];
+const states = [], screenshots = [], animationEvidence = [], phaseFadeEvidence = [], audioEvidence = [], sfxEvidence = [];
 let browser;
 
 function installAudioObservation(){
@@ -42,7 +42,7 @@ async function sampleAudio(page,label){
     let rms=0;if(p.analyser){const samples=new Float32Array(p.analyser.fftSize);p.analyser.getFloatTimeDomainData(samples);rms=Math.sqrt(samples.reduce((sum,x)=>sum+x*x,0)/samples.length);}
     const channelSources=p.sources.filter(x=>p.edges.some(e=>e.from===x.node&&e.to===a._gain));
     const live=channelSources.filter(x=>!x.stopped&&!x.ended),connected=live.some(x=>p.edges.some(e=>e.from===x.node&&p.edges.some(f=>f.from===e.to&&f.to===ctx?.destination)));
-    return {state:a.state,contextState:ctx?.state||'not-created',starts:channelSources.length,stops:channelSources.filter(x=>x.stopped||x.ended).length,liveSources:live.length,allChannelsLiveSources:p.sources.filter(x=>!x.stopped&&!x.ended).length,connectedToDestination:connected,rms,recordPlaying:window.palmUniverse.scene.recordPlaying,recordVideoPaused:window.palmUniverse.scene.reference?.recordVideo.paused,recordVideoTime:window.palmUniverse.scene.reference?.recordVideo.currentTime,mediaElementPaused:document.querySelector('#music').paused};
+    return {state:a.state,contextState:ctx?.state||'not-created',starts:channelSources.length,stops:channelSources.filter(x=>x.stopped||x.ended).length,liveSources:live.length,allChannelsLiveSources:p.sources.filter(x=>!x.stopped&&!x.ended).length,connectedToDestination:connected,rms,recordPlaying:window.palmUniverse.scene.recordPlaying,recordAnimationPlaying:window.palmUniverse.scene.objects3d.recordPlaying,recordClock:window.palmUniverse.scene.objects3d.recordClock,mediaElementPaused:document.querySelector('#music').paused};
   });if(label)audioEvidence.push({event:label,...result});return result;
 }
 const SFX_IDS=['summon','sweepSun','sweepMoon','grab','release','phases','collect','record','burst'];
@@ -66,7 +66,7 @@ async function verifyIndependentSfxMute(page){
   const initial=await sampleAudio(page),before=await sampleSfx(page);
   await page.locator('#sfx-toggle').click();await page.waitForTimeout(100);
   const muted=await sampleSfx(page,'sfx-mute-during-record'),song=await sampleAudio(page,'song-continues-with-sfx-muted');
-  assert.equal(muted.state.enabled,false);assert.equal(muted.state.activeVoices,0);assert.equal(song.state.playing,true);assert.ok(song.state.currentTime>initial.state.currentTime);assert.ok(song.rms>1e-5);assert.equal(song.recordVideoPaused,false);
+  assert.equal(muted.state.enabled,false);assert.equal(muted.state.activeVoices,0);assert.equal(song.state.playing,true);assert.ok(song.state.currentTime>initial.state.currentTime);assert.ok(song.rms>1e-5);assert.equal(song.recordAnimationPlaying,true);
   await page.locator('#sfx-toggle').click();await page.waitForTimeout(100);const unmuted=await sampleSfx(page,'sfx-reenable-does-not-replay');
   assert.equal(unmuted.state.enabled,true);assert.equal(unmuted.state.history.length,before.state.history.length);assert.equal(unmuted.voices.length,before.voices.length);
 }
@@ -81,10 +81,10 @@ async function verifyRecordAudio(page,label){
   audioEvidence.push({event:label,...result});assert.equal(result.state.active,true);assert.equal(result.contextState,'running');assert.equal(result.connectedToDestination,true,'BufferSource must connect through gain to actual destination');assert.ok(result.rms>1e-5,'actual output analyser must see song energy');assert.ok(result.state.currentTime>.15);assert.equal(result.recordPlaying,true);assert.equal(result.mediaElementPaused,true);return result;
 }
 async function verifyRecordPauseResume(page){
-  await page.locator('#music-toggle').click();await page.waitForTimeout(100);const before=await sampleAudio(page);
+  await page.locator('#music-toggle').click();await page.waitForTimeout(100);const before=await sampleAudio(page),before3d=await sample3d(page);
   await pointer(page,.8,.2);await page.mouse.down();await page.waitForTimeout(30);await page.mouse.up();await page.waitForTimeout(300);const after=await sampleAudio(page,'record-user-pause-stays-paused');
-  assert.equal(after.state.active,true);assert.equal(after.state.playing,false);assert.ok(Math.abs(after.state.currentTime-before.state.currentTime)<.025);assert.equal(after.liveSources,0);assert.ok(after.rms<1e-5);assert.equal(after.recordVideoPaused,true);assert.ok(Math.abs(after.recordVideoTime-before.recordVideoTime)<.025,'record visual stops with music');
-  await page.locator('#music-toggle').click();await verifyRecordAudio(page,'record-user-resume');await verifyTexturePlayback(page,'pan');
+  assert.equal(after.state.active,true);assert.equal(after.state.playing,false);assert.ok(Math.abs(after.state.currentTime-before.state.currentTime)<.025);assert.equal(after.liveSources,0);assert.ok(after.rms<1e-5);assert.equal(after.recordAnimationPlaying,false);assert.ok(Math.abs(after.recordClock-before.recordClock)<.025,'record 3D animation stops with music');const after3d=await sample3d(page);assert.deepEqual(after3d.recordUniformTimes,before3d.recordUniformTimes,'paused record light shaders freeze');assert.equal(after3d.recordRotation,before3d.recordRotation,'paused solid platter freezes');
+  await page.locator('#music-toggle').click();await verifyRecordAudio(page,'record-user-resume');await verify3dAnimation(page,'pan');
 }
 
 async function check(id, name, fn) {
@@ -92,6 +92,8 @@ async function check(id, name, fn) {
   catch (error) { checks.push({ id, name, passed: false, error: error.message }); console.error(`FAIL ${id}: ${name}\n${error.stack}`); }
 }
 function observe(page, label) {
+  page.on('request', request=>requests.push({page:label,url:request.url(),type:request.resourceType()}));
+  page.on('console', message=>{if(/WebGL.*(?:error|invalid)|Shader Error|VALIDATE_STATUS|compile.*shader|shader.*compil/i.test(message.text()))webglErrors.push({page:label,type:message.type(),message:message.text()});});
   page.on('pageerror', error => pageErrors.push({ page: label, error: error.message }));
   page.on('response', response => { if (response.status() >= 400) httpErrors.push({ page: label, status: response.status(), url: response.url() }); });
   page.on('requestfailed', request => {
@@ -121,7 +123,7 @@ async function state(page, label) {
       status: document.querySelector('#status-text').textContent,
       modeButtons: document.querySelectorAll('button.mode').length,
       sceneSize: {w:scene.w,h:scene.h},
-      referenceLoaded: Boolean(scene.reference?.star && scene.reference?.record),
+      objects3d: scene.objects3d.state,
       restartHidden: document.querySelector('#restart').hidden,
     };
   });
@@ -154,53 +156,63 @@ async function move(page, from, to, seconds = .4) {
 }
 async function verifyPhasesDrawing(page) {
   const drawing = await page.evaluate(() => {
-    const scene = window.palmUniverse.scene, calls = [], original = scene.drawMoon;
-    scene.drawMoon = function(x, y, r, texture, alpha) {
-      calls.push({ x: x / scene.w, y: y / scene.h, r, texture: scene.textures.indexOf(texture), alpha });
-      return original.call(this, x, y, r, texture, alpha);
-    };
-    try { scene.draw(); } finally { scene.drawMoon = original; }
-    return { calls, anchor: scene.sequenceSnapshot.phaseAnchor, progress: scene.sequenceSnapshot.phaseProgress };
+    const scene=window.palmUniverse.scene;scene.draw();
+    return {calls:scene.objects3d.state.activeObjects.filter(c=>c.kind==='moon').map(c=>({...c,x:c.x/scene.w,y:c.y/scene.h})),anchor:scene.sequenceSnapshot.phaseAnchor,progress:scene.sequenceSnapshot.phaseProgress};
   });
-  assert.equal(drawing.calls.length, 5, 'fully unfolded drawing must have exactly five moons');
-  assert.ok(drawing.calls.every(call => Math.abs(call.y - drawing.anchor.y) < .001), 'all five phases must stay at release height');
-  assert.deepEqual(drawing.calls.map(call => call.texture), [8, 7, 6, 5, 4], 'phases must progress from dark/right crescent to full moon');
-  samePoint(drawing.calls[4], drawing.anchor, 'rightmost full moon must remain at release anchor');
-  for (let i = 1; i < 5; i++) assert.ok(drawing.calls[i].x > drawing.calls[i - 1].x, 'phase order must run left to right');
+  assert.equal(drawing.calls.length,5,'fully unfolded 3D drawing must have exactly five moons');
+  assert.ok(drawing.calls.every(call=>Math.abs(call.y-drawing.anchor.y)<.001),'all five phases must stay at release height');
+  assert.deepEqual(drawing.calls.map(call=>call.phase),[1,.75,.5,.25,0],'five spherical light phases progress from dark to full');
+  samePoint(drawing.calls[4],drawing.anchor,'rightmost full moon remains at release anchor');
+  for(let i=1;i<5;i++)assert.ok(drawing.calls[i].x>drawing.calls[i-1].x,'phase order runs left to right');
   return drawing;
 }
+
 async function saveScreenshot(page, name) {
   const output = path.join(root, 'analysis', name);
   await page.screenshot({ path: output, fullPage: true }); screenshots.push(output);
 }
 
 
-async function verifyTexturePlayback(page, expectedMode) {
-  const sample = () => page.evaluate(() => Object.fromEntries(['sun','pan'].map(mode=>{
-    const v=window.palmUniverse.scene.reference[mode==='sun'?'sunVideo':'recordVideo'];
-    return [mode,{time:v.currentTime,paused:v.paused,readyState:v.readyState,frames:v.getVideoPlaybackQuality().totalVideoFrames,duration:v.duration}];
-  })));
-  if(expectedMode)await page.waitForFunction(mode=>{
-    const r=window.palmUniverse.scene.reference,v=mode==='sun'?r.sunVideo:r.recordVideo;return v.readyState>=2&&!v.paused;
-  },expectedMode);
-  await page.waitForTimeout(80);const before=await sample();await page.waitForTimeout(310);const after=await sample();
-  for(const mode of ['sun','pan']){
-    if(mode===expectedMode){assert.equal(after[mode].paused,false);assert.ok(after[mode].frames>before[mode].frames||Math.abs(after[mode].time-before[mode].time)>.04,mode+' source motion must advance');}
-    else {assert.equal(after[mode].paused,true,mode+' source texture must pause offstage');assert.ok(Math.abs(after[mode].time-before[mode].time)<.025,mode+' paused texture must stop advancing');}
-  }
-  dynamicTextures.push({expectedMode,before,after});
+async function sample3d(page) {
+  return page.evaluate(()=>{
+    const o=window.palmUniverse.scene.objects3d;
+    const times=kind=>{const values=[];o.pools[kind][0].object.traverse(n=>{for(const m of n.material?(Array.isArray(n.material)?n.material:[n.material]):[])if(m.uniforms?.uTime)values.push(m.uniforms.uTime.value);});return values;};
+    return {...o.state,sunUniformTimes:times('sun'),recordUniformTimes:times('record'),recordRotation:o.pools.record[0].object.getObjectByName('Grooved solid vinyl platter').rotation.z};
+  });
+}
+async function verify3dAnimation(page, expectedMode) {
+  if(expectedMode!=='sun')await page.waitForFunction(()=>{const s=window.palmUniverse.scene;return s.transition?.mode!=='sun'||s.time-s.transition.start>=.50;});
+  await page.waitForTimeout(80);const before=await sample3d(page);await page.waitForTimeout(310);const after=await sample3d(page);
+  assert.ok(after.ready);assert.ok(after.clock>before.clock,'3D animation clock advances');
+  if(expectedMode==='sun'){
+    assert.ok(after.sunClock>before.sunClock+.04,'solar clock advances on stage');
+    assert.ok(after.sunUniformTimes.length>0);assert.ok(after.sunUniformTimes.every((t,i)=>t>before.sunUniformTimes[i]+.04),'actual solar shader uniforms advance');
+  }else assert.ok(Math.abs(after.sunClock-before.sunClock)<.025,'solar clock pauses offstage');
+  if(expectedMode==='pan'){
+    assert.equal(after.recordPlaying,true);assert.ok(after.recordClock>before.recordClock+.04);
+    assert.ok(after.recordUniformTimes.length>0);assert.ok(after.recordUniformTimes.every((t,i)=>t>before.recordUniformTimes[i]+.04),'actual record light shaders animate');
+    assert.ok(Math.abs(after.recordRotation-before.recordRotation)>.004,'actual solid vinyl platter rotates');
+  }else{assert.equal(after.recordPlaying,false);assert.ok(Math.abs(after.recordClock-before.recordClock)<.025,'record clock pauses offstage');}
+  animationEvidence.push({expectedMode,before,after});
 }
 async function verifyPhaseFade(page) {
-  const sample=()=>page.evaluate(()=>{
-    const scene=window.palmUniverse.scene,calls=[],original=scene.drawMoon;
-    scene.drawMoon=function(x,y,r,texture,alpha){calls.push({x:x/scene.w,y:y/scene.h,texture:scene.textures.indexOf(texture),alpha:scene.ctx.globalAlpha});return original.call(this,x,y,r,texture,alpha);};
-    try{scene.draw();}finally{scene.drawMoon=original;}
-    return calls.filter(call=>call.texture>=5);
-  });
+  const sample=()=>page.evaluate(()=>{const s=window.palmUniverse.scene;s.draw();return s.objects3d.state.activeObjects.filter(c=>c.kind==='moon'&&c.phase>0).map(c=>({...c,x:c.x/s.w,y:c.y/s.h}));});
   const before=await sample();await page.waitForTimeout(140);const after=await sample();
-  assert.equal(before.length,4,'held full moon leaves four stationary phase ghosts');assert.equal(after.length,4);
-  for(let i=0;i<4;i++){samePoint(after[i],before[i],'remaining phase position must stay fixed during fade');assert.ok(after[i].alpha<before[i].alpha,'remaining phases must fade instead of collapsing spatially');}
+  assert.equal(before.length,4,'held full moon leaves four stationary 3D phase ghosts');assert.equal(after.length,4);
+  for(let i=0;i<4;i++){samePoint(after[i],before[i],'remaining phase position stays fixed during fade');assert.ok(after[i].opacity<before[i].opacity,'remaining 3D phases fade without spatial collapse');}
   phaseFadeEvidence.push({before,after});
+}
+async function inspectGeometry(page,label) {
+  const result=await page.evaluate(()=>{
+    const o=window.palmUniverse.scene.objects3d,models={};
+    for(const [kind,pool] of Object.entries(o.pools)){
+      const meshes=[];pool[0].object.traverse(n=>{if(!n.isMesh||!n.geometry)return;const p=n.geometry.getAttribute('position');let min=Infinity,max=-Infinity;for(let i=0;i<p.count;i++){min=Math.min(min,p.getZ(i));max=Math.max(max,p.getZ(i));}meshes.push({name:n.name,type:n.geometry.type,vertices:p.count,zMin:min,zMax:max,hasNormals:Boolean(n.geometry.getAttribute('normal'))});});models[kind]=meshes;
+    }
+    const externalTextures=[];o.scene.traverse(n=>{for(const m of n.material?(Array.isArray(n.material)?n.material:[n.material]):[]){const values=[...Object.values(m),...Object.values(m.uniforms||{}).map(v=>v.value)];for(const texture of values)if(texture?.isTexture&&(texture.image instanceof HTMLImageElement||texture.image instanceof HTMLVideoElement))externalTextures.push(texture.image.src);}});
+    return {models,externalTextures,webgl2:o.renderer.getContext() instanceof WebGL2RenderingContext,glError:o.renderer.getContext().getError(),programs:o.renderer.info.programs.map(p=>({name:p.name,runnable:p.diagnostics?.runnable??true}))};
+  });
+  for(const kind of ['star','sun','moon','record']){assert.ok(result.models[kind].some(m=>m.vertices>100&&m.zMax-m.zMin>.01&&m.hasNormals),kind+' must contain real volume geometry with normals');}
+  assert.deepEqual(result.externalTextures,[],'all texture pixels are code generated');assert.equal(result.webgl2,true);assert.equal(result.glError,0);assert.ok(result.programs.length>0);assert.ok(result.programs.every(p=>p.runnable),'all GPU programs compile');geometryEvidence.push({label,...result});return result;
 }
 
 const trackerMock = `
@@ -283,11 +295,11 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     await page.mouse.down(); await page.waitForTimeout(360); await stage(page, 'star', 'pointer-star'); await page.mouse.up();
     await page.waitForTimeout(650); await saveScreenshot(page, 'revision-star.png');
     await pointer(page, .20, .6); await page.waitForTimeout(500);
-    await move(page, { x: .20, y: .6 }, { x: .75, y: .6 }, .4); await stage(page, 'sun', 'pointer-sun'); await page.waitForTimeout(650); await verifyTexturePlayback(page,'sun'); await saveScreenshot(page, 'revision-sun.png');
+    await move(page, { x: .20, y: .6 }, { x: .75, y: .6 }, .4); await stage(page, 'sun', 'pointer-sun'); await page.waitForTimeout(650); await verify3dAnimation(page,'sun'); await saveScreenshot(page, 'revision-sun.png');
     await move(page, { x: .75, y: .6 }, { x: .20, y: .6 }, .45); await page.waitForTimeout(180);
     await move(page, { x: .20, y: .6 }, { x: .75, y: .6 }, .4); result = await stage(page, 'moon', 'pointer-moon');
     const moon = result.snapshot.target;
-    await verifyTexturePlayback(page,null);
+    await verify3dAnimation(page,null);
     await saveScreenshot(page, 'revision-moon.png');
     await pointer(page, moon.x, moon.y); await page.mouse.down(); await page.waitForTimeout(220); await stage(page, 'moonHeld', 'pointer-moon-held');
     const loose = (await state(page)).snapshot.scale; await page.waitForTimeout(500);
@@ -314,31 +326,24 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     await page.mouse.up(); await page.waitForTimeout(200); result = await stage(page, 'pan', 'pointer-pan-drop');
     samePoint(result.snapshot.panOrigin, { x: .25, y: .25 }, 'pan drop must start at raised pointer release');
     assert.ok(result.target.x < .25 && result.target.y > .25, 'pan must settle below-left of raised pointer');
-    const settled = { ...result.target }; await verifyRecordAudio(page,'mouse-record-auto-start'); await verifyIndependentSfxMute(page); await verifyRecordPauseResume(page); await page.waitForTimeout(550); await verifyTexturePlayback(page,'pan'); await saveScreenshot(page, 'revision-record.png');
+    const settled = { ...result.target }; await verifyRecordAudio(page,'mouse-record-auto-start'); await verifyIndependentSfxMute(page); await verifyRecordPauseResume(page); await page.waitForTimeout(550); await verify3dAnimation(page,'pan'); await saveScreenshot(page, 'revision-record.png');
     await pointer(page, settled.x, settled.y); await page.mouse.down(); await page.waitForTimeout(180); await page.mouse.up();
     result = await stage(page, 'burst', 'pointer-burst'); assert.equal(result.mode, null); assert.ok(result.particles > 0, 'burst must produce visible particles');
-    await saveScreenshot(page, 'revision-burst.png'); await page.waitForTimeout(450); await assertAudioSilent(page,'mouse-burst-faded-and-stopped'); await verifyTexturePlayback(page,null); await page.waitForTimeout(4300); result = await state(page, 'pointer-finale-empty');
+    await saveScreenshot(page, 'revision-burst.png'); await page.waitForTimeout(450); await assertAudioSilent(page,'mouse-burst-faded-and-stopped'); await verify3dAnimation(page,null); await page.waitForTimeout(4300); result = await state(page, 'pointer-finale-empty');
     assert.equal(result.snapshot.stage, 'burst'); assert.equal(result.mode, null); assert.equal(result.particles, 0);
     await assertSfxSequence(page,sfxStart,'mouse-nine-cues-once');
     await page.locator('#restart').click(); result = await stage(page, 'idle', 'pointer-reset');
     assert.equal(result.mode, null); assert.equal(result.snapshot.held, false); assert.equal(result.modeButtons, 0);
   });
 
-  await check('motion-and-phase-rendering', '太阳与唱片动态纹理按阶段播放，抓取后四个月相固定位置淡出', async () => {
-    assert.ok(dynamicTextures.length>=4);assert.equal(phaseFadeEvidence.length,1);
+  await check('motion-and-phase-rendering', '太阳和黑胶真实3D材质随独立时钟动画，四个月相固定位置淡出', async () => {
+    assert.ok(animationEvidence.length>=4);assert.equal(phaseFadeEvidence.length,1);
   });
 
-  await check('source-assets-and-stage', '原片素材成功加载，主操作画布保持16:9，流程无跳级按钮', async () => {
-    const result = await state(page); assert.equal(result.referenceLoaded, true);
-    assert.ok(Math.abs(result.sceneSize.w / result.sceneSize.h - 16 / 9) < .005);
-    assert.equal(result.modeButtons, 0);
-    const imageData = await page.evaluate(() => {
-      const image = window.palmUniverse.scene.reference.star;
-      const bytes = image.getContext('2d').getImageData(0,0,image.width,image.height).data;
-      let transparent = 0, opaque = 0; for(let i=3;i<bytes.length;i+=4){if(bytes[i]===0)transparent++;if(bytes[i]===255)opaque++;}
-      return {width:image.width,height:image.height,transparent,opaque};
-    });
-    assert.ok(imageData.transparent > 5000 && imageData.opaque > 5000, 'reference star must have a transparent shaped cutout and image pixels');
+  await check('independent-3d-models-and-stage', '全部图形为有体积的真实WebGL模型，着色器可编译，主舞台无视频/截图纹理', async () => {
+    const result=await state(page);assert.equal(result.objects3d.ready,true);
+    assert.ok(Math.abs(result.sceneSize.w/result.sceneSize.h-16/9)<.005);assert.equal(result.modeButtons,0);
+    await inspectGeometry(page,'desktop-real-3d-models');
     await page.locator('#guide-toggle').click(); await page.waitForTimeout(300);
     assert.equal(await page.locator('#gesture-guide').isVisible(), true);
     const time = await page.locator('#guide-video').evaluate(v=>v.currentTime); assert.ok(time>=14.5 && time<=16.7);
@@ -516,12 +521,13 @@ async function moveHand(page, kind, from, to, seconds = .5) {
       const box = await mobile.locator(selector).boundingBox();
       assert.ok(box && box.x >= 0 && box.y >= 0 && box.x + box.width <= metrics.width + 1 && box.y + box.height <= metrics.height + 1, `${selector} must be visible within mobile viewport`);
     }
-    await saveScreenshot(mobile, 'revision-mobile.png');
+    await inspectGeometry(mobile,'mobile-real-3d-models');await saveScreenshot(mobile, 'revision-mobile.png');
   });
 
   await check('browser-errors', '浏览器运行无JavaScript未捕获异常与HTTP 404/其他失败响应', async () => {
     assert.deepEqual(pageErrors, [], 'uncaught browser errors');
-    assert.deepEqual(httpErrors, [], 'HTTP errors');
+    assert.deepEqual(httpErrors, [], 'HTTP errors');assert.deepEqual(webglErrors,[],'WebGL and GLSL compile errors');
+    const forbidden=requests.filter(r=>{const pathname=new URL(r.url).pathname;return /\/public\/.*\.(?:png|jpe?g|webp|gif|mp4|webm)$/i.test(pathname)||pathname.endsWith('/reference-effects.js');});assert.deepEqual(forbidden,[],'main runtime must never request image or movie effect assets');
   });
 
   await browser.close(); browser = null;
@@ -537,7 +543,7 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     status: checks.every(check => check.passed) ? 'passed-browser-development-validation' : 'failed-browser-development-validation',
     summary: { total: checks.length, passed: checks.filter(check => check.passed).length, failed: checks.filter(check => !check.passed).length },
     test_results: checks, page_errors: pageErrors, http_errors: httpErrors, external_request_failures: externalFailures,
-    screenshots, recorded_states: states, dynamic_texture_observations: dynamicTextures, phase_fade_observations: phaseFadeEvidence, audio_observations: audioEvidence, sfx_observations: sfxEvidence, browser_autoplay_policy: 'Chrome default; no autoplay-policy override',
+    screenshots, recorded_states: states, real_3d_animation_observations: animationEvidence, geometry_observations: geometryEvidence, webgl_errors: webglErrors, runtime_requests: requests, phase_fade_observations: phaseFadeEvidence, audio_observations: audioEvidence, sfx_observations: sfxEvidence, browser_autoplay_policy: 'Chrome default; no autoplay-policy override',
     limitations: [
       '摄像头成功流程用显式HandTracker测试替身输入合成模型结果，未验证真实模型识别准确率或真实摄像头画质。',
       '摄像头权限拒绝使用getUserMedia测试替身；成功mock路径禁止调用真实getUserMedia。',

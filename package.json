@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server.mjs",
     "dev": "node server.mjs",
-    "check": "node --check app.js && node --check public/scene.js && node --check public/reference-effects.js && node --check public/record-audio.js && node --check public/interaction-audio.js && node --check public/gesture-sequence.js && node --check public/hand-tracking.js && node --check public/hand-tracking-worker.js && node --check server.mjs",
+    "check": "node --check app.js && node --check public/scene.js && node --check public/objects-3d.js && node --check public/models/celestial.js && node --check public/models/sculpted.js && node --check public/models/lunar-surface.js && node --check public/record-audio.js && node --check public/interaction-audio.js && node --check public/gesture-sequence.js && node --check public/hand-tracking.js && node --check public/hand-tracking-worker.js && node --check server.mjs",
     "test": "node tests/gesture-sequence.test.mjs && node tests/interaction-audio.test.mjs"
   }
 }

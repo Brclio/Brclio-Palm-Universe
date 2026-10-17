@@ -1,0 +1,1299 @@
+{
+  "tested_at": "2026-10-17T12:49:36.333Z",
+  "source_sha256": {
+    "public/scene.js": "3da489efe5ac273a16a87f5172f828f7c397cd6c8c7210a7c34e937e0f2108e0",
+    "index.html": "16216172cb9667e64ddc835727399eb868648f0921cf148f4c2f82068f788fd8",
+    "public/objects-3d.js": "fadbb5fe0f980c7a45e2f5dc9cf96d01ea231e428ee5209f9babc4215f18f0d4",
+    "public/models/sculpted.js": "c934f2165c031e76c5868d56d590f73f41ac7d87e102bb300cd2a08d38bd2432",
+    "public/models/celestial.js": "0380fee20080626a6eb5ea097fc079eec7e9b848849f4d1a17af054366c3bfed",
+    "public/models/lunar-surface.js": "9c05263d305f9938fb41d5588acd1acf1e75e84830a30865ed0304b48fe3f0c8",
+    "public/vendor/three/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+    "public/vendor/three/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6"
+  },
+  "setup": "Isolated live Objects3D renderer fixture on the actual app canvas; requestAnimationFrame drives real GPU meshes. This is model/rendering verification only; full pointer, camera mocks and audio are covered by revision-browser-validation.json.",
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0
+  },
+  "test_results": [
+    {
+      "id": "actual-scene-solar-exit-keeps-animating-then-stops",
+      "passed": true
+    },
+    {
+      "id": "real-volume-meshes-and-procedural-materials",
+      "passed": true
+    },
+    {
+      "id": "five-model-screenshots-and-shader-compilation",
+      "passed": true
+    },
+    {
+      "id": "solar-shader-clock",
+      "passed": true
+    },
+    {
+      "id": "record-shader-and-solid-pause-resume",
+      "passed": true
+    },
+    {
+      "id": "record-reset-clears-actual-animation-state",
+      "passed": true
+    },
+    {
+      "id": "no-image-video-effect-downloads-or-browser-errors",
+      "passed": true
+    }
+  ],
+  "observations": [
+    {
+      "label": "solar-exit-fading",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 1.6493000000000002,
+      "sunClock": 0.45,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 3,
+      "triangles": 23856,
+      "activeObjects": [
+        {
+          "kind": "sun",
+          "phase": null,
+          "x": 1300.4582201475891,
+          "y": 360.9359448756411,
+          "radius": 74.62125,
+          "opacity": 0.5334000000000003
+        },
+        {
+          "kind": "moon",
+          "phase": 0,
+          "x": 897.2582201475892,
+          "y": 360.9359448756411,
+          "radius": 75.375,
+          "opacity": 0.4241818181818179
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        0.45,
+        0.45
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "solar-exit-finished",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 2.3158999999999987,
+      "sunClock": 0.7166,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 1,
+      "triangles": 12096,
+      "activeObjects": [
+        {
+          "kind": "moon",
+          "phase": 0,
+          "x": 976.5911431670515,
+          "y": 354.25291220665684,
+          "radius": 75.375,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        0.7000000000000001,
+        0.7000000000000001
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "model-geometry",
+      "models": {
+        "star": [
+          {
+            "name": "Closed rounded five-lobed solid",
+            "vertices": 19520,
+            "zRange": 0.5599999874830246,
+            "normal": true
+          }
+        ],
+        "sun": [
+          {
+            "name": "Convective photosphere",
+            "vertices": 3577,
+            "zRange": 2,
+            "normal": true
+          },
+          {
+            "name": "Volumetric solar corona",
+            "vertices": 2665,
+            "zRange": 2.700000047683716,
+            "normal": true
+          }
+        ],
+        "moon": [
+          {
+            "name": "Lunar surface — sphere with relief and phase lighting",
+            "vertices": 6305,
+            "zRange": 2,
+            "normal": true
+          }
+        ],
+        "record": [
+          {
+            "name": "",
+            "vertices": 93026,
+            "zRange": 0.05299999937415123,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 1737,
+            "zRange": 0.007000000216066837,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 1771,
+            "zRange": 0.01141267828643322,
+            "normal": true
+          },
+          {
+            "name": "Lunar surface — sphere with relief and phase lighting",
+            "vertices": 6305,
+            "zRange": 2,
+            "normal": true
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "vertices": 578,
+            "zRange": 0,
+            "normal": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "vertices": 578,
+            "zRange": 0,
+            "normal": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "vertices": 578,
+            "zRange": 0,
+            "normal": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "vertices": 578,
+            "zRange": 0,
+            "normal": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "vertices": 578,
+            "zRange": 0,
+            "normal": false
+          },
+          {
+            "name": "",
+            "vertices": 244,
+            "zRange": 0.10400000214576721,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 539,
+            "zRange": 0.017119016498327255,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 369,
+            "zRange": 0.00800000037997961,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 244,
+            "zRange": 0.03999999910593033,
+            "normal": true
+          },
+          {
+            "name": "Single continuous metal arm tube",
+            "vertices": 1209,
+            "zRange": 0.09994316101074219,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 148,
+            "zRange": 0.04600000008940697,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 708,
+            "zRange": 0.034999999683350325,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 24,
+            "zRange": 0.003000000026077032,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 24,
+            "zRange": 0.003000000026077032,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 24,
+            "zRange": 0.0020000000949949026,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 24,
+            "zRange": 0.0020000000949949026,
+            "normal": true
+          },
+          {
+            "name": "",
+            "vertices": 35,
+            "zRange": 0.014000000432133675,
+            "normal": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "star-render",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 2.8026999999999975,
+      "sunClock": 0.7166,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 1,
+      "triangles": 38400,
+      "activeObjects": [
+        {
+          "kind": "star",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 93.15,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        0.7000000000000001,
+        0.7000000000000001
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "sun-render",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 3.1693999999999973,
+      "sunClock": 1.0666000000000004,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 2,
+      "triangles": 11760,
+      "activeObjects": [
+        {
+          "kind": "sun",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 93.15,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        1.0666000000000004,
+        1.0666000000000004
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "moon-render",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 3.5360999999999962,
+      "sunClock": 1.0666000000000004,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 1,
+      "triangles": 12096,
+      "activeObjects": [
+        {
+          "kind": "moon",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 93.15,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        1.0666000000000004,
+        1.0666000000000004
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "phases-render",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 3.885999999999995,
+      "sunClock": 1.0666000000000004,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 5,
+      "triangles": 60480,
+      "activeObjects": [
+        {
+          "kind": "moon",
+          "phase": 1,
+          "x": 259.2,
+          "y": 421.2,
+          "radius": 55.080000000000005,
+          "opacity": 1
+        },
+        {
+          "kind": "moon",
+          "phase": 0.75,
+          "x": 489.59999999999997,
+          "y": 421.2,
+          "radius": 55.080000000000005,
+          "opacity": 1
+        },
+        {
+          "kind": "moon",
+          "phase": 0.5,
+          "x": 720,
+          "y": 421.2,
+          "radius": 55.080000000000005,
+          "opacity": 1
+        },
+        {
+          "kind": "moon",
+          "phase": 0.25,
+          "x": 950.3999999999999,
+          "y": 421.2,
+          "radius": 55.080000000000005,
+          "opacity": 1
+        },
+        {
+          "kind": "moon",
+          "phase": 0,
+          "x": 1180.8000000000002,
+          "y": 421.2,
+          "radius": 55.080000000000005,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        1.0666000000000004,
+        1.0666000000000004
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "record-render",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 4.302599999999999,
+      "sunClock": 1.0666000000000004,
+      "recordClock": 0.4166000000000004,
+      "recordPlaying": true,
+      "drawCalls": 21,
+      "triangles": 210476,
+      "activeObjects": [
+        {
+          "kind": "record",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 178.2,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.46803615261734194,
+        0.03497858217561863,
+        0.8830167940827286
+      ],
+      "recordMoonRotation": [
+        0.00006955182692581958,
+        -1.5705905279807963,
+        0
+      ],
+      "sunTimes": [
+        1.0666000000000004,
+        1.0666000000000004
+      ],
+      "recordTimes": [
+        0.4000000000000001,
+        0.4000000000000001,
+        0.4000000000000001,
+        0.4000000000000001,
+        0.4000000000000001
+      ],
+      "rotation": -0.04400000000000001,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "sun-dynamic",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 4.919300000000006,
+      "sunClock": 1.6332999999999986,
+      "recordClock": 0.4666000000000004,
+      "recordPlaying": false,
+      "drawCalls": 2,
+      "triangles": 11760,
+      "activeObjects": [
+        {
+          "kind": "sun",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 93.15,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.47323008523508664,
+        0.034978582175618625,
+        0.8802441622739545
+      ],
+      "recordMoonRotation": [
+        0.00007824575357216307,
+        -1.5705648034834134,
+        0
+      ],
+      "sunTimes": [
+        1.6332999999999986,
+        1.6332999999999986
+      ],
+      "recordTimes": [
+        0.45000000000000007,
+        0.45000000000000007,
+        0.45000000000000007,
+        0.45000000000000007,
+        0.45000000000000007
+      ],
+      "rotation": -0.04950000000000001,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "record-playing",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 5.469300000000011,
+      "sunClock": 1.649899999999999,
+      "recordClock": 1.0000000000000004,
+      "recordPlaying": true,
+      "drawCalls": 21,
+      "triangles": 210476,
+      "activeObjects": [
+        {
+          "kind": "record",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 178.2,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.526203239399256,
+        0.034978582175618625,
+        0.8496391290628702
+      ],
+      "recordMoonRotation": [
+        0.0001709910201757547,
+        -1.5702903851168835,
+        0
+      ],
+      "sunTimes": [
+        1.649899999999999,
+        1.649899999999999
+      ],
+      "recordTimes": [
+        0.9834000000000002,
+        0.9834000000000002,
+        0.9834000000000002,
+        0.9834000000000002,
+        0.9834000000000002
+      ],
+      "rotation": -0.10817400000000002,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "record-paused",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 6.002500000000018,
+      "sunClock": 1.649899999999999,
+      "recordClock": 1.0000000000000004,
+      "recordPlaying": false,
+      "drawCalls": 21,
+      "triangles": 210476,
+      "activeObjects": [
+        {
+          "kind": "record",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 178.2,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.526203239399256,
+        0.034978582175618625,
+        0.8496391290628702
+      ],
+      "recordMoonRotation": [
+        0.0001709910201757547,
+        -1.5702903851168835,
+        0
+      ],
+      "sunTimes": [
+        1.649899999999999,
+        1.649899999999999
+      ],
+      "recordTimes": [
+        0.9834000000000002,
+        0.9834000000000002,
+        0.9834000000000002,
+        0.9834000000000002,
+        0.9834000000000002
+      ],
+      "rotation": -0.10817400000000002,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "record-resumed",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 6.219300000000021,
+      "sunClock": 1.649899999999999,
+      "recordClock": 1.2168000000000003,
+      "recordPlaying": true,
+      "drawCalls": 21,
+      "triangles": 210476,
+      "activeObjects": [
+        {
+          "kind": "record",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 178.2,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.5461726822950429,
+        0.034978582175618625,
+        0.8369419931534213
+      ],
+      "recordMoonRotation": [
+        0.00020868610068817004,
+        -1.5701788559297623,
+        0
+      ],
+      "sunTimes": [
+        1.649899999999999,
+        1.649899999999999
+      ],
+      "recordTimes": [
+        1.2002000000000002,
+        1.2002000000000002,
+        1.2002000000000002,
+        1.2002000000000002,
+        1.2002000000000002
+      ],
+      "rotation": -0.13202200000000003,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    },
+    {
+      "label": "record-reset",
+      "ready": true,
+      "backend": "WebGL2",
+      "clock": 0.11670000000000073,
+      "sunClock": 0,
+      "recordClock": 0,
+      "recordPlaying": false,
+      "drawCalls": 21,
+      "triangles": 210476,
+      "activeObjects": [
+        {
+          "kind": "record",
+          "phase": null,
+          "x": 720,
+          "y": 437.40000000000003,
+          "radius": 178.2,
+          "opacity": 1
+        }
+      ],
+      "imageAssets": [],
+      "videoTextures": 0,
+      "recordMoonLight": [
+        0.4255187411053022,
+        0.034978582175618625,
+        0.9042733545544412
+      ],
+      "recordMoonRotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "sunTimes": [
+        1.649899999999999,
+        1.649899999999999
+      ],
+      "recordTimes": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "rotation": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ],
+      "glError": 0
+    }
+  ],
+  "screenshots": [
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/3d-final-star.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/3d-final-sun.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/3d-final-moon.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/3d-final-phases.png",
+    "/Users/bornforthis/Github/WebSite/胡彦斌/analysis/3d-final-record.png"
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:5173/",
+    "http://127.0.0.1:5173/styles.css",
+    "http://127.0.0.1:5173/app.js",
+    "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+    "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+    "http://127.0.0.1:5173/public/scene.js",
+    "http://127.0.0.1:5173/public/record-audio.js",
+    "http://127.0.0.1:5173/public/interaction-audio.js",
+    "http://127.0.0.1:5173/public/gesture-sequence.js",
+    "http://127.0.0.1:5173/public/objects-3d.js",
+    "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+    "http://127.0.0.1:5173/public/models/celestial.js",
+    "http://127.0.0.1:5173/public/models/lunar-surface.js",
+    "http://127.0.0.1:5173/public/models/sculpted.js",
+    "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+    "http://127.0.0.1:5173/public/reference/hand-poses.json",
+    "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+    "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+    "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+    "http://127.0.0.1:5173/public/audio/sfx/burst.wav"
+  ]
+}

@@ -1,10 +1,15 @@
 {
-  "tested_at": "2026-10-17T09:10:21.308Z",
+  "tested_at": "2026-10-17T12:50:39.472Z",
   "source_sha256": {
     "app.js": "092e08e846565f83a897352363a82b0e215cfab816eb4f1f67ab41f84a6169b2",
-    "public/scene.js": "4dac443eaef696cc99089633232f3981f1631d519268cceef996cc04e674c9cd",
+    "public/scene.js": "3da489efe5ac273a16a87f5172f828f7c397cd6c8c7210a7c34e937e0f2108e0",
     "public/gesture-sequence.js": "ea0677d5b5d7fb1094465f666011a923c941c0b2d88368e2cd74058761446ab7",
-    "public/reference-effects.js": "16d519d28e4e1631a45890f0e995e0bf0e04392c3a4869e7d925040be0bd933e",
+    "public/objects-3d.js": "fadbb5fe0f980c7a45e2f5dc9cf96d01ea231e428ee5209f9babc4215f18f0d4",
+    "public/models/celestial.js": "0380fee20080626a6eb5ea097fc079eec7e9b848849f4d1a17af054366c3bfed",
+    "public/models/sculpted.js": "c934f2165c031e76c5868d56d590f73f41ac7d87e102bb300cd2a08d38bd2432",
+    "public/models/lunar-surface.js": "9c05263d305f9938fb41d5588acd1acf1e75e84830a30865ed0304b48fe3f0c8",
+    "public/vendor/three/three.module.js": "9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea",
+    "public/vendor/three/three.core.js": "9edde002b066a9a05676a6127f67735b62baf399bdea529f2f7e31657da769e6",
     "public/record-audio.js": "8811e650f671d89b021169295cf60a2d688007b0c4be0d715b255005b6d1b1b0",
     "public/interaction-audio.js": "2dd4e92edebe72cbde3af67538498342cb5d9c24a9d5038f233afc9c6ff7d361",
     "public/audio/sfx/manifest.json": "86540b9194878284021624f4be3c1ab1c8bdfa6c8a3297083f163769b13cf475"
@@ -31,12 +36,12 @@
     },
     {
       "id": "motion-and-phase-rendering",
-      "name": "太阳与唱片动态纹理按阶段播放，抓取后四个月相固定位置淡出",
+      "name": "太阳和黑胶真实3D材质随独立时钟动画，四个月相固定位置淡出",
       "passed": true
     },
     {
-      "id": "source-assets-and-stage",
-      "name": "原片素材成功加载，主操作画布保持16:9，流程无跳级按钮",
+      "id": "independent-3d-models-and-stage",
+      "name": "全部图形为有体积的真实WebGL模型，着色器可编译，主舞台无视频/截图纹理",
       "passed": true
     },
     {
@@ -132,7 +137,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 1.6657999999999993
+        "time": 2.732499999999998
       },
       "mode": null,
       "target": {
@@ -158,7 +163,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -182,15 +199,15 @@
         "panProgress": 0,
         "panOrigin": null,
         "burst": false,
-        "tracked": true,
+        "tracked": false,
         "releaseTarget": null,
         "releaseOrigin": null,
         "releaseProgress": 0,
         "releaseScale": 1,
         "burstTarget": null,
         "interaction": "waiting",
-        "hint": "四指收拢握拳，拇指可伸出，停留片刻召出星星",
-        "time": 1.6825999999999994
+        "hint": "把手放回镜头内；当前天体会留在原位",
+        "time": 2.732499999999998
       },
       "mode": null,
       "target": {
@@ -216,7 +233,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -248,7 +277,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 2.4324999999999988
+        "time": 3.5157999999999965
       },
       "mode": "star",
       "target": {
@@ -256,8 +285,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3923866142400363,
-        "y": 0.6133667131741612
+        "x": 0.3923866142400362,
+        "y": 0.6133667131741615
       },
       "down": true,
       "sequenceEnabled": true,
@@ -274,7 +303,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.7833000000000004,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 565.036724505652,
+            "y": 496.8270376710708,
+            "radius": 81.405,
+            "opacity": 0.5304545454545425
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -306,7 +356,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 4.332399999999997
+        "time": 5.499000000000012
       },
       "mode": "sun",
       "target": {
@@ -314,8 +364,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000408638146,
-        "y": 0.6349999637498419
+        "x": 0.36800002280876615,
+        "y": 0.6349999797664172
       },
       "down": false,
       "sequenceEnabled": true,
@@ -332,7 +382,36 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 2.7664999999999975,
+        "sunClock": 0.5000000000000002,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 50160,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 933.1050097319705,
+            "y": 514.349983610798,
+            "radius": 81.405,
+            "opacity": 0.033399999999987884
+          },
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 529.9050097319705,
+            "y": 514.349983610798,
+            "radius": 74.62125,
+            "opacity": 0.8787272727272837
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -364,7 +443,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-        "time": 6.932300000000028
+        "time": 8.665400000000036
       },
       "mode": "moon",
       "target": {
@@ -372,8 +451,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000000000005,
-        "y": 0.6349999999999996
+        "x": 0.36800000000000005,
+        "y": 0.6349999999999999
       },
       "down": false,
       "sequenceEnabled": true,
@@ -390,7 +469,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 5.932900000000008,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 529.9200000000001,
+            "y": 514.3499999999999,
+            "radius": 75.375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -403,7 +503,7 @@
           "x": 0.3679999881320529,
           "y": 0.6349999698591821
         },
-        "scale": 0.5977297659076877,
+        "scale": 0.5977988952198645,
         "phaseProgress": 0,
         "phaseAnchor": {
           "x": 0.368,
@@ -422,7 +522,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
-        "time": 7.682300000000037
+        "time": 9.482000000000024
       },
       "mode": "moon",
       "target": {
@@ -448,7 +548,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 6.749500000000017,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 529.919984058688,
+            "y": 514.3499772266971,
+            "radius": 53.804125146865516,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -481,12 +602,12 @@
           "x": 0.7899999830457899,
           "y": 0.670000015070409
         },
-        "releaseProgress": 0.19449999999999376,
+        "releaseProgress": 0.19433333333333044,
         "releaseScale": 0.035,
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-        "time": 9.382200000000022
+        "time": 11.215199999999994
       },
       "mode": "moon",
       "target": {
@@ -494,7 +615,7 @@
         "y": 0.670000015070409
       },
       "position": {
-        "x": 0.7922697980457898,
+        "x": 0.7922659097124565,
         "y": 0.670000015070409
       },
       "down": false,
@@ -512,7 +633,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 8.482700000000023,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1140.8629099859372,
+            "y": 542.7000122070312,
+            "radius": 7.814284242709442,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -526,7 +668,7 @@
           "y": 0.670000015070409
         },
         "scale": 1,
-        "phaseProgress": 0.07581818181817952,
+        "phaseProgress": 0.07572727272727064,
         "phaseAnchor": {
           "x": 0.8199999830457899,
           "y": 0.670000015070409
@@ -550,7 +692,7 @@
         "burstTarget": null,
         "interaction": "pulling",
         "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-        "time": 11.29889999999999
+        "time": 13.314999999999975
       },
       "mode": "phases",
       "target": {
@@ -576,7 +718,36 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 10.582500000000003,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 2,
+        "triangles": 24192,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 1,
+            "x": 1019.874383773779,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 0.45436363636362387
+          },
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1180.7999755859375,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -614,7 +785,7 @@
         "burstTarget": null,
         "interaction": "pulling",
         "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-        "time": 12.648699999999966
+        "time": 14.664999999999953
       },
       "mode": "phases",
       "target": {
@@ -640,7 +811,60 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 11.932499999999981,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 5,
+        "triangles": 60480,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 1,
+            "x": 143.9999755859376,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          },
+          {
+            "kind": "moon",
+            "phase": 0.75,
+            "x": 403.1999755859375,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          },
+          {
+            "kind": "moon",
+            "phase": 0.5,
+            "x": 662.3999755859376,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          },
+          {
+            "kind": "moon",
+            "phase": 0.25,
+            "x": 921.5999755859375,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          },
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1180.7999755859375,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -653,8 +877,8 @@
           "x": 0.8199999491373698,
           "y": 0.670000015070409
         },
-        "scale": 0.5977988952198645,
-        "phaseProgress": 0.7576363636363698,
+        "scale": 0.5977297659076927,
+        "phaseProgress": 0.7574545454545553,
         "phaseAnchor": {
           "x": 0.8199999830457899,
           "y": 0.670000015070409
@@ -678,7 +902,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 13.748699999999946
+        "time": 15.798299999999939
       },
       "mode": "moon",
       "target": {
@@ -686,7 +910,7 @@
         "y": 0.670000015070409
       },
       "position": {
-        "x": 0.8199999514162025,
+        "x": 0.8199999514162026,
         "y": 0.670000015070409
       },
       "down": true,
@@ -704,7 +928,60 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 13.065799999999967,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 5,
+        "triangles": 60480,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 1,
+            "x": 143.9999755859376,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 0.7574545454545553
+          },
+          {
+            "kind": "moon",
+            "phase": 0.75,
+            "x": 403.1999755859375,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 0.7574545454545553
+          },
+          {
+            "kind": "moon",
+            "phase": 0.5,
+            "x": 662.3999755859376,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 0.7574545454545553
+          },
+          {
+            "kind": "moon",
+            "phase": 0.25,
+            "x": 921.5999755859375,
+            "y": 542.7000122070312,
+            "radius": 55.12499999999999,
+            "opacity": 0.7574545454545553
+          },
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1180.7999300393317,
+            "y": 542.7000122070312,
+            "radius": 53.8000523631183,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -742,7 +1019,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 15.315299999999926
+        "time": 17.38149999999994
       },
       "mode": "moon",
       "target": {
@@ -750,8 +1027,8 @@
         "y": 0.25
       },
       "position": {
-        "x": 0.25013986528613846,
-        "y": 0.25010305860966564
+        "x": 0.2501399006706082,
+        "y": 0.2501030846824203
       },
       "down": true,
       "sequenceEnabled": true,
@@ -768,7 +1045,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 14.64899999999995,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 360.2014569656758,
+            "y": 202.58349859276046,
+            "radius": 2.638296681782038,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -809,7 +1107,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-        "time": 15.515299999999923
+        "time": 17.581499999999938
       },
       "mode": "pan",
       "target": {
@@ -835,7 +1133,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 14.848999999999947,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 260.33325371565513,
+            "y": 323.59509673547905,
+            "radius": 57.99559781249945,
+            "opacity": 0.5924444444444374
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -879,7 +1198,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 18.331899999999884
+        "time": 20.414699999999844
       },
       "mode": null,
       "target": {
@@ -905,7 +1224,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 17.68219999999988,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 2.333300000000003,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -949,7 +1280,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 23.598299999999767
+        "time": 25.697899999999727
       },
       "mode": null,
       "target": {
@@ -975,7 +1306,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 22.965399999999764,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 2.333300000000003,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1007,7 +1350,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 23.731699999999762
+        "time": 25.84789999999973
       },
       "mode": null,
       "target": {
@@ -1033,7 +1376,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1065,7 +1420,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 24.515099999999734
+        "time": 26.6144999999997
       },
       "mode": "star",
       "target": {
@@ -1073,8 +1428,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3923695495833946,
-        "y": 0.6133818511760208
+        "x": 0.39238661424003635,
+        "y": 0.6133667131741612
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1091,7 +1446,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.7665999999999982,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 565.0367245056524,
+            "y": 496.8270376710706,
+            "radius": 81.405,
+            "opacity": 0.5304545454545365
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1123,7 +1499,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 24.91499999999972
+        "time": 27.014499999999682
       },
       "mode": "star",
       "target": {
@@ -1131,8 +1507,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.41169066156256023,
-        "y": 0.5962421550654707
+        "x": 0.4116600888011806,
+        "y": 0.5962692760634688
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1149,7 +1525,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.3,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 592.7905278737001,
+            "y": 482.97811361140975,
+            "radius": 81.405,
+            "opacity": 0.15181818181818327
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1181,7 +1578,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 25.46509999999972
+        "time": 27.580999999999662
       },
       "mode": "star",
       "target": {
@@ -1189,8 +1586,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.41169066156256023,
-        "y": 0.5962421550654707
+        "x": 0.41172125573236373,
+        "y": 0.5962150150761288
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1207,7 +1604,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.31649999999999995,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 592.8786082546038,
+            "y": 482.9341622116644,
+            "radius": 81.405,
+            "opacity": 0.15090909090909446
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1239,7 +1657,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 0.7660000000000002
+        "time": 1.0827000000000007
       },
       "mode": null,
       "target": {
@@ -1257,7 +1675,6 @@
       "particles": 0,
       "dissolved": false,
       "handSerial": 0,
-      "lastSequenceSerial": null,
       "hint": "把手放进镜头，四指收拢握拳，拇指可伸出。",
       "status": "摄像头手势 · 收拢手指召星",
       "modeButtons": 0,
@@ -1265,7 +1682,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.016700000000000274,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1297,7 +1726,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 1.4826999999999992
+        "time": 1.7826000000000006
       },
       "mode": null,
       "target": {
@@ -1323,7 +1752,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.7166000000000006,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1355,7 +1796,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 2.1826999999999974
+        "time": 2.4825999999999993
       },
       "mode": "star",
       "target": {
@@ -1364,7 +1805,7 @@
       },
       "position": {
         "x": 0.3923695495833948,
-        "y": 0.6133818511760207
+        "y": 0.6133818511760208
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1381,7 +1822,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 1.4166,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 565.0121514000886,
+            "y": 496.8392994525769,
+            "radius": 81.405,
+            "opacity": 0.5304545454545466
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1413,7 +1875,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 4.215899999999996
+        "time": 4.4658999999999995
       },
       "mode": "sun",
       "target": {
@@ -1421,8 +1883,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.36800001606181865,
-        "y": 0.6349999857516127
+        "x": 0.36800002277685623,
+        "y": 0.6349999797947242
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1439,7 +1901,36 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 3.3998999999999966,
+        "sunClock": 0.3334000000000006,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 50160,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 913.254605760927,
+            "y": 514.3499836337267,
+            "radius": 81.405,
+            "opacity": 0.36659999999999293
+          },
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 510.05460576092696,
+            "y": 514.3499836337267,
+            "radius": 74.62125,
+            "opacity": 0.5758181818181882
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1471,7 +1962,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 4.2491999999999965
+        "time": 4.499199999999999
       },
       "mode": null,
       "target": {
@@ -1497,7 +1988,36 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 50160,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 922.2336259789887,
+            "y": 514.3499870366944,
+            "radius": 81.405,
+            "opacity": 0.2999999999999936
+          },
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 519.0336259789887,
+            "y": 514.3499870366944,
+            "radius": 74.62125,
+            "opacity": 0.6363636363636421
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1529,7 +2049,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 4.7325
+        "time": 4.949200000000005
       },
       "mode": "star",
       "target": {
@@ -1537,8 +2057,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.39240369084611915,
-        "y": 0.6133515645719911
+        "x": 0.39539154488805,
+        "y": 0.6107010488896331
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1555,7 +2075,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.44999999999999996,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 569.363824638792,
+            "y": 494.6678496006028,
+            "radius": 81.405,
+            "opacity": 0.454545454545457
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1587,7 +2128,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 5.715800000000013
+        "time": 5.899100000000017
       },
       "mode": "sun",
       "target": {
@@ -1595,8 +2136,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680250128492799,
-        "y": 0.6349778111820903
+        "x": 0.36803547008495935,
+        "y": 0.6349685346020523
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1613,7 +2154,36 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 1.3999,
+        "sunClock": 0.33330000000000026,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 50160,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 913.2731191699204,
+            "y": 514.3245130276623,
+            "radius": 81.405,
+            "opacity": 0.36679999999999247
+          },
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 510.0731191699203,
+            "y": 514.3245130276623,
+            "radius": 74.62125,
+            "opacity": 0.5756363636363704
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1645,7 +2215,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 5.749200000000013
+        "time": 5.932500000000017
       },
       "mode": null,
       "target": {
@@ -1671,7 +2241,36 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 50160,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 922.2740284108891,
+            "y": 514.3298265490024,
+            "radius": 81.405,
+            "opacity": 0.29999999999999183
+          },
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 519.0740284108891,
+            "y": 514.3298265490024,
+            "radius": 74.62125,
+            "opacity": 0.6363636363636438
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1703,7 +2302,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "把手放回镜头内；当前天体会留在原位",
-        "time": 5.782500000000014
+        "time": 5.9658000000000175
       },
       "mode": null,
       "target": {
@@ -1729,7 +2328,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1761,7 +2372,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "松开拳头，像原片一样把手从左向右横扫",
-        "time": 6.599200000000024
+        "time": 6.815800000000029
       },
       "mode": "star",
       "target": {
@@ -1787,7 +2398,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.8500000000000004,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 38400,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 557.7155934359103,
+            "y": 500.48022303349245,
+            "radius": 81.405,
+            "opacity": 0.6822727272727399
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1819,7 +2451,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-        "time": 7.582400000000034
+        "time": 7.899100000000041
       },
       "mode": "sun",
       "target": {
@@ -1827,8 +2459,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.36801979817306557,
-        "y": 0.6349824371045386
+        "x": 0.36800982460215714,
+        "y": 0.6349912846271185
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1839,13 +2471,42 @@
       "handSerial": 136,
       "lastSequenceSerial": 136,
       "hint": "手收回左边，伸出食指和拇指，再向右横扫",
-      "status": "已识别手掌 · 太阳",
+      "status": "已识别手掌 · 星星",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 1.9333000000000005,
+        "sunClock": 0.35,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 50160,
+        "activeObjects": [
+          {
+            "kind": "star",
+            "phase": null,
+            "x": 918.2187269267295,
+            "y": 514.342940547966,
+            "radius": 81.405,
+            "opacity": 0.3331999999999944
+          },
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 515.0187269267294,
+            "y": 514.342940547966,
+            "radius": 74.62125,
+            "opacity": 0.6061818181818233
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1877,7 +2538,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-        "time": 8.732400000000029
+        "time": 9.065600000000027
       },
       "mode": "moon",
       "target": {
@@ -1885,8 +2546,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000063176351,
-        "y": 0.6349999943956461
+        "x": 0.36800000279308004,
+        "y": 0.6349999975222678
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1897,13 +2558,42 @@
       "handSerial": 163,
       "lastSequenceSerial": 163,
       "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-      "status": "已识别手掌 · 月球",
+      "status": "已识别手掌 · 太阳",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 3.099799999999999,
+        "sunClock": 1.516500000000001,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 3,
+        "triangles": 23856,
+        "activeObjects": [
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 922.211816703609,
+            "y": 514.3499979930369,
+            "radius": 74.62125,
+            "opacity": 0.30020000000000735
+          },
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 519.0118167036089,
+            "y": 514.3499979930369,
+            "radius": 75.375,
+            "opacity": 0.6361818181818114
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1935,7 +2625,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "用拇指和食指在月球旁形成 C 形，夹住月球",
-        "time": 8.999100000000025
+        "time": 9.332300000000025
       },
       "mode": "moon",
       "target": {
@@ -1943,8 +2633,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.3680000009767202,
-        "y": 0.6349999991335546
+        "x": 0.36800000043181624,
+        "y": 0.6349999996169372
       },
       "down": false,
       "sequenceEnabled": true,
@@ -1961,7 +2651,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 3.3664999999999994,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 529.9200006218153,
+            "y": 514.3499996897191,
+            "radius": 75.375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -1993,7 +2704,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹紧缩小并移到右侧，再伸直食指、张开拇指释放",
-        "time": 9.265700000000024
+        "time": 9.599000000000023
       },
       "mode": "moon",
       "target": {
@@ -2001,8 +2712,8 @@
         "y": 0.635
       },
       "position": {
-        "x": 0.36800000002009764,
-        "y": 0.6349999999821715
+        "x": 0.36800000001068134,
+        "y": 0.6349999999905246
       },
       "down": false,
       "sequenceEnabled": true,
@@ -2019,7 +2730,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 3.6332,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 529.9200000153811,
+            "y": 514.3499999923249,
+            "radius": 56.94827736059574,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2052,12 +2784,12 @@
           "x": 0.7900000000000001,
           "y": 0.67
         },
-        "releaseProgress": 0.3333333333333292,
+        "releaseProgress": 0.27766666666666795,
         "releaseScale": 0.035,
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-        "time": 10.848999999999993
+        "time": 11.132200000000012
       },
       "mode": "moon",
       "target": {
@@ -2065,7 +2797,7 @@
         "y": 0.67
       },
       "position": {
-        "x": 0.7966666666666666,
+        "x": 0.7946259266666669,
         "y": 0.67
       },
       "down": false,
@@ -2083,7 +2815,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 5.166400000000003,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1144.2613344000004,
+            "y": 542.7,
+            "radius": 12.530893823230498,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2116,12 +2869,12 @@
           "x": 0.7900000000000001,
           "y": 0.67
         },
-        "releaseProgress": 0.8054999999999879,
+        "releaseProgress": 0.7498333333333385,
         "releaseScale": 0.035,
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "月球已停住，五指张开向左横扫，展开五个月相",
-        "time": 11.132299999999988
+        "time": 11.415500000000014
       },
       "mode": "moon",
       "target": {
@@ -2129,7 +2882,7 @@
         "y": 0.67
       },
       "position": {
-        "x": 0.8177301849999998,
+        "x": 0.8162449983333336,
         "y": 0.67
       },
       "down": false,
@@ -2147,7 +2900,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 5.449700000000004,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1175.3927976000004,
+            "y": 542.7,
+            "radius": 46.91408230572067,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2161,7 +2935,7 @@
           "y": 0.67
         },
         "scale": 1,
-        "phaseProgress": 0.2120909090909073,
+        "phaseProgress": 0.19699999999999787,
         "phaseAnchor": {
           "x": 0.8200000000000002,
           "y": 0.67
@@ -2185,7 +2959,7 @@
         "burstTarget": null,
         "interaction": "pulling",
         "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-        "time": 11.615599999999983
+        "time": 11.915300000000013
       },
       "mode": "phases",
       "target": {
@@ -2205,13 +2979,58 @@
       "handSerial": 230,
       "lastSequenceSerial": 230,
       "hint": "月相会自行展开；回到最右端，用拇指和食指夹住满月",
-      "status": "已识别手掌 · 月相展开",
+      "status": "已识别手掌 · 月球已释放",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 5.9495000000000084,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 4,
+        "triangles": 48384,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 1,
+            "x": 855.8352953642413,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          },
+          {
+            "kind": "moon",
+            "phase": 0.75,
+            "x": 1023.0425853239734,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 0.6735678391959657
+          },
+          {
+            "kind": "moon",
+            "phase": 0.5,
+            "x": 1172.099206483702,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 0.04516853932582705
+          },
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1180.8000000000002,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2225,7 +3044,7 @@
           "y": 0.67
         },
         "scale": 0.035,
-        "phaseProgress": 0.697090909090911,
+        "phaseProgress": 0.7272727272727331,
         "phaseAnchor": {
           "x": 0.8200000000000002,
           "y": 0.67
@@ -2249,7 +3068,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 13.182199999999956
+        "time": 13.498599999999984
       },
       "mode": "moon",
       "target": {
@@ -2269,13 +3088,66 @@
       "handSerial": 236,
       "lastSequenceSerial": 236,
       "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-      "status": "手掌未进入识别范围",
+      "status": "已识别手掌 · 夹取后上举",
       "modeButtons": 0,
       "sceneSize": {
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 7.5328000000000275,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 5,
+        "triangles": 60480,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 1,
+            "x": 144.00000000000023,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 0.7272727272727331
+          },
+          {
+            "kind": "moon",
+            "phase": 0.75,
+            "x": 403.20000000000016,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 0.7272727272727331
+          },
+          {
+            "kind": "moon",
+            "phase": 0.5,
+            "x": 662.4000000000002,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 0.7272727272727331
+          },
+          {
+            "kind": "moon",
+            "phase": 0.25,
+            "x": 921.6000000000001,
+            "y": 542.7,
+            "radius": 55.12499999999999,
+            "opacity": 0.7272727272727331
+          },
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 1180.8000000000002,
+            "y": 542.7,
+            "radius": 16.371767469816717,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2313,7 +3185,7 @@
         "burstTarget": null,
         "interaction": "holding",
         "hint": "夹住小月球向左上方举起，再张开拇指与食指",
-        "time": 14.382099999999934
+        "time": 14.698499999999964
       },
       "mode": "moon",
       "target": {
@@ -2321,8 +3193,8 @@
         "y": 0.25
       },
       "position": {
-        "x": 0.2500561320845998,
-        "y": 0.2500413604833894
+        "x": 0.25006962002673305,
+        "y": 0.2500512989670664
       },
       "down": false,
       "sequenceEnabled": true,
@@ -2339,7 +3211,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 8.732700000000017,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 360.1002528384956,
+            "y": 202.5415521633238,
+            "radius": 2.6382094668403404,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2360,7 +3253,7 @@
         },
         "phaseSpan": 0.72,
         "held": false,
-        "panProgress": 0.37022222222221995,
+        "panProgress": 0.444444444444435,
         "panOrigin": {
           "x": 0.25,
           "y": 0.25
@@ -2380,7 +3273,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-        "time": 14.648799999999932
+        "time": 14.965199999999959
       },
       "mode": "pan",
       "target": {
@@ -2388,8 +3281,8 @@
         "y": 0.3790937499999999
       },
       "position": {
-        "x": 0.20516278182746933,
-        "y": 0.34684839125266625
+        "x": 0.20048225308642031,
+        "y": 0.3569583333333321
       },
       "down": false,
       "sequenceEnabled": true,
@@ -2406,7 +3299,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 8.999400000000012,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 0.06670000000000073,
+        "recordPlaying": true,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 288.69444444444525,
+            "y": 289.136249999999,
+            "radius": 81.4992187499985,
+            "opacity": 0.88888888888887
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2447,7 +3361,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "黑胶唱片已悬停，在唱片旁握拳，再张开五指使它散开",
-        "time": 15.998799999999912
+        "time": 16.231799999999957
       },
       "mode": "pan",
       "target": {
@@ -2473,7 +3387,28 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 10.26600000000001,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 1.3332999999999993,
+        "recordPlaying": true,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 273.93750000000006,
+            "y": 307.0659374999999,
+            "radius": 169.59375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2517,7 +3452,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 16.49879999999991
+        "time": 16.71509999999996
       },
       "mode": null,
       "target": {
@@ -2543,7 +3478,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 10.749300000000014,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 1.5999000000000014,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2587,7 +3534,7 @@
         },
         "interaction": "waiting",
         "hint": "演示结束，点击重来可重新开始",
-        "time": 17.03199999999989
+        "time": 17.265099999999954
       },
       "mode": null,
       "target": {
@@ -2602,7 +3549,7 @@
       "sequenceEnabled": true,
       "camera": true,
       "rehearsal": false,
-      "particles": 4045,
+      "particles": 4004,
       "dissolved": true,
       "handSerial": 323,
       "lastSequenceSerial": 323,
@@ -2613,7 +3560,19 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 11.299300000000004,
+        "sunClock": 1.6666000000000014,
+        "recordClock": 1.5999000000000014,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     },
     {
@@ -2645,7 +3604,7 @@
         "burstTarget": null,
         "interaction": "waiting",
         "hint": "四指收拢握拳，拇指可伸出，停留片刻召出星星",
-        "time": 0.5826
+        "time": 1.3160000000000005
       },
       "mode": null,
       "target": {
@@ -2671,239 +3630,1767 @@
         "w": 1440,
         "h": 810
       },
-      "referenceLoaded": true,
+      "objects3d": {
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 0.14989999999999964,
+        "sunClock": 0,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0
+      },
       "restartHidden": false
     }
   ],
-  "dynamic_texture_observations": [
+  "real_3d_animation_observations": [
     {
       "expectedMode": "sun",
       "before": {
-        "sun": {
-          "time": 0.225729,
-          "paused": false,
-          "readyState": 4,
-          "frames": 40,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 0,
-          "paused": true,
-          "readyState": 4,
-          "frames": 4,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 3.4998999999999953,
+        "sunClock": 1.2333999999999996,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 2,
+        "triangles": 11760,
+        "activeObjects": [
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 529.9200001935901,
+            "y": 514.3499999034,
+            "radius": 74.62125,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          1.2333999999999996,
+          1.2333999999999996
+        ],
+        "recordUniformTimes": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recordRotation": 0
       },
       "after": {
-        "sun": {
-          "time": 0.035751,
-          "paused": false,
-          "readyState": 4,
-          "frames": 50,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 0,
-          "paused": true,
-          "readyState": 4,
-          "frames": 4,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 3.816399999999995,
+        "sunClock": 1.5499000000000005,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 2,
+        "triangles": 11760,
+        "activeObjects": [
+          {
+            "kind": "sun",
+            "phase": null,
+            "x": 529.9200000211206,
+            "y": 514.349999989461,
+            "radius": 74.62125,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          1.5499000000000005,
+          1.5499000000000005
+        ],
+        "recordUniformTimes": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recordRotation": 0
       }
     },
     {
       "expectedMode": null,
       "before": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 0,
-          "paused": true,
-          "readyState": 4,
-          "frames": 4,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 6.016200000000009,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 529.9200000000001,
+            "y": 514.3499999999999,
+            "radius": 75.375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recordRotation": 0
       },
       "after": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 0,
-          "paused": true,
-          "readyState": 4,
-          "frames": 4,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 6.332800000000013,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0,
+        "recordPlaying": false,
+        "drawCalls": 1,
+        "triangles": 12096,
+        "activeObjects": [
+          {
+            "kind": "moon",
+            "phase": 0,
+            "x": 529.9200000000001,
+            "y": 514.3499999999999,
+            "radius": 75.375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recordRotation": 0
       }
     },
     {
       "expectedMode": "pan",
       "before": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 0.695546,
-          "paused": false,
-          "readyState": 4,
-          "frames": 25,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 16.048999999999925,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 0.7167000000000004,
+        "recordPlaying": true,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 206.99999999999997,
+            "y": 388.39500000000004,
+            "radius": 169.59375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          0.7167000000000004,
+          0.7167000000000004,
+          0.7167000000000004,
+          0.7167000000000004,
+          0.7167000000000004
+        ],
+        "recordRotation": -0.07883700000000005
       },
       "after": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 1.018586,
-          "paused": false,
-          "readyState": 4,
-          "frames": 35,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 16.365599999999908,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 1.0332999999999988,
+        "recordPlaying": true,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 206.99999999999997,
+            "y": 388.39500000000004,
+            "radius": 169.59375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          1.0332999999999988,
+          1.0332999999999988,
+          1.0332999999999988,
+          1.0332999999999988,
+          1.0332999999999988
+        ],
+        "recordRotation": -0.11366299999999986
       }
     },
     {
       "expectedMode": "pan",
       "before": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 1.656277,
-          "paused": false,
-          "readyState": 4,
-          "frames": 53,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 16.99899999999988,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 1.6667000000000032,
+        "recordPlaying": true,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 206.99999999999997,
+            "y": 388.39500000000004,
+            "radius": 169.59375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          1.6667000000000032,
+          1.6667000000000032,
+          1.6667000000000032,
+          1.6667000000000032,
+          1.6667000000000032
+        ],
+        "recordRotation": -0.18333700000000036
       },
       "after": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 1.968897,
-          "paused": false,
-          "readyState": 4,
-          "frames": 63,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 17.315599999999872,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 1.9833000000000027,
+        "recordPlaying": true,
+        "drawCalls": 21,
+        "triangles": 210476,
+        "activeObjects": [
+          {
+            "kind": "record",
+            "phase": null,
+            "x": 206.99999999999997,
+            "y": 388.39500000000004,
+            "radius": 169.59375,
+            "opacity": 1
+          }
+        ],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          1.9833000000000027,
+          1.9833000000000027,
+          1.9833000000000027,
+          1.9833000000000027,
+          1.9833000000000027
+        ],
+        "recordRotation": -0.2181630000000003
       }
     },
     {
       "expectedMode": null,
       "before": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 2.318156,
-          "paused": true,
-          "readyState": 4,
-          "frames": 73,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 18.348899999999873,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 2.333300000000003,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          2.333300000000003,
+          2.333300000000003,
+          2.333300000000003,
+          2.333300000000003,
+          2.333300000000003
+        ],
+        "recordRotation": -0.25666300000000036
       },
       "after": {
-        "sun": {
-          "time": 0.081882,
-          "paused": true,
-          "readyState": 4,
-          "frames": 81,
-          "duration": 0.5
-        },
-        "pan": {
-          "time": 2.318156,
-          "paused": true,
-          "readyState": 4,
-          "frames": 73,
-          "duration": 3.733008
-        }
+        "ready": true,
+        "backend": "WebGL2",
+        "clock": 18.665599999999866,
+        "sunClock": 3.4163999999999994,
+        "recordClock": 2.333300000000003,
+        "recordPlaying": false,
+        "drawCalls": 0,
+        "triangles": 0,
+        "activeObjects": [],
+        "imageAssets": [],
+        "videoTextures": 0,
+        "sunUniformTimes": [
+          3.3663999999999996,
+          3.3663999999999996
+        ],
+        "recordUniformTimes": [
+          2.333300000000003,
+          2.333300000000003,
+          2.333300000000003,
+          2.333300000000003,
+          2.333300000000003
+        ],
+        "recordRotation": -0.25666300000000036
       }
+    }
+  ],
+  "geometry_observations": [
+    {
+      "label": "desktop-real-3d-models",
+      "models": {
+        "star": [
+          {
+            "name": "Closed rounded five-lobed solid",
+            "type": "BufferGeometry",
+            "vertices": 19520,
+            "zMin": -0.23999999463558197,
+            "zMax": 0.3199999928474426,
+            "hasNormals": true
+          }
+        ],
+        "sun": [
+          {
+            "name": "Convective photosphere",
+            "type": "SphereGeometry",
+            "vertices": 3577,
+            "zMin": -1,
+            "zMax": 1,
+            "hasNormals": true
+          },
+          {
+            "name": "Volumetric solar corona",
+            "type": "SphereGeometry",
+            "vertices": 2665,
+            "zMin": -1.350000023841858,
+            "zMax": 1.350000023841858,
+            "hasNormals": true
+          }
+        ],
+        "moon": [
+          {
+            "name": "Lunar surface — sphere with relief and phase lighting",
+            "type": "SphereGeometry",
+            "vertices": 6305,
+            "zMin": -1,
+            "zMax": 1,
+            "hasNormals": true
+          }
+        ],
+        "record": [
+          {
+            "name": "",
+            "type": "LatheGeometry",
+            "vertices": 93026,
+            "zMin": -0.023000000044703484,
+            "zMax": 0.029999999329447746,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 1737,
+            "zMin": -0.0035000001080334187,
+            "zMax": 0.0035000001080334187,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 1771,
+            "zMin": -0.00570633914321661,
+            "zMax": 0.00570633914321661,
+            "hasNormals": true
+          },
+          {
+            "name": "Lunar surface — sphere with relief and phase lighting",
+            "type": "SphereGeometry",
+            "vertices": 6305,
+            "zMin": -1,
+            "zMax": 1,
+            "hasNormals": true
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "",
+            "type": "CylinderGeometry",
+            "vertices": 244,
+            "zMin": -0.052000001072883606,
+            "zMax": 0.052000001072883606,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 539,
+            "zMin": -0.008559508249163628,
+            "zMax": 0.008559508249163628,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 369,
+            "zMin": -0.004000000189989805,
+            "zMax": 0.004000000189989805,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "CylinderGeometry",
+            "vertices": 244,
+            "zMin": -0.019999999552965164,
+            "zMax": 0.019999999552965164,
+            "hasNormals": true
+          },
+          {
+            "name": "Single continuous metal arm tube",
+            "type": "TubeGeometry",
+            "vertices": 1209,
+            "zMin": 0.07500456273555756,
+            "zMax": 0.17494772374629974,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "CylinderGeometry",
+            "vertices": 148,
+            "zMin": -0.023000000044703484,
+            "zMax": 0.023000000044703484,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "ExtrudeGeometry",
+            "vertices": 708,
+            "zMin": -0.004000000189989805,
+            "zMax": 0.03099999949336052,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.001500000013038516,
+            "zMax": 0.001500000013038516,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.001500000013038516,
+            "zMax": 0.001500000013038516,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.0010000000474974513,
+            "zMax": 0.0010000000474974513,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.0010000000474974513,
+            "zMax": 0.0010000000474974513,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "ConeGeometry",
+            "vertices": 35,
+            "zMin": -0.007000000216066837,
+            "zMax": 0.007000000216066837,
+            "hasNormals": true
+          }
+        ]
+      },
+      "externalTextures": [],
+      "webgl2": true,
+      "glError": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ]
+    },
+    {
+      "label": "mobile-real-3d-models",
+      "models": {
+        "star": [
+          {
+            "name": "Closed rounded five-lobed solid",
+            "type": "BufferGeometry",
+            "vertices": 19520,
+            "zMin": -0.23999999463558197,
+            "zMax": 0.3199999928474426,
+            "hasNormals": true
+          }
+        ],
+        "sun": [
+          {
+            "name": "Convective photosphere",
+            "type": "SphereGeometry",
+            "vertices": 3577,
+            "zMin": -1,
+            "zMax": 1,
+            "hasNormals": true
+          },
+          {
+            "name": "Volumetric solar corona",
+            "type": "SphereGeometry",
+            "vertices": 2665,
+            "zMin": -1.350000023841858,
+            "zMax": 1.350000023841858,
+            "hasNormals": true
+          }
+        ],
+        "moon": [
+          {
+            "name": "Lunar surface — sphere with relief and phase lighting",
+            "type": "SphereGeometry",
+            "vertices": 6305,
+            "zMin": -1,
+            "zMax": 1,
+            "hasNormals": true
+          }
+        ],
+        "record": [
+          {
+            "name": "",
+            "type": "LatheGeometry",
+            "vertices": 93026,
+            "zMin": -0.023000000044703484,
+            "zMax": 0.029999999329447746,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 1737,
+            "zMin": -0.0035000001080334187,
+            "zMax": 0.0035000001080334187,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 1771,
+            "zMin": -0.00570633914321661,
+            "zMax": 0.00570633914321661,
+            "hasNormals": true
+          },
+          {
+            "name": "Lunar surface — sphere with relief and phase lighting",
+            "type": "SphereGeometry",
+            "vertices": 6305,
+            "zMin": -1,
+            "zMax": 1,
+            "hasNormals": true
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "Flowing spectral ribbon",
+            "type": "BufferGeometry",
+            "vertices": 578,
+            "zMin": 0,
+            "zMax": 0,
+            "hasNormals": false
+          },
+          {
+            "name": "",
+            "type": "CylinderGeometry",
+            "vertices": 244,
+            "zMin": -0.052000001072883606,
+            "zMax": 0.052000001072883606,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 539,
+            "zMin": -0.008559508249163628,
+            "zMax": 0.008559508249163628,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "TorusGeometry",
+            "vertices": 369,
+            "zMin": -0.004000000189989805,
+            "zMax": 0.004000000189989805,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "CylinderGeometry",
+            "vertices": 244,
+            "zMin": -0.019999999552965164,
+            "zMax": 0.019999999552965164,
+            "hasNormals": true
+          },
+          {
+            "name": "Single continuous metal arm tube",
+            "type": "TubeGeometry",
+            "vertices": 1209,
+            "zMin": 0.07500456273555756,
+            "zMax": 0.17494772374629974,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "CylinderGeometry",
+            "vertices": 148,
+            "zMin": -0.023000000044703484,
+            "zMax": 0.023000000044703484,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "ExtrudeGeometry",
+            "vertices": 708,
+            "zMin": -0.004000000189989805,
+            "zMax": 0.03099999949336052,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.001500000013038516,
+            "zMax": 0.001500000013038516,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.001500000013038516,
+            "zMax": 0.001500000013038516,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.0010000000474974513,
+            "zMax": 0.0010000000474974513,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "BoxGeometry",
+            "vertices": 24,
+            "zMin": -0.0010000000474974513,
+            "zMax": 0.0010000000474974513,
+            "hasNormals": true
+          },
+          {
+            "name": "",
+            "type": "ConeGeometry",
+            "vertices": 35,
+            "zMin": -0.007000000216066837,
+            "zMax": 0.007000000216066837,
+            "hasNormals": true
+          }
+        ]
+      },
+      "externalTextures": [],
+      "webgl2": true,
+      "glError": 0,
+      "programs": [
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        },
+        {
+          "name": "",
+          "runnable": true
+        }
+      ]
+    }
+  ],
+  "webgl_errors": [],
+  "runtime_requests": [
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/",
+      "type": "document"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/styles.css",
+      "type": "stylesheet"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/app.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/scene.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/record-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/interaction-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/gesture-sequence.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/objects-3d.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/models/celestial.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/models/lunar-surface.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/models/sculpted.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+      "type": "script"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/reference/hand-poses.json",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/burst.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "desktop-pointer",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/",
+      "type": "document"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/styles.css",
+      "type": "stylesheet"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/app.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/scene.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/record-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/interaction-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/gesture-sequence.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/objects-3d.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/models/celestial.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/models/lunar-surface.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/models/sculpted.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/reference/hand-poses.json",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/burst.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-permission-denied",
+      "url": "http://127.0.0.1:5173/public/hand-tracking.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/",
+      "type": "document"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/styles.css",
+      "type": "stylesheet"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/app.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/scene.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/record-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/interaction-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/gesture-sequence.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/objects-3d.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/models/celestial.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/models/lunar-surface.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/models/sculpted.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+      "type": "script"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/reference/hand-poses.json",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/burst.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "camera-synthetic-results",
+      "url": "http://127.0.0.1:5173/public/hand-tracking.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/",
+      "type": "document"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/styles.css",
+      "type": "stylesheet"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/app.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/scene.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/record-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/interaction-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/gesture-sequence.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/objects-3d.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/models/celestial.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/models/lunar-surface.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/models/sculpted.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/reference/hand-poses.json",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-control",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/burst.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/",
+      "type": "document"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/styles.css",
+      "type": "stylesheet"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/app.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/scene.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/record-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/interaction-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/gesture-sequence.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/objects-3d.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/models/celestial.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/models/lunar-surface.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/models/sculpted.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+      "type": "script"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/reference/hand-poses.json",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "sfx-delay-cancel",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/burst.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/",
+      "type": "document"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/styles.css",
+      "type": "stylesheet"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/app.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/%E6%98%8E%E6%99%9A%E8%83%A1%E5%BD%A6%E6%96%8C%E5%B0%86%E6%90%BATRA_20261017122234.mp4",
+      "type": "media"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/scene.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/record-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/interaction-audio.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/gesture-sequence.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/objects-3d.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.module.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/models/celestial.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/models/lunar-surface.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/models/sculpted.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/vendor/three/three.core.js",
+      "type": "script"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/reference/hand-poses.json",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/manifest.json",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/%E8%8C%B6%E8%8A%B1%E5%BC%80%E4%BA%86.m4a",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/summon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepSun.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/sweepMoon.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/grab.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/release.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/phases.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/collect.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/record.wav",
+      "type": "fetch"
+    },
+    {
+      "page": "mobile-layout",
+      "url": "http://127.0.0.1:5173/public/audio/sfx/burst.wav",
+      "type": "fetch"
     }
   ],
   "phase_fade_observations": [
     {
       "before": [
         {
+          "kind": "moon",
+          "phase": 1,
           "x": 0.09999998304579,
           "y": 0.670000015070409,
-          "texture": 8,
-          "alpha": 0.7576363636363698
+          "radius": 55.12499999999999,
+          "opacity": 0.7574545454545553
         },
         {
+          "kind": "moon",
+          "phase": 0.75,
           "x": 0.27999998304578994,
           "y": 0.670000015070409,
-          "texture": 7,
-          "alpha": 0.7576363636363698
+          "radius": 55.12499999999999,
+          "opacity": 0.7574545454545553
         },
         {
+          "kind": "moon",
+          "phase": 0.5,
           "x": 0.45999998304579,
           "y": 0.670000015070409,
-          "texture": 6,
-          "alpha": 0.7576363636363698
+          "radius": 55.12499999999999,
+          "opacity": 0.7574545454545553
         },
         {
+          "kind": "moon",
+          "phase": 0.25,
           "x": 0.63999998304579,
           "y": 0.670000015070409,
-          "texture": 5,
-          "alpha": 0.7576363636363698
+          "radius": 55.12499999999999,
+          "opacity": 0.7574545454545553
         }
       ],
       "after": [
         {
+          "kind": "moon",
+          "phase": 1,
           "x": 0.09999998304579,
           "y": 0.670000015070409,
-          "texture": 8,
-          "alpha": 0.4849090909090964
+          "radius": 55.12499999999999,
+          "opacity": 0.4849090909090996
         },
         {
+          "kind": "moon",
+          "phase": 0.75,
           "x": 0.27999998304578994,
           "y": 0.670000015070409,
-          "texture": 7,
-          "alpha": 0.4849090909090964
+          "radius": 55.12499999999999,
+          "opacity": 0.4849090909090996
         },
         {
+          "kind": "moon",
+          "phase": 0.5,
           "x": 0.45999998304579,
           "y": 0.670000015070409,
-          "texture": 6,
-          "alpha": 0.4849090909090964
+          "radius": 55.12499999999999,
+          "opacity": 0.4849090909090996
         },
         {
+          "kind": "moon",
+          "phase": 0.25,
           "x": 0.63999998304579,
           "y": 0.670000015070409,
-          "texture": 5,
-          "alpha": 0.4849090909090964
+          "radius": 55.12499999999999,
+          "opacity": 0.4849090909090996
         }
       ]
     }
@@ -2928,8 +5415,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -2951,8 +5438,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -2974,8 +5461,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -2997,8 +5484,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3020,8 +5507,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3043,8 +5530,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3066,8 +5553,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3089,8 +5576,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3112,8 +5599,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3135,8 +5622,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3158,8 +5645,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3181,8 +5668,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3204,8 +5691,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3214,7 +5701,7 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.21333333333333293,
+        "currentTime": 0.21333333333333115,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
@@ -3227,8 +5714,8 @@
       "connectedToDestination": true,
       "rms": 3.623051387178225e-05,
       "recordPlaying": true,
-      "recordVideoPaused": false,
-      "recordVideoTime": 0.19832,
+      "recordAnimationPlaying": true,
+      "recordClock": 0.2,
       "mediaElementPaused": true
     },
     {
@@ -3237,7 +5724,7 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.35733333333333306,
+        "currentTime": 0.3626666666666658,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
@@ -3248,10 +5735,10 @@
       "liveSources": 1,
       "allChannelsLiveSources": 1,
       "connectedToDestination": true,
-      "rms": 3.571362767816328e-05,
+      "rms": 3.52252018789809e-05,
       "recordPlaying": true,
-      "recordVideoPaused": false,
-      "recordVideoTime": 0.345311,
+      "recordAnimationPlaying": true,
+      "recordClock": 0.3500999999999985,
       "mediaElementPaused": true
     },
     {
@@ -3260,7 +5747,7 @@
         "ready": true,
         "active": true,
         "playing": false,
-        "currentTime": 0.5173333333333332,
+        "currentTime": 0.5386666666666642,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
@@ -3273,8 +5760,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0.516556,
+      "recordAnimationPlaying": false,
+      "recordClock": 0.5334000000000014,
       "mediaElementPaused": true
     },
     {
@@ -3283,7 +5770,7 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.6293333333333333,
+        "currentTime": 0.6453333333333333,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
@@ -3294,10 +5781,10 @@
       "liveSources": 1,
       "allChannelsLiveSources": 1,
       "connectedToDestination": true,
-      "rms": 3.7519378087029246e-05,
+      "rms": 3.651655588286981e-05,
       "recordPlaying": true,
-      "recordVideoPaused": false,
-      "recordVideoTime": 0.610686,
+      "recordAnimationPlaying": true,
+      "recordClock": 0.6334000000000013,
       "mediaElementPaused": true
     },
     {
@@ -3319,8 +5806,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 2.318156,
+      "recordAnimationPlaying": false,
+      "recordClock": 2.333300000000003,
       "mediaElementPaused": true
     },
     {
@@ -3342,8 +5829,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3365,8 +5852,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3388,8 +5875,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3411,8 +5898,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3434,8 +5921,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3457,8 +5944,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3480,8 +5967,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3503,8 +5990,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3526,8 +6013,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3549,8 +6036,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3572,8 +6059,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3595,8 +6082,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3618,8 +6105,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3641,8 +6128,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3664,8 +6151,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3687,8 +6174,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3710,8 +6197,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3733,8 +6220,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3756,8 +6243,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3779,8 +6266,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3802,8 +6289,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3825,8 +6312,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3848,8 +6335,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3871,8 +6358,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3881,7 +6368,7 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.2506666666666657,
+        "currentTime": 0.18666666666666565,
         "duration": 48,
         "trackName": "lunar-reverie",
         "blocked": false
@@ -3892,10 +6379,10 @@
       "liveSources": 1,
       "allChannelsLiveSources": 2,
       "connectedToDestination": true,
-      "rms": 0.010004606388086883,
+      "rms": 0.00773128357235093,
       "recordPlaying": true,
-      "recordVideoPaused": false,
-      "recordVideoTime": 0.232477,
+      "recordAnimationPlaying": true,
+      "recordClock": 0.1833000000000011,
       "mediaElementPaused": true
     },
     {
@@ -3917,8 +6404,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 1.670808,
+      "recordAnimationPlaying": false,
+      "recordClock": 1.5999000000000014,
       "mediaElementPaused": true
     },
     {
@@ -3940,8 +6427,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3963,8 +6450,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -3986,8 +6473,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     },
     {
@@ -4009,8 +6496,8 @@
       "connectedToDestination": false,
       "rms": 0,
       "recordPlaying": false,
-      "recordVideoPaused": true,
-      "recordVideoTime": 0,
+      "recordAnimationPlaying": false,
+      "recordClock": 0,
       "mediaElementPaused": true
     }
   ],
@@ -4042,56 +6529,56 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.5253333333333334,
+            "at": 1.984,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.056,
+            "at": 3.6,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 5.658666666666667,
+            "at": 6.512,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 6.757333333333333,
+            "at": 8.048,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 8.474666666666666,
+            "at": 9.802666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.421333333333333,
+            "at": 11.936,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.821333333333333,
+            "at": 14.368,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 14.725333333333333,
+            "at": 16.282666666666668,
             "duration": 0.62,
             "gain": 0.8
           }
@@ -4127,8 +6614,8 @@
           "channel": "sfx",
           "stage": "moon",
           "panProgress": 0,
-          "peakRms": 0.11943769178408474,
-          "sampleCount": 29,
+          "peakRms": 0.07565398920077807,
+          "sampleCount": 18,
           "connectedToDestination": true
         },
         {
@@ -4137,8 +6624,8 @@
           "channel": "sfx",
           "stage": "moonHeld",
           "panProgress": 0,
-          "peakRms": 0.1542936257359201,
-          "sampleCount": 24,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -4157,7 +6644,7 @@
           "channel": "sfx",
           "stage": "phases",
           "panProgress": 0,
-          "peakRms": 0.07310211530676275,
+          "peakRms": 0.07417631131887688,
           "sampleCount": 74,
           "connectedToDestination": true
         },
@@ -4178,7 +6665,7 @@
           "stage": "pan",
           "panProgress": 0.2962222222222187,
           "peakRms": 0.08367257312709002,
-          "sampleCount": 16,
+          "sampleCount": 17,
           "connectedToDestination": true
         }
       ]
@@ -4195,56 +6682,56 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.5253333333333334,
+            "at": 1.984,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.056,
+            "at": 3.6,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 5.658666666666667,
+            "at": 6.512,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 6.757333333333333,
+            "at": 8.048,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 8.474666666666666,
+            "at": 9.802666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.421333333333333,
+            "at": 11.936,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.821333333333333,
+            "at": 14.368,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 14.725333333333333,
+            "at": 16.282666666666668,
             "duration": 0.62,
             "gain": 0.8
           }
@@ -4280,8 +6767,8 @@
           "channel": "sfx",
           "stage": "moon",
           "panProgress": 0,
-          "peakRms": 0.11943769178408474,
-          "sampleCount": 29,
+          "peakRms": 0.07565398920077807,
+          "sampleCount": 18,
           "connectedToDestination": true
         },
         {
@@ -4290,8 +6777,8 @@
           "channel": "sfx",
           "stage": "moonHeld",
           "panProgress": 0,
-          "peakRms": 0.1542936257359201,
-          "sampleCount": 24,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -4310,7 +6797,7 @@
           "channel": "sfx",
           "stage": "phases",
           "panProgress": 0,
-          "peakRms": 0.07310211530676275,
+          "peakRms": 0.07417631131887688,
           "sampleCount": 74,
           "connectedToDestination": true
         },
@@ -4331,7 +6818,7 @@
           "stage": "pan",
           "panProgress": 0.2962222222222187,
           "peakRms": 0.08367257312709002,
-          "sampleCount": 16,
+          "sampleCount": 17,
           "connectedToDestination": true
         }
       ]
@@ -4348,63 +6835,63 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.5253333333333334,
+            "at": 1.984,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.056,
+            "at": 3.6,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 5.658666666666667,
+            "at": 6.512,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 6.757333333333333,
+            "at": 8.048,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 8.474666666666666,
+            "at": 9.802666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.421333333333333,
+            "at": 11.936,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.821333333333333,
+            "at": 14.368,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 14.725333333333333,
+            "at": 16.282666666666668,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "burst",
             "stage": "burst",
-            "at": 17.561666666666667,
+            "at": 19.135,
             "duration": 0.98,
             "gain": 0.8
           }
@@ -4440,8 +6927,8 @@
           "channel": "sfx",
           "stage": "moon",
           "panProgress": 0,
-          "peakRms": 0.11943769178408474,
-          "sampleCount": 29,
+          "peakRms": 0.07565398920077807,
+          "sampleCount": 18,
           "connectedToDestination": true
         },
         {
@@ -4450,8 +6937,8 @@
           "channel": "sfx",
           "stage": "moonHeld",
           "panProgress": 0,
-          "peakRms": 0.1542936257359201,
-          "sampleCount": 24,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -4470,7 +6957,7 @@
           "channel": "sfx",
           "stage": "phases",
           "panProgress": 0,
-          "peakRms": 0.07310211530676275,
+          "peakRms": 0.07417631131887688,
           "sampleCount": 74,
           "connectedToDestination": true
         },
@@ -4491,7 +6978,7 @@
           "stage": "pan",
           "panProgress": 0.2962222222222187,
           "peakRms": 0.08367257312709002,
-          "sampleCount": 16,
+          "sampleCount": 17,
           "connectedToDestination": true
         },
         {
@@ -4500,7 +6987,7 @@
           "channel": "sfx",
           "stage": "burst",
           "panProgress": 1,
-          "peakRms": 0.08410729059045932,
+          "peakRms": 0.07804752924040548,
           "sampleCount": 66,
           "connectedToDestination": true
         }
@@ -4518,77 +7005,77 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.5253333333333334,
+            "at": 1.984,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.056,
+            "at": 3.6,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 5.658666666666667,
+            "at": 6.512,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 6.757333333333333,
+            "at": 8.048,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 8.474666666666666,
+            "at": 9.802666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.421333333333333,
+            "at": 11.936,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.821333333333333,
+            "at": 14.368,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 14.725333333333333,
+            "at": 16.282666666666668,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "burst",
             "stage": "burst",
-            "at": 17.561666666666667,
+            "at": 19.135,
             "duration": 0.98,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 23.621333333333332,
+            "at": 25.216,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 24.106666666666666,
+            "at": 25.701333333333334,
             "duration": 0.66,
             "gain": 0.8
           }
@@ -4624,8 +7111,8 @@
           "channel": "sfx",
           "stage": "moon",
           "panProgress": 0,
-          "peakRms": 0.11943769178408474,
-          "sampleCount": 29,
+          "peakRms": 0.07565398920077807,
+          "sampleCount": 18,
           "connectedToDestination": true
         },
         {
@@ -4634,8 +7121,8 @@
           "channel": "sfx",
           "stage": "moonHeld",
           "panProgress": 0,
-          "peakRms": 0.1542936257359201,
-          "sampleCount": 24,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -4654,7 +7141,7 @@
           "channel": "sfx",
           "stage": "phases",
           "panProgress": 0,
-          "peakRms": 0.07310211530676275,
+          "peakRms": 0.07417631131887688,
           "sampleCount": 74,
           "connectedToDestination": true
         },
@@ -4675,7 +7162,7 @@
           "stage": "pan",
           "panProgress": 0.2962222222222187,
           "peakRms": 0.08367257312709002,
-          "sampleCount": 16,
+          "sampleCount": 17,
           "connectedToDestination": true
         },
         {
@@ -4684,7 +7171,7 @@
           "channel": "sfx",
           "stage": "burst",
           "panProgress": 1,
-          "peakRms": 0.08410729059045932,
+          "peakRms": 0.07804752924040548,
           "sampleCount": 66,
           "connectedToDestination": true
         },
@@ -4704,7 +7191,7 @@
           "channel": "sfx",
           "stage": "star",
           "panProgress": 0,
-          "peakRms": 0.019963504588612478,
+          "peakRms": 0.013177386043488112,
           "sampleCount": 4,
           "connectedToDestination": true
         }
@@ -4722,77 +7209,77 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.5253333333333334,
+            "at": 1.984,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.056,
+            "at": 3.6,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 5.658666666666667,
+            "at": 6.512,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 6.757333333333333,
+            "at": 8.048,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 8.474666666666666,
+            "at": 9.802666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.421333333333333,
+            "at": 11.936,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.821333333333333,
+            "at": 14.368,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 14.725333333333333,
+            "at": 16.282666666666668,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "burst",
             "stage": "burst",
-            "at": 17.561666666666667,
+            "at": 19.135,
             "duration": 0.98,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 23.621333333333332,
+            "at": 25.216,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 24.106666666666666,
+            "at": 25.701333333333334,
             "duration": 0.66,
             "gain": 0.8
           }
@@ -4828,8 +7315,8 @@
           "channel": "sfx",
           "stage": "moon",
           "panProgress": 0,
-          "peakRms": 0.11943769178408474,
-          "sampleCount": 29,
+          "peakRms": 0.07565398920077807,
+          "sampleCount": 18,
           "connectedToDestination": true
         },
         {
@@ -4838,8 +7325,8 @@
           "channel": "sfx",
           "stage": "moonHeld",
           "panProgress": 0,
-          "peakRms": 0.1542936257359201,
-          "sampleCount": 24,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -4858,7 +7345,7 @@
           "channel": "sfx",
           "stage": "phases",
           "panProgress": 0,
-          "peakRms": 0.07310211530676275,
+          "peakRms": 0.07417631131887688,
           "sampleCount": 74,
           "connectedToDestination": true
         },
@@ -4879,7 +7366,7 @@
           "stage": "pan",
           "panProgress": 0.2962222222222187,
           "peakRms": 0.08367257312709002,
-          "sampleCount": 16,
+          "sampleCount": 17,
           "connectedToDestination": true
         },
         {
@@ -4888,7 +7375,7 @@
           "channel": "sfx",
           "stage": "burst",
           "panProgress": 1,
-          "peakRms": 0.08410729059045932,
+          "peakRms": 0.07804752924040548,
           "sampleCount": 66,
           "connectedToDestination": true
         },
@@ -4908,7 +7395,7 @@
           "channel": "sfx",
           "stage": "star",
           "panProgress": 0,
-          "peakRms": 0.019963504588612478,
+          "peakRms": 0.013177386043488112,
           "sampleCount": 4,
           "connectedToDestination": true
         }
@@ -4926,84 +7413,84 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.5253333333333334,
+            "at": 1.984,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.056,
+            "at": 3.6,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 5.658666666666667,
+            "at": 6.512,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 6.757333333333333,
+            "at": 8.048,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 8.474666666666666,
+            "at": 9.802666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.421333333333333,
+            "at": 11.936,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.821333333333333,
+            "at": 14.368,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 14.725333333333333,
+            "at": 16.282666666666668,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "burst",
             "stage": "burst",
-            "at": 17.561666666666667,
+            "at": 19.135,
             "duration": 0.98,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 23.621333333333332,
+            "at": 25.216,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 24.106666666666666,
+            "at": 25.701333333333334,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 24.672,
+            "at": 26.282666666666668,
             "duration": 0.66,
             "gain": 0.8
           }
@@ -5039,8 +7526,8 @@
           "channel": "sfx",
           "stage": "moon",
           "panProgress": 0,
-          "peakRms": 0.11943769178408474,
-          "sampleCount": 29,
+          "peakRms": 0.07565398920077807,
+          "sampleCount": 18,
           "connectedToDestination": true
         },
         {
@@ -5049,8 +7536,8 @@
           "channel": "sfx",
           "stage": "moonHeld",
           "panProgress": 0,
-          "peakRms": 0.1542936257359201,
-          "sampleCount": 24,
+          "peakRms": 0.15773116012148167,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -5069,7 +7556,7 @@
           "channel": "sfx",
           "stage": "phases",
           "panProgress": 0,
-          "peakRms": 0.07310211530676275,
+          "peakRms": 0.07417631131887688,
           "sampleCount": 74,
           "connectedToDestination": true
         },
@@ -5090,7 +7577,7 @@
           "stage": "pan",
           "panProgress": 0.2962222222222187,
           "peakRms": 0.08367257312709002,
-          "sampleCount": 16,
+          "sampleCount": 17,
           "connectedToDestination": true
         },
         {
@@ -5099,7 +7586,7 @@
           "channel": "sfx",
           "stage": "burst",
           "panProgress": 1,
-          "peakRms": 0.08410729059045932,
+          "peakRms": 0.07804752924040548,
           "sampleCount": 66,
           "connectedToDestination": true
         },
@@ -5119,7 +7606,7 @@
           "channel": "sfx",
           "stage": "star",
           "panProgress": 0,
-          "peakRms": 0.019963504588612478,
+          "peakRms": 0.013177386043488112,
           "sampleCount": 4,
           "connectedToDestination": true
         },
@@ -5147,7 +7634,7 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.3173333333333332,
+            "at": 1.3333333333333333,
             "duration": 0.66,
             "gain": 0.8
           }
@@ -5181,14 +7668,14 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.3173333333333332,
+            "at": 1.3333333333333333,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.136,
+            "at": 3.1146666666666665,
             "duration": 0.42,
             "gain": 0.8
           }
@@ -5232,91 +7719,91 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.3173333333333332,
+            "at": 1.3333333333333333,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.136,
+            "at": 3.1146666666666665,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 3.8666666666666667,
+            "at": 3.8186666666666667,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 4.634666666666667,
+            "at": 4.549333333333333,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 5.701333333333333,
+            "at": 5.632,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 6.501333333333333,
+            "at": 6.533333333333333,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 7.653333333333333,
+            "at": 7.685333333333333,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 8.352,
+            "at": 8.416,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 9.904,
+            "at": 9.968,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.634666666666666,
+            "at": 10.704,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.266666666666667,
+            "at": 12.352,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 13.866666666666667,
+            "at": 13.898666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "burst",
             "stage": "burst",
-            "at": 15.572333333333335,
+            "at": 15.567,
             "duration": 0.98,
             "gain": 0.8
           }
@@ -5352,7 +7839,7 @@
           "channel": "sfx",
           "stage": "star",
           "panProgress": 0,
-          "peakRms": 0.0542626883678584,
+          "peakRms": 0.05230846671813697,
           "sampleCount": 43,
           "connectedToDestination": true
         },
@@ -5363,7 +7850,7 @@
           "stage": "sun",
           "panProgress": 0,
           "peakRms": 0.11631389090201434,
-          "sampleCount": 25,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -5432,8 +7919,8 @@
           "channel": "sfx",
           "stage": "phaseHeld",
           "panProgress": 0,
-          "peakRms": 0.15395433167815892,
-          "sampleCount": 23,
+          "peakRms": 0.15187327346435034,
+          "sampleCount": 24,
           "connectedToDestination": true
         },
         {
@@ -5441,7 +7928,7 @@
           "ended": true,
           "channel": "sfx",
           "stage": "pan",
-          "panProgress": 0.295999999999997,
+          "panProgress": 0.2962222222222148,
           "peakRms": 0.08367257312709002,
           "sampleCount": 41,
           "connectedToDestination": true
@@ -5452,7 +7939,7 @@
           "channel": "sfx",
           "stage": "burst",
           "panProgress": 1,
-          "peakRms": 0.07804752924040548,
+          "peakRms": 0.08410729059045932,
           "sampleCount": 55,
           "connectedToDestination": true
         }
@@ -5470,91 +7957,91 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 1.3173333333333332,
+            "at": 1.3333333333333333,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 3.136,
+            "at": 3.1146666666666665,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 3.8666666666666667,
+            "at": 3.8186666666666667,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 4.634666666666667,
+            "at": 4.549333333333333,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "summon",
             "stage": "star",
-            "at": 5.701333333333333,
+            "at": 5.632,
             "duration": 0.66,
             "gain": 0.8
           },
           {
             "id": "sweepSun",
             "stage": "sun",
-            "at": 6.501333333333333,
+            "at": 6.533333333333333,
             "duration": 0.42,
             "gain": 0.8
           },
           {
             "id": "sweepMoon",
             "stage": "moon",
-            "at": 7.653333333333333,
+            "at": 7.685333333333333,
             "duration": 0.44,
             "gain": 0.8
           },
           {
             "id": "grab",
             "stage": "moonHeld",
-            "at": 8.352,
+            "at": 8.416,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "release",
             "stage": "moonReleased",
-            "at": 9.904,
+            "at": 9.968,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "phases",
             "stage": "phases",
-            "at": 10.634666666666666,
+            "at": 10.704,
             "duration": 1.12,
             "gain": 0.8
           },
           {
             "id": "collect",
             "stage": "phaseHeld",
-            "at": 12.266666666666667,
+            "at": 12.352,
             "duration": 0.36,
             "gain": 0.8
           },
           {
             "id": "record",
             "stage": "pan",
-            "at": 13.866666666666667,
+            "at": 13.898666666666667,
             "duration": 0.62,
             "gain": 0.8
           },
           {
             "id": "burst",
             "stage": "burst",
-            "at": 15.572333333333335,
+            "at": 15.567,
             "duration": 0.98,
             "gain": 0.8
           }
@@ -5590,7 +8077,7 @@
           "channel": "sfx",
           "stage": "star",
           "panProgress": 0,
-          "peakRms": 0.0542626883678584,
+          "peakRms": 0.05230846671813697,
           "sampleCount": 43,
           "connectedToDestination": true
         },
@@ -5601,7 +8088,7 @@
           "stage": "sun",
           "panProgress": 0,
           "peakRms": 0.11631389090201434,
-          "sampleCount": 25,
+          "sampleCount": 23,
           "connectedToDestination": true
         },
         {
@@ -5670,8 +8157,8 @@
           "channel": "sfx",
           "stage": "phaseHeld",
           "panProgress": 0,
-          "peakRms": 0.15395433167815892,
-          "sampleCount": 23,
+          "peakRms": 0.15187327346435034,
+          "sampleCount": 24,
           "connectedToDestination": true
         },
         {
@@ -5679,7 +8166,7 @@
           "ended": true,
           "channel": "sfx",
           "stage": "pan",
-          "panProgress": 0.295999999999997,
+          "panProgress": 0.2962222222222148,
           "peakRms": 0.08367257312709002,
           "sampleCount": 41,
           "connectedToDestination": true
@@ -5690,8 +8177,8 @@
           "channel": "sfx",
           "stage": "burst",
           "panProgress": 1,
-          "peakRms": 0.07804752924040548,
-          "sampleCount": 57,
+          "peakRms": 0.08410729059045932,
+          "sampleCount": 58,
           "connectedToDestination": true
         }
       ]
@@ -5708,7 +8195,7 @@
           {
             "id": "summon",
             "stage": "star",
-            "at": 0.23466666666666666,
+            "at": 0.256,
             "duration": 0.66,
             "gain": 0.8
           }
@@ -5724,7 +8211,7 @@
           "channel": "sfx",
           "stage": "star",
           "panProgress": 0,
-          "peakRms": 0.030848958666087768,
+          "peakRms": 0.028687997999900666,
           "sampleCount": 7,
           "connectedToDestination": true
         }
@@ -5733,7 +8220,7 @@
     {
       "event": "delayed-response-timing",
       "cancel": false,
-      "releaseDelayMs": 1
+      "releaseDelayMs": 2
     },
     {
       "event": "delayed-reset-cancels-cue",
@@ -5753,7 +8240,7 @@
     {
       "event": "delayed-response-timing",
       "cancel": true,
-      "releaseDelayMs": 12
+      "releaseDelayMs": 10
     }
   ],
   "browser_autoplay_policy": "Chrome default; no autoplay-policy override",
@@ -5765,13 +8252,51 @@
     "音频重置边界用显式 audio.activate() 建立隔离清理fixture；正常自动起播另由完整鼠标和相机模型回调流程验证。",
     "AudioContext/BufferSource 观测与旁接 Analyser 仅用于测量，不替换播放器或使用自动播放策略豁免。"
   ],
-  "supplemental_validation": {
-    "report": "analysis/record-audio-suspend-validation.json",
-    "purpose": "AudioContext suspension followed by one trusted play click; existing pause/resume behavior after SFX integration",
-    "summary": {
-      "total": 3,
-      "passed": 3,
-      "failed": 0
+  "supplemental_validation": [
+    {
+      "report": "analysis/objects-3d-validation.json",
+      "purpose": "Frozen final 3D meshes, solar exit clock, record shader/platter/central-moon pause and reset, current model screenshots",
+      "summary": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0
+      }
+    },
+    {
+      "report": "analysis/record-audio-suspend-validation.json",
+      "purpose": "Final 3D build retains single-click AudioContext recovery and ordinary pause/resume",
+      "summary": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0
+      }
     }
+  ],
+  "source_fingerprint_scope": "Original full behavior/audio-recovery run retained with its measured source hashes. Only the listed model modules changed afterward for source-style calibration; other measured runtime sources still match. Final renderer validation covers these model changes.",
+  "subsequent_visual_only_changes": {
+    "files": [
+      {
+        "file": "public/models/celestial.js",
+        "tested_sha256": "0380fee20080626a6eb5ea097fc079eec7e9b848849f4d1a17af054366c3bfed",
+        "current_sha256": "248f7271f17e347108421a2e6d92999d0be4d3b34ab684fcd9970df327028f58"
+      },
+      {
+        "file": "public/models/sculpted.js",
+        "tested_sha256": "c934f2165c031e76c5868d56d590f73f41ac7d87e102bb300cd2a08d38bd2432",
+        "current_sha256": "a462ddf460e03d29041efa98bed6b54227003ec0de79deb62844c1b0bef58e55"
+      },
+      {
+        "file": "public/models/lunar-surface.js",
+        "tested_sha256": "9c05263d305f9938fb41d5588acd1acf1e75e84830a30865ed0304b48fe3f0c8",
+        "current_sha256": "3684bbaa33d3a4c87404582b640752c7fb5173ad5d62c5eaf2f24eee914f6928"
+      }
+    ],
+    "covered_by": "analysis/objects-3d-validation.json",
+    "final_renderer_summary": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0
+    },
+    "behavior_rerun": false
   }
 }

@@ -1,62 +1,24 @@
 import { GestureSequence } from './gesture-sequence.js';
-import { loadReferenceEffects } from './reference-effects.js';
+import { Objects3D } from './objects-3d.js';
 
 const TAU = Math.PI * 2;
 const EDGES = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[0,17],[17,18],[18,19],[19,20]];
-const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+const clamp = (v,a=0,b=1) => Math.min(b,Math.max(a,v));
 let seed = 9182;
 const random = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
-function noiseGrid(size) { return Float32Array.from({length:size*size},random); }
-const noise = [noiseGrid(8),noiseGrid(16),noiseGrid(32),noiseGrid(64),noiseGrid(128)];
-function sampleNoise(x,y,octave) {
-  const grid=noise[octave], n=8<<octave;
-  const gx=x*(n-1), gy=y*(n-1), ix=Math.floor(gx), iy=Math.floor(gy), fx=gx-ix, fy=gy-iy;
-  const a=grid[iy*n+ix],b=grid[iy*n+Math.min(n-1,ix+1)],c=grid[Math.min(n-1,iy+1)*n+ix],d=grid[Math.min(n-1,iy+1)*n+Math.min(n-1,ix+1)];
-  return (a+(b-a)*fx)*(1-fy)+(c+(d-c)*fx)*fy;
-}
-function moonTexture(phase=0) {
-  const size=256, canvas=document.createElement('canvas'); canvas.width=canvas.height=size;
-  const c=canvas.getContext('2d'),img=c.createImageData(size,size);
-  const craters=Array.from({length:42},()=>({x:random()*1.7-.85,y:random()*1.7-.85,r:.015+random()*.12,depth:.1+random()*.2}));
-  for(let y=0;y<size;y++)for(let x=0;x<size;x++) {
-    const nx=(x-size/2)/(size/2-2),ny=(y-size/2)/(size/2-2),rr=nx*nx+ny*ny;
-    if(rr>=1)continue;
-    const z=Math.sqrt(1-rr), u=x/size,v=y/size;
-    let tex=0;
-    for(let o=0;o<5;o++)tex+=sampleNoise(u,v,o)*[.42,.28,.17,.09,.04][o];
-    const mare = Math.sin(nx*8+Math.sin(ny*4)*2)*Math.cos(ny*7-nx*2);
-    tex=tex*.7+.25+(mare>.22?-.14:0);
-    for(const cr of craters){const d=Math.hypot(nx-cr.x,ny-cr.y)/cr.r;if(d<1.15){tex-=Math.exp(-d*d*5)*cr.depth;tex+=Math.exp(-Math.pow(d-.85,2)*100)*.12;}}
-    const lighting=clamp(nx*Math.sin(phase)+z*Math.cos(phase),0,1);
-    const shade=(.11+.89*Math.pow(lighting,.45))*(.7+.3*z);
-    const lum=clamp((135+tex*145)*shade,0,255), i=(y*size+x)*4;
-    img.data[i]=lum;img.data[i+1]=lum*.99;img.data[i+2]=lum*.89;img.data[i+3]=clamp((1-rr)*120,0,1)*255;
-  }
-  c.putImageData(img,0,0);return canvas;
-}
-function sunTexture(){
-  const cv=document.createElement('canvas');cv.width=cv.height=256;const c=cv.getContext('2d');
-  const img=c.createImageData(256,256);
-  for(let y=0;y<256;y++)for(let x=0;x<256;x++){
-    const nx=(x-128)/125,ny=(y-128)/125,r=nx*nx+ny*ny;if(r>=1)continue;
-    const t=sampleNoise(x/256,y/256,4)*.65+sampleNoise(x/256,y/256,2)*.35;
-    const z=Math.sqrt(1-r),i=(y*256+x)*4;
-    img.data[i]=255;img.data[i+1]=clamp(120+t*130+z*20,0,255);img.data[i+2]=20+t*t*160;img.data[i+3]=clamp((1-r)*100,0,1)*255;
-  }c.putImageData(img,0,0);return cv;
-}
 export class UniverseScene {
   constructor(canvas){
     this.canvas=canvas;this.ctx=canvas.getContext('2d');this.mode='moon';this.hands=[];this.camera=false;this.immersed=false;this.pointerActive=false;this.down=false;
     this.target={x:.66,y:.43};this.position={...this.target};this.pointer={...this.target};this.particles=[];this.ambient=[];this.last=0;this.time=0;this.burstAt=-100;this.auto=false;this.autoStart=0;this.openSince=0;this.victorySince=0;this.lastSwitch=0;this.grabbed=false;this.orbScale=1;this.dissolved=false;
     this.rehearsal=false;this.sequence=new GestureSequence();this.sequenceSnapshot=null;this.sequenceSignature='';
-    this.pointerGrip=.25;this.pressAt=0;this.reference=null;
+    this.pointerGrip=.25;this.pressAt=0;
     this.mirror=true;
     this.recordPlaying=false;this.recordActivated=false;
-    this.assetsReady=loadReferenceEffects().then(effects=>{this.reference=effects;this.moon=effects.moon;effects.phases.forEach((tex,i)=>this.textures[8-i]=tex);return effects;}).catch(error=>{console.error('原片图形素材加载失败',error);});
+    this.objects3d=new Objects3D();this.assetsReady=this.objects3d.assetsReady;
     fetch(new URL('./reference/hand-poses.json',import.meta.url)).then(r=>r.json()).then(poses=>this.handPoses=poses).catch(()=>{});
     this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.textures=Array.from({length:9},(_,i)=>moonTexture(-Math.PI+i*Math.PI/4));this.moon=this.textures[4];this.sun=sunTexture();
-    this.resize=()=>{this.w=canvas.clientWidth;this.h=canvas.clientHeight;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=this.w*dpr;canvas.height=this.h*dpr;this.ctx.setTransform(dpr,0,0,dpr,0,0);};
+    this.phases=[1,.75,.5,.25,0];
+    this.resize=()=>{this.w=canvas.clientWidth;this.h=canvas.clientHeight;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=this.w*dpr;canvas.height=this.h*dpr;this.ctx.setTransform(dpr,0,0,dpr,0,0);this.objects3d.resize(this.w,this.h);};
     this.resize();window.addEventListener('resize',this.resize);
     this.observer=new ResizeObserver(this.resize);this.observer.observe(canvas);
     for(let i=0;i<65;i++)this.ambient.push({x:random(),y:random(),r:random()*1.1+.2,a:random()*.25,speed:random()*.005+.001});
@@ -84,7 +46,7 @@ export class UniverseScene {
   }
   resetSequence(){
     this.sequenceSnapshot=this.sequence.reset(this.time);this.recordPlaying=false;this.recordActivated=false;
-    for(const video of [this.reference?.sunVideo,this.reference?.recordVideo])if(video){video.pause();video.currentTime=0;}
+    this.objects3d.resetClocks();
     this.sequenceSignature='';this.lastSequenceSerial=null;this.mode=null;this.transition=null;this.appearAt=undefined;this.particles=[];this.dissolved=false;this.orbScale=1;this.grabbing=false;this.target={...this.sequenceSnapshot.target};this.position={...this.target};this.onSequence?.(this.sequenceSnapshot);
   }
   setCamera(enabled){this.camera=enabled;this.rehearsal=!enabled;this.hands=[];this.pointerActive=false;this.down=false;this.resetSequence();}
@@ -139,43 +101,23 @@ export class UniverseScene {
     }
     const ease=1-Math.exp(-dt*(this.grabbing?18:7));
     if(!['moonReleased','pan'].includes(this.sequenceSnapshot?.stage)){this.position.x+=(this.target.x-this.position.x)*ease;this.position.y+=(this.target.y-this.position.y)*ease;}
-    if(this.reference)for(const [mode,video] of [['sun',this.reference.sunVideo],['pan',this.reference.recordVideo]]){if(mode===this.mode&&!this.dissolved&&(mode!=='pan'||this.recordPlaying)){if(video.paused&&!video._starting){video._starting=true;video.play().catch(()=>{}).finally(()=>video._starting=false);}}else if(!video.paused)video.pause();}
+    const sunVisible=this.mode==='sun'||this.transition?.mode==='sun'&&t-this.transition.start<.50;
+    this.objects3d.update(dt,{mode:this.mode,dissolved:this.dissolved,recordPlaying:this.recordPlaying,sunVisible});
     this.position.x=clamp(this.position.x,.02,.98);this.position.y=clamp(this.position.y,.02,.94);
     for(const p of this.particles){p.age+=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.exp(-dt*.9);p.vy+=9*dt;}
     this.particles=this.particles.filter(p=>p.age<p.life);
   }
   glow(x,y,r,color,opacity=.45){const c=this.ctx;c.save();c.globalAlpha*=opacity;const g=c.createRadialGradient(x,y,r*.1,x,y,r);g.addColorStop(0,color);g.addColorStop(.32,color);g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(x-r,y-r,r*2,r*2);c.restore();}
-  drawMoon(x,y,r,texture=this.moon,alpha=1){const c=this.ctx;c.save();c.globalAlpha*=alpha;this.glow(x,y,r*1.55,'#e8e3b6',.16);c.shadowColor='#f5f1c1';c.shadowBlur=r*.09;const R=this.reference?r*texture.width/(texture.width-4):r;c.drawImage(texture,x-R,y-R,R*2,R*2);c.restore();}
+  drawMoon(x,y,r,phase=0,alpha=1){
+    this.objects3d.draw('moon',x,y,r,this.ctx.globalAlpha*alpha,{phase});
+  }
   drawStar(x,y,r){
-    const c=this.ctx;
-    this.glow(x,y,r*1.5,'#e1ca76',.13);
-    c.save();c.translate(x,y);
-    // A very small yaw keeps the source's inflated 3D face, not a flat outline.
-    c.scale(1+Math.sin(this.time*.6)*.025,1);
-    if(this.reference?.star){
-      c.shadowColor='#e6d18e';c.shadowBlur=r*.10;
-      c.drawImage(this.reference.star,-r*1.23,-r*1.23,r*2.46,r*2.46);
-    }else{
-      c.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.48:r;c.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}c.closePath();
-      c.fillStyle='#b3a67b';c.fill();
-    }c.restore();
+    this.glow(x,y,r*1.5,'#e1ca76',.10);
+    this.objects3d.draw('star',x,y,r,this.ctx.globalAlpha);
   }
   drawSun(x,y,r){
-    const c=this.ctx,t=this.time;
-    this.glow(x,y,r*1.65,'#ffa61c',.35);this.glow(x,y,r*1.14,'#ffd357',.5);
-    c.save();c.translate(x,y);c.rotate(Math.sin(t*.18)*.025);
-    const video=this.reference?.sunVideo,texture=this.reference?.sun||this.sun;
-    c.shadowColor='#ffcc3d';c.shadowBlur=r*.09;
-    if(video?.readyState>=2){c.beginPath();c.arc(0,0,r,0,TAU);c.clip();c.drawImage(video,-r*70/66,-r*70/66,r*140/66,r*140/66);}
-    else{const R=this.reference?r*texture.width/(texture.width-4):r;c.drawImage(texture,-R,-R,2*R,2*R);}c.restore();
-    // Irregular low flame filaments, instead of the old evenly spaced loops.
-    c.save();c.globalCompositeOperation='screen';
-    for(let i=0;i<36;i++){
-      const a=i*2.39996+t*.07,len=r*(.05+.045*Math.sin(t*3+i*8));
-      c.beginPath();c.moveTo(x+Math.cos(a)*r*.96,y+Math.sin(a)*r*.96);
-      c.quadraticCurveTo(x+Math.cos(a+.06)*(r+len),y+Math.sin(a+.06)*(r+len),x+Math.cos(a+.12)*(r+len*.4),y+Math.sin(a+.12)*(r+len*.4));
-      c.strokeStyle=`rgba(255,194,62,${.18+.12*Math.sin(i+t*2)})`;c.lineWidth=r*.018;c.stroke();
-    }c.restore();
+    this.glow(x,y,r*1.65,'#ffa61c',.18);
+    this.objects3d.draw('sun',x,y,r,this.ctx.globalAlpha);
   }
   drawPhases(x,y,r,progress=1,anchor=null,span=.72,opacity=1,omitFull=false){
     const c=this.ctx,right=anchor?anchor.x*this.w:this.w*.86;
@@ -190,32 +132,12 @@ export class UniverseScene {
       let ease=1;for(let k=1;k<keys.length;k++)if(p<=keys[k][0]){const [a,av]=keys[k-1],[b,bv]=keys[k];ease=av+(bv-av)*(p-a)/(b-a);break;}
       const px=right-(4-i)*span*this.w/4*ease,py=anchor?anchor.y*this.h:y;
       c.save();c.globalAlpha*=clamp(p*6,0,1);
-      this.drawMoon(px,py,phaseRadius,this.textures[8-i]);c.restore();
+      this.drawMoon(px,py,phaseRadius,this.phases[i]);c.restore();
     }c.restore();
   }
   drawPan(x,y,r,progress=1){
-    // Legacy stage name; visually this is the source's vinyl record + tonearm.
-    const c=this.ctx,R=r*2.25,k=R/149,video=this.reference?.recordVideo;
-    c.save();c.translate(x,y);c.globalAlpha*=clamp(progress*2,0,1);
-    if(video?.readyState>=2){
-      // The original dynamic grooves, moon lighting and wisps are retained.
-      // A union mask keeps the disk and the narrow external tonearm only.
-      c.save();c.scale(k,k);c.beginPath();c.ellipse(0,0,149,156,0,0,TAU);
-      c.moveTo(-4,-245);c.bezierCurveTo(4,-249,14,-246,15,-238);
-      c.quadraticCurveTo(14,-229,8,-225);c.bezierCurveTo(9,-195,12,-170,22,-145);
-      c.lineTo(15,-145);c.bezierCurveTo(8,-170,4,-196,3,-225);
-      c.quadraticCurveTo(-8,-228,-6,-239);c.closePath();c.clip();
-      c.drawImage(video,-154,-250,310,410);c.restore();
-    }else if(this.reference?.record){
-      c.drawImage(this.reference.record,-R*151/149,-R*158/149,R*302/149,R*316/149);
-      // The source texture already contains the part inside the disk.
-      c.save();c.lineCap='round';c.beginPath();c.moveTo(R*.035,-R*1.56);
-      c.bezierCurveTo(R*.04,-R*1.38,R*.065,-R*1.20,R*.105,-R*1.04);
-      c.strokeStyle='#090c0b';c.lineWidth=R*.035;c.stroke();
-      c.strokeStyle='#777f7e';c.lineWidth=R*.008;c.stroke();
-      c.beginPath();c.ellipse(.035*R,-1.58*R,R*.052,R*.047,0,0,TAU);c.fillStyle='#090c0d';c.fill();c.strokeStyle='#737c7e';c.lineWidth=R*.008;c.stroke();c.restore();
-    }else{c.fillStyle='#171919';c.beginPath();c.arc(0,0,R,0,TAU);c.fill();this.drawMoon(0,0,R*.58);}
-    c.restore();
+    // Legacy controller stage name; this is a solid vinyl player with a pickup.
+    this.objects3d.draw('record',x,y,r*2.25,this.ctx.globalAlpha*clamp(progress*2));
   }
   simulatedHand(){
     if(this.handPoses){
@@ -243,7 +165,7 @@ export class UniverseScene {
     c.restore();
   }
   draw(){
-    const c=this.ctx,w=this.w,h=this.h,t=this.time;c.clearRect(0,0,w,h);
+    const c=this.ctx,w=this.w,h=this.h,t=this.time;c.clearRect(0,0,w,h);this.objects3d.beginFrame();
     if(!this.camera){
       for(const s of this.ambient){const y=(s.y-t*s.speed+100)%1*h;c.beginPath();c.arc(s.x*w,y,s.r,0,TAU);c.fillStyle=`rgba(205,199,157,${s.a*(.6+.4*Math.sin(t*.3+s.x*15))})`;c.fill();}
     }
@@ -262,7 +184,8 @@ export class UniverseScene {
     if(this.sequenceSnapshot?.stage==='phaseHeld'&&this.sequenceSnapshot.phaseProgress>0)this.drawPhases(x,y,r,1,this.sequenceSnapshot.phaseAnchor,this.sequenceSnapshot.phaseSpan,this.sequenceSnapshot.phaseProgress,true);
     if(this.mode)this.drawEffect(this.mode,x,y,r);
     c.restore();
-    if(this.sequenceSnapshot?.stage==='pan'&&this.sequenceSnapshot.panProgress>=.28&&!this.recordActivated){this.recordActivated=true;this.onRecordVisible?.();}
+    this.objects3d.render(c);
+    if(this.objects3d.ready&&this.sequenceSnapshot?.stage==='pan'&&this.sequenceSnapshot.panProgress>=.28&&!this.recordActivated){this.recordActivated=true;this.onRecordVisible?.();}
     if(this.grabbing&&burstAge>3&&!this.sequenceEnabled){c.save();c.strokeStyle='#e4d7ad55';c.lineWidth=.7;c.setLineDash([2,5]);c.beginPath();c.arc(x,y,r*1.4,0,TAU);c.stroke();c.restore();}
     c.save();c.globalCompositeOperation='screen';
     for(const p of this.particles){c.globalAlpha=Math.pow(1-p.age/p.life,1.7);c.fillStyle='#e9e2bd';c.beginPath();c.arc(p.x,p.y,p.r,0,TAU);c.fill();}c.restore();
@@ -275,5 +198,5 @@ export class UniverseScene {
     else this.drawMoon(x,y,r);
   }
   frame(now){const dt=this.last?Math.min((now-this.last)/1000,.05):.016;this.last=now;if(!document.hidden){this.update(dt);this.draw();}this.raf=requestAnimationFrame(this.frame);}
-  destroy(){cancelAnimationFrame(this.raf);window.removeEventListener('resize',this.resize);this.observer.disconnect();this.reference?.sunVideo?.pause();this.reference?.recordVideo?.pause();}
+  destroy(){cancelAnimationFrame(this.raf);window.removeEventListener('resize',this.resize);this.observer.disconnect();this.objects3d.dispose();}
 }

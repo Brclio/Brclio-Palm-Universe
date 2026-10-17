@@ -1,0 +1,124 @@
+{
+  "tested_at": "2026-10-17T09:10:58.446Z",
+  "purpose": "Focused real-browser regression after excluding the play button from the global context unlock handler",
+  "source_sha256": {
+    "app.js": "092e08e846565f83a897352363a82b0e215cfab816eb4f1f67ab41f84a6169b2",
+    "public/scene.js": "4dac443eaef696cc99089633232f3981f1631d519268cceef996cc04e674c9cd",
+    "public/record-audio.js": "8811e650f671d89b021169295cf60a2d688007b0c4be0d715b255005b6d1b1b0",
+    "public/interaction-audio.js": "2dd4e92edebe72cbde3af67538498342cb5d9c24a9d5038f233afc9c6ff7d361"
+  },
+  "browser_autoplay_policy": "Default Chrome; no autoplay-policy override",
+  "setup": "Full record stage reached through real mouse events; AudioContext.suspend() explicitly simulates OS/browser suspension.",
+  "test_results": [
+    {
+      "id": "suspended-context-single-click",
+      "passed": true
+    },
+    {
+      "id": "normal-pause-resume-still-works",
+      "passed": true
+    },
+    {
+      "id": "no-browser-errors",
+      "passed": true
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0
+  },
+  "observations": [
+    {
+      "event": "record-playing-before-context-suspension",
+      "audio": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.4053333333333349,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "context": "running",
+      "videoPaused": false,
+      "videoTime": 0.390974,
+      "recordPlaying": true,
+      "rms": 0.00003665879433863983,
+      "sameSource": true
+    },
+    {
+      "event": "context-suspended",
+      "audio": {
+        "ready": true,
+        "active": true,
+        "playing": false,
+        "currentTime": 0.4053333333333349,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": true
+      },
+      "context": "suspended",
+      "videoPaused": true,
+      "videoTime": 0.401325,
+      "recordPlaying": false,
+      "rms": 0.00003665879433863983,
+      "sameSource": true
+    },
+    {
+      "event": "single-click-resumed-context-and-record",
+      "audio": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 0.7573333333333334,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "context": "running",
+      "videoPaused": false,
+      "videoTime": 0.742763,
+      "recordPlaying": true,
+      "rms": 0.00003710373683097411,
+      "sameSource": true
+    },
+    {
+      "event": "normal-pause-after-context-recovery",
+      "audio": {
+        "ready": true,
+        "active": true,
+        "playing": false,
+        "currentTime": 0.7840000000000007,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "context": "running",
+      "videoPaused": true,
+      "videoTime": 0.784163,
+      "recordPlaying": false,
+      "rms": 0,
+      "sameSource": false
+    },
+    {
+      "event": "normal-resume-after-context-recovery",
+      "audio": {
+        "ready": true,
+        "active": true,
+        "playing": true,
+        "currentTime": 1.0346666666666664,
+        "duration": 270,
+        "trackName": "茶花开了",
+        "blocked": false
+      },
+      "context": "running",
+      "videoPaused": false,
+      "videoTime": 1.025259,
+      "recordPlaying": true,
+      "rms": 0.03286731097861595,
+      "sameSource": false
+    }
+  ],
+  "page_errors": []
+}

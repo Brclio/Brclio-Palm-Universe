@@ -1,0 +1,1 @@
+Historical independent 3D render validation before final source-style calibration of the three model modules. The full behavior reports were retained unchanged; current visual validation is analysis/objects-3d-validation.json.

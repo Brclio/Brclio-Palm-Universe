@@ -1,0 +1,1 @@
+Historical validation for the former source-texture renderer. These results and screenshots predate the independent real-time 3D implementation. Current results remain in analysis/revision-browser-validation.json.

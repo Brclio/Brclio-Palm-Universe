@@ -1,11 +1,13 @@
 {
-  "tested_at": "2026-10-17T09:10:58.446Z",
+  "tested_at": "2026-10-17T12:50:53.239Z",
   "purpose": "Focused real-browser regression after excluding the play button from the global context unlock handler",
   "source_sha256": {
     "app.js": "092e08e846565f83a897352363a82b0e215cfab816eb4f1f67ab41f84a6169b2",
-    "public/scene.js": "4dac443eaef696cc99089633232f3981f1631d519268cceef996cc04e674c9cd",
+    "public/scene.js": "3da489efe5ac273a16a87f5172f828f7c397cd6c8c7210a7c34e937e0f2108e0",
     "public/record-audio.js": "8811e650f671d89b021169295cf60a2d688007b0c4be0d715b255005b6d1b1b0",
-    "public/interaction-audio.js": "2dd4e92edebe72cbde3af67538498342cb5d9c24a9d5038f233afc9c6ff7d361"
+    "public/interaction-audio.js": "2dd4e92edebe72cbde3af67538498342cb5d9c24a9d5038f233afc9c6ff7d361",
+    "public/objects-3d.js": "fadbb5fe0f980c7a45e2f5dc9cf96d01ea231e428ee5209f9babc4215f18f0d4",
+    "public/models/sculpted.js": "c934f2165c031e76c5868d56d590f73f41ac7d87e102bb300cd2a08d38bd2432"
   },
   "browser_autoplay_policy": "Default Chrome; no autoplay-policy override",
   "setup": "Full record stage reached through real mouse events; AudioContext.suspend() explicitly simulates OS/browser suspension.",
@@ -35,16 +37,16 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.4053333333333349,
+        "currentTime": 0.4053333333333331,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
-      "videoPaused": false,
-      "videoTime": 0.390974,
+      "animationPlaying": true,
+      "recordClock": 0.3999000000000015,
       "recordPlaying": true,
-      "rms": 0.00003665879433863983,
+      "rms": 3.665879433863983e-05,
       "sameSource": true
     },
     {
@@ -53,16 +55,16 @@
         "ready": true,
         "active": true,
         "playing": false,
-        "currentTime": 0.4053333333333349,
+        "currentTime": 0.4053333333333331,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": true
       },
       "context": "suspended",
-      "videoPaused": true,
-      "videoTime": 0.401325,
+      "animationPlaying": false,
+      "recordClock": 0.3999000000000015,
       "recordPlaying": false,
-      "rms": 0.00003665879433863983,
+      "rms": 3.665879433863983e-05,
       "sameSource": true
     },
     {
@@ -71,16 +73,16 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 0.7573333333333334,
+        "currentTime": 0.7786666666666662,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
-      "videoPaused": false,
-      "videoTime": 0.742763,
+      "animationPlaying": true,
+      "recordClock": 0.7666000000000025,
       "recordPlaying": true,
-      "rms": 0.00003710373683097411,
+      "rms": 3.5733475243660944e-05,
       "sameSource": true
     },
     {
@@ -89,14 +91,14 @@
         "ready": true,
         "active": true,
         "playing": false,
-        "currentTime": 0.7840000000000007,
+        "currentTime": 0.8106666666666662,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
-      "videoPaused": true,
-      "videoTime": 0.784163,
+      "animationPlaying": false,
+      "recordClock": 0.7999000000000018,
       "recordPlaying": false,
       "rms": 0,
       "sameSource": false
@@ -107,18 +109,35 @@
         "ready": true,
         "active": true,
         "playing": true,
-        "currentTime": 1.0346666666666664,
+        "currentTime": 1.0666666666666664,
         "duration": 270,
         "trackName": "茶花开了",
         "blocked": false
       },
       "context": "running",
-      "videoPaused": false,
-      "videoTime": 1.025259,
+      "animationPlaying": true,
+      "recordClock": 1.049900000000002,
       "recordPlaying": true,
-      "rms": 0.03286731097861595,
+      "rms": 0.03089892129713177,
       "sameSource": false
     }
   ],
-  "page_errors": []
+  "page_errors": [],
+  "source_fingerprint_scope": "Original full behavior/audio-recovery run retained with its measured source hashes. Only the listed model modules changed afterward for source-style calibration; other measured runtime sources still match. Final renderer validation covers these model changes.",
+  "subsequent_visual_only_changes": {
+    "files": [
+      {
+        "file": "public/models/sculpted.js",
+        "tested_sha256": "c934f2165c031e76c5868d56d590f73f41ac7d87e102bb300cd2a08d38bd2432",
+        "current_sha256": "a462ddf460e03d29041efa98bed6b54227003ec0de79deb62844c1b0bef58e55"
+      }
+    ],
+    "covered_by": "analysis/objects-3d-validation.json",
+    "final_renderer_summary": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0
+    },
+    "behavior_rerun": false
+  }
 }
