@@ -4,7 +4,7 @@ import { InteractionAudio } from './public/interaction-audio.js';
 
 const $=s=>document.querySelector(s);
 const stage=$('#stage'),shell=$('.stage-shell'),canvas=$('#universe'),music=$('#music');
-function fitStage(){stage.style.width=`${shell.clientWidth}px`;stage.style.height=`${shell.clientHeight}px`;}
+function fitStage(){const w=Math.min(shell.clientWidth,shell.clientHeight*16/9);stage.style.width=`${w}px`;stage.style.height=`${w*9/16}px`;}
 fitStage();new ResizeObserver(fitStage).observe(shell);
 const scene=new UniverseScene(canvas);
 const modes=['star','sun','moon','phases','pan'];
@@ -24,7 +24,7 @@ function updateModeUi(){
   $('#camera-toggle').classList.toggle('selected',scene.camera);$('#camera-toggle').setAttribute('aria-pressed',String(scene.camera));
   $('#camera-label').textContent=scene.camera?'关闭摄像头':'开启摄像头';
   $('#idle-instruction').textContent=scene.camera?'像原片一样四指收拢握拳，拇指可伸出。':'在画面里按住鼠标片刻，召出星星。';
-  $('#input-description').textContent=scene.camera?`真人右→左翻腕甩手 · ${scene.mirror?'镜像画面左→右':'非镜像画面右→左'} · 镜头保留原始画幅`:'按住＝收拢 · 松开＝张手 · 向右划过模拟甩手 · 按住拖动＝夹取';
+  $('#input-description').textContent=scene.camera?'左右以画面为准：向右扫过星球切换 · 张掌向左扫展开月相':'按住＝收拢 · 松开＝张手 · 横移＝挥手 · 按住拖动＝夹取移动';
 }
 scene.onSequence=s=>{
   if(s.stage==='idle'){recordAudio.reset();interactionAudio.reset();}
@@ -75,7 +75,7 @@ async function startCamera(){
   try{
     if(!tracker){const {HandTracker}=await import('./public/hand-tracking.js');tracker=new HandTracker({onResults:results=>{if(scene.camera)scene.setHands(results,$('#camera'));},onStatus:event=>{if(event.state==='error'&&scene.camera){stopCamera();status('error',event.message);toast(event.message);}else if(event.state==='camera'||event.state==='loading')status('loading',event.message);}});}
     await tracker.start($('#camera'));if(request!==cameraRequest){tracker.stop();return;}
-    scene.video=$('#camera');scene.setCamera(true);document.body.classList.add('camera-active');document.body.classList.remove('has-input');updateModeUi();status('ready','摄像头手势 · 收拢手指召星');
+    scene.setCamera(true);document.body.classList.add('camera-active');document.body.classList.remove('has-input');updateModeUi();status('ready','摄像头手势 · 收拢手指召星');
   }catch(error){
     if(request!==cameraRequest||error.name==='AbortError')return;
     tracker?.stop();scene.setCamera(false);document.body.classList.remove('camera-active');updateModeUi();

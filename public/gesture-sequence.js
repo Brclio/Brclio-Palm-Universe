@@ -8,7 +8,7 @@ const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
 const copy = (p) => ({ x: p.x, y: p.y });
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const point = (p, fallback) => p && Number.isFinite(p.x) && Number.isFinite(p.y)
-  ? { x: p.x, y: p.y } : copy(fallback);
+  ? { x: clamp(p.x), y: clamp(p.y) } : copy(fallback);
 
 /** Durations are seconds, screen distances are fractions of the canvas. */
 export const SEQUENCE_DEFAULTS = Object.freeze({
@@ -25,9 +25,6 @@ export const SEQUENCE_DEFAULTS = Object.freeze({
   swipeHorizontalRatio: 1.7,
   swipeCooldown: 0.43,
   swipeReturnDistance: 0.10,
-  flickMinTurn: .55,
-  flickRelativeTravel: .55,
-  flickTipSpeed: 2.4,
   grabRadius: 0.065,
   grabHandRadius: 0.8,
   cShapeMaxOpening: 1.45,
@@ -57,8 +54,8 @@ export const SEQUENCE_DEFAULTS = Object.freeze({
 
 const HINTS = {
   idle: '四指收拢握拳，拇指可伸出，停留片刻召出星星',
-  star: '松开拳头，在星星附近翻腕甩手：真人右→左，镜像画面左→右',
-  sun: '回腕准备，再甩一次；拇指和食指伸出也可以切换',
+  star: '松开拳头，像原片一样把手从左向右横扫',
+  sun: '手收回左边，伸出食指和拇指，再向右横扫',
   moon: '用拇指和食指在月球旁形成 C 形，夹住月球',
   moonHeld: '夹紧缩小并移到右侧，再伸直食指、张开拇指释放',
   moonReleased: '月球已停住，五指张开向左横扫，展开五个月相',
@@ -95,10 +92,8 @@ export class GestureSequence {
     this.burst = false;
     this._time = Number.isFinite(time) ? time : 0;
     this._stageAt = this._time;
-    this._stageObservationAt = this._time;
     this._lastUpdate = null;
     this._lastTracked = null;
-    this._lastReceived = null;
     this._missingSince = null;
     this._timers = Object.create(null);
     this._swipeSamples = [];
@@ -118,15 +113,11 @@ export class GestureSequence {
     this._burstArmed = false;
     this._fistLastAt = null;
     this.aspectRatio = 1;
-    this._observationTime = this._time;
-    this._activeHandId = null;
-    this._switchDirection = 1;
     return this.snapshot();
   }
 
   snapshot() {
     let hint = HINTS[this.stage];
-    if(this.stage==='star'&&this._switchDirection<0)hint='在星星附近向右→左翻腕甩手（非镜像画面）';
     if (this._needsReacquire) hint = '跟踪曾中断，请在停住的月球旁重新夹住它';
     else if (!this.tracked && this.stage !== 'burst') hint = '把手放回镜头内；当前天体会留在原位';
     return {
@@ -167,7 +158,7 @@ export class GestureSequence {
     if (Number.isFinite(time)) this._time = Math.max(this._time, time);
     this.burst = false;
     this._animate();
-    if (this._lastReceived !== null && this._time - this._lastReceived > this.config.lostGrace) {
+    if (this._lastTracked !== null && this._time - this._lastTracked > this.config.lostGrace) {
       this.tracked = false;
       if (this._missingSince === null) this._missingSince = this._time;
       this._breakTracking(true);
@@ -175,38 +166,31 @@ export class GestureSequence {
     return this.snapshot();
   }
 
-  update(input, time, receivedTime = time) {
+  update(input, time) {
     const nextTime = Number.isFinite(time) ? time : this._time;
-    this._observationTime = nextTime;
-    // Capture time measures the physical gesture. Receipt time measures a
-    // detector interruption; steady inference latency is not a missing hand.
-    this._time = Math.max(this._time, Number.isFinite(receivedTime) ? receivedTime : nextTime);
+    this._time = Math.max(this._time, nextTime);
     this.burst = false;
+    const gap = this._lastUpdate === null ? 0 : this._time - this._lastUpdate;
+    this._lastUpdate = this._time;
+    // A stalled camera is a tracking break even if no null sample was sent.
+    if (gap > this.config.lostGrace) this._breakTracking(true);
     this._animate();
 
     if (!input?.palm) {
       this.tracked = false;
       if (this._missingSince === null) this._missingSince = this._time;
-      this._breakTracking(this._lastReceived !== null
-        && this._time - this._lastReceived > this.config.lostGrace);
+      this._breakTracking(this._lastTracked !== null
+        && this._time - this._lastTracked > this.config.lostGrace);
       return this.snapshot();
     }
 
-    const gap = this._lastUpdate === null ? 0 : nextTime - this._lastUpdate;
-    this._lastUpdate = nextTime;
-    if (gap > this.config.lostGrace) this._breakTracking(true);
     const wasMissing = this._missingSince !== null;
-    const missingLong = wasMissing && this._lastReceived !== null
-      && this._time - this._lastReceived > this.config.lostGrace;
+    const missingLong = wasMissing && this._lastTracked !== null
+      && this._time - this._lastTracked > this.config.lostGrace;
     if (missingLong) this._breakTracking(true);
     this._missingSince = null;
-    this._lastTracked = nextTime;
-    this._lastReceived = Number.isFinite(receivedTime) ? receivedTime : nextTime;
+    this._lastTracked = this._time;
     this.tracked = true;
-    if(input.handId!==undefined&&input.handId!==this._activeHandId){
-      if(this._activeHandId!==null)this._breakTracking(true);
-      this._activeHandId=input.handId;
-    }
     const hand = this._normalize(input);
 
     if (this.stage === 'burst') return this.snapshot();
@@ -242,8 +226,7 @@ export class GestureSequence {
   }
 
   _normalize(input) {
-    this.aspectRatio = Math.max(0.1, Number(input.aspectRatio) || 1);
-    this._switchDirection = input.source==='camera'&&input.switchDirection===-1?-1:1;
+    this.aspectRatio = Math.max(0.5, Number(input.aspectRatio) || 1);
     const palm = point(input.palm, this.target);
     const index = point(input.index, input.pinchCenter || palm);
     const thumb = point(input.thumb, input.pinchCenter || palm);
@@ -251,7 +234,6 @@ export class GestureSequence {
     return {
       ...input,
       palm, index, thumb,
-      wrist:input.wrist?point(input.wrist,palm):null,
       pinchCenter: point(input.pinchCenter, { x: (index.x + thumb.x) / 2, y: (index.y + thumb.y) / 2 }),
       handSize: clamp(Number.isFinite(input.handSize) ? input.handSize : 0.085, 0.025, 0.24),
       pinchStrength: clamp(Number.isFinite(input.pinchStrength) ? input.pinchStrength : input.pinch ? 1 : 0),
@@ -264,8 +246,8 @@ export class GestureSequence {
 
   _dwell(key, active, duration) {
     if (!active) { delete this._timers[key]; return false; }
-    if (this._timers[key] === undefined) this._timers[key] = this._observationTime;
-    return this._observationTime - this._timers[key] + 1e-7 >= duration;
+    if (this._timers[key] === undefined) this._timers[key] = this._time;
+    return this._time - this._timers[key] + 1e-7 >= duration;
   }
 
   _setStage(stage, mode = this.mode) {
@@ -274,7 +256,6 @@ export class GestureSequence {
     this.stage = stage;
     this.mode = mode;
     this._stageAt = this._time;
-    this._stageObservationAt = this._observationTime;
     this._timers = Object.create(null);
     this._swipeSamples = [];
     this._emit({ type: 'stage', previousStage, previousMode });
@@ -301,10 +282,7 @@ export class GestureSequence {
   }
 
   _near(hand, target, radius = this.config.grabRadius, handRadius = this.config.grabHandRadius) {
-    const reach=radius===this.config.grabRadius&&Number.isFinite(hand.orbRadius)
-      ?Math.max(hand.orbRadius*.9,hand.handSize*.65)+hand.handSize*.15
-      :Math.max(radius,hand.handSize*handRadius);
-    return Math.hypot(hand.pinchCenter.x-target.x,(hand.pinchCenter.y-target.y)/this.aspectRatio) <= reach;
+    return Math.hypot(hand.pinchCenter.x-target.x,(hand.pinchCenter.y-target.y)/this.aspectRatio) <= Math.max(radius, hand.handSize * handRadius);
   }
 
   _grip(hand) {
@@ -364,12 +342,11 @@ export class GestureSequence {
   }
 
   _sweep(hand) {
-    if(hand.source==='camera'){this._flick(hand);return;}
-    const t = this._observationTime;
+    const t = this._time;
     const c = this.config;
     if (!this._swipeReady) {
       const returned = this._swipeEnd && hand.palm.x <= this._swipeEnd.x - Math.max(c.swipeReturnDistance, hand.handSize);
-      if (returned && t - this._stageObservationAt >= c.swipeCooldown) {
+      if (returned && t - this._stageAt >= c.swipeCooldown) {
         this._swipeReady = true;
         this._swipeSamples = [];
       } else return;
@@ -379,7 +356,7 @@ export class GestureSequence {
     // should erase an otherwise clear rightward sweep. A stationary V still
     // cannot pass the direction, displacement, speed and path checks below.
     const pose = !hand.pinch && !hand.fist;
-    if (!pose || t - this._stageObservationAt < c.swipeCooldown) { this._swipeSamples = []; return; }
+    if (!pose || t - this._stageAt < c.swipeCooldown) { this._swipeSamples = []; return; }
     const sample = { ...hand.palm, index:copy(hand.index), thumb:copy(hand.thumb), time: t };
     const last = this._swipeSamples.at(-1);
     if (last && (t - last.time > c.lostGrace || distance(last, sample) / Math.max(t - last.time, 0.001) > 5.5)) {
@@ -392,7 +369,7 @@ export class GestureSequence {
       const start = this._swipeSamples[i];
       const dt = t - start.time;
       const dx = sample.x - start.x;
-      const dy = Math.abs(sample.y - start.y)/this.aspectRatio;
+      const dy = Math.abs(sample.y - start.y);
       if (dt < c.swipeMinDuration || dx < minDistance || dx / dt < c.swipeMinSpeed
         || dx < dy * c.swipeHorizontalRatio) continue;
       const path = this._swipeSamples.slice(i);
@@ -416,56 +393,6 @@ export class GestureSequence {
       if (this.stage === 'star') this._setStage('sun', 'sun');
       else this._setStage('moon', 'moon');
       return;
-    }
-  }
-
-  _flick(hand) {
-    const t=this._observationTime,c=this.config,direction=this._switchDirection;
-    if(!hand.wrist)return;
-    const ray={x:hand.index.x-hand.wrist.x,y:(hand.index.y-hand.wrist.y)/this.aspectRatio};
-    if(!this._swipeReady){
-      // Re-arm by returning the wrist's local pointing direction. Moving the
-      // entire arm back across a fixed percentage of the screen is unnecessary.
-      const returned=this._swipeEnd?.ray&&direction*(this._swipeEnd.ray.x-ray.x)>=hand.handSize*.5;
-      if(returned&&t-this._stageObservationAt>=c.swipeCooldown){this._swipeReady=true;this._swipeSamples=[];}
-      else return;
-    }
-    if(hand.pinch||hand.fist||t-this._stageObservationAt<c.swipeCooldown){this._swipeSamples=[];return;}
-    const sample={...hand.palm,wrist:copy(hand.wrist),index:copy(hand.index),thumb:copy(hand.thumb),ray,time:t};
-    const previous=this._swipeSamples.at(-1);
-    if(previous&&(t-previous.time>c.lostGrace||distance(previous,sample)/Math.max(t-previous.time,.001)>5.5))this._swipeSamples=[];
-    this._swipeSamples.push(sample);
-    this._swipeSamples=this._swipeSamples.filter(entry=>t-entry.time<=c.swipeWindow);
-    const turn=(a,b)=>Math.atan2(a.x*b.y-a.y*b.x,a.x*b.x+a.y*b.y)*direction;
-    for(let i=0;i<this._swipeSamples.length-2;i++){
-      const path=this._swipeSamples.slice(i),start=path[0],dt=t-start.time;
-      const localTravel=direction*(ray.x-start.ray.x),tipTravel=direction*(sample.index.x-start.index.x);
-      if(dt<c.swipeMinDuration||turn(start.ray,ray)<c.flickMinTurn
-        ||localTravel<hand.handSize*c.flickRelativeTravel||tipTravel<hand.handSize*.5
-        ||tipTravel/dt<hand.handSize*c.flickTipSpeed)continue;
-      let movingSteps=0,reverseTurn=0,firstMotion=null,lastMotion=null;
-      for(let j=1;j<path.length;j++){
-        const rotation=turn(path[j-1].ray,path[j].ray);
-        if(rotation>.055){movingSteps++;firstMotion??=path[j-1].time;lastMotion=path[j].time;}
-        else if(rotation<0)reverseTurn-=rotation;
-      }
-      // One bad landmark followed by a still hand must never accumulate a
-      // fictitious gesture merely by waiting for the duration threshold.
-      if(movingSteps<2||lastMotion-firstMotion<c.swipeMinDuration||reverseTurn>.30)continue;
-      const radius=(Number.isFinite(hand.orbRadius)?hand.orbRadius:hand.handSize*.65)+hand.handSize*.4;
-      const metric=p=>({x:p.x,y:p.y/this.aspectRatio}),center=metric(this.target);
-      const nearSegment=(a,b)=>{a=metric(a);b=metric(b);const vx=b.x-a.x,vy=b.y-a.y;
-        const u=clamp(((center.x-a.x)*vx+(center.y-a.y)*vy)/(vx*vx+vy*vy||1));
-        return Math.hypot(center.x-a.x-vx*u,center.y-a.y-vy*u)<=radius;};
-      let near=false;
-      for(let j=1;j<path.length&&!near;j++){
-        const a=path[j-1],b=path[j];
-        near=nearSegment(a,b)||nearSegment(a.index,b.index)||nearSegment(a.thumb,b.thumb)
-          ||nearSegment(a.wrist,a.index)||nearSegment(b.wrist,b.index);
-      }
-      if(!near)continue;
-      this._swipeEnd=sample;this._swipeReady=false;
-      this._setStage(this.stage==='star'?'sun':'moon',this.stage==='star'?'sun':'moon');return;
     }
   }
 
@@ -545,7 +472,7 @@ export class GestureSequence {
       return;
     }
     const dx = this._pullLast.x - hand.palm.x;
-    const dy = Math.abs(this._pullLast.y - hand.palm.y)/this.aspectRatio;
+    const dy = Math.abs(this._pullLast.y - hand.palm.y);
     this._pullLast = copy(hand.palm);
     if (dx <= 0 || dx < dy * 1.2 || Math.abs(hand.palm.y - this._pullOrigin.y) > this.config.phasePullVerticalTolerance) return;
     // The source palm travels about .50 screen widths while the five moons
@@ -590,8 +517,8 @@ export class GestureSequence {
   _pan(hand) {
     const near = Math.hypot(hand.palm.x-this.target.x,(hand.palm.y-this.target.y)/this.aspectRatio) <= Math.max(this.config.burstRadius, hand.handSize * this.config.burstHandRadius);
     if (this._dwell('burstFist', near && hand.fist, this.config.burstFistDuration)) this._burstArmed = true;
-    if (hand.fist && this._burstArmed) this._fistLastAt = this._observationTime;
-    if (!near || this._fistLastAt !== null && this._observationTime - this._fistLastAt > this.config.burstOpenWindow) {
+    if (hand.fist && this._burstArmed) this._fistLastAt = this._time;
+    if (!near || this._fistLastAt !== null && this._time - this._fistLastAt > this.config.burstOpenWindow) {
       this._burstArmed = false;
       this._fistLastAt = null;
     }

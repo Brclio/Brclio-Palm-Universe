@@ -6,7 +6,7 @@ const { createHash } = require('node:crypto');
 const { chromium } = require('/Users/bornforthis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 
 const root = path.resolve(__dirname, '..');
-const sourceSha256 = Object.fromEntries(['app.js','styles.css','public/scene.js','public/gesture-sequence.js','public/hand-tracking.js','public/objects-3d.js','public/models/celestial.js','public/models/sculpted.js','public/models/lunar-surface.js','public/vendor/three/three.module.js','public/vendor/three/three.core.js','public/record-audio.js','public/interaction-audio.js','public/audio/sfx/manifest.json'].map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));
+const sourceSha256 = Object.fromEntries(['app.js','public/scene.js','public/gesture-sequence.js','public/objects-3d.js','public/models/celestial.js','public/models/sculpted.js','public/models/lunar-surface.js','public/vendor/three/three.module.js','public/vendor/three/three.core.js','public/record-audio.js','public/interaction-audio.js','public/audio/sfx/manifest.json'].map(file=>[file,createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex')]));
 const baseURL = process.env.INTERACTION_TEST_URL || 'http://localhost:5173/';
 const checks = [], pageErrors = [], httpErrors = [], externalFailures = [], webglErrors = [], requests = [], geometryEvidence = [];
 const states = [], screenshots = [], animationEvidence = [], phaseFadeEvidence = [], audioEvidence = [], sfxEvidence = [];
@@ -146,25 +146,6 @@ async function pointer(page, x, y) {
   const rect = await page.locator('#universe').boundingBox();
   await page.mouse.move(rect.x + x * rect.width, rect.y + y * rect.height);
 }
-async function verifyViewportStage(page, camera = false) {
-  const size = await page.evaluate(() => {
-    const s = window.palmUniverse.scene, canvas = document.querySelector('#universe').getBoundingClientRect();
-    const video = document.querySelector('#camera');
-    return { width: innerWidth, height: innerHeight, canvas: {x:canvas.x,y:canvas.y,width:canvas.width,height:canvas.height},
-      logical: {width:s.w,height:s.h}, videoAspect: video.videoWidth / video.videoHeight, fit:getComputedStyle(video).objectFit };
-  });
-  samePoint(size.canvas, {x:0,y:0}, 'canvas begins at the viewport origin');
-  assert.ok(Math.abs(size.canvas.width-size.width)<1 && Math.abs(size.canvas.height-size.height)<1,'interactive canvas fills the viewport');
-  if (camera) {
-    assert.equal(size.fit,'contain','camera retains its entire native image');
-    assert.ok(Math.abs(size.logical.width/size.logical.height-size.videoAspect)<.005,'camera interaction coordinates retain the native source aspect');
-    assert.ok(size.logical.width<=size.width+1 && size.logical.height<=size.height+1,'camera rectangle fits inside the full canvas');
-    assert.ok(Math.abs(size.logical.width-size.width)<1 || Math.abs(size.logical.height-size.height)<1,'camera uses the largest uncropped rectangle');
-  } else {
-    assert.ok(Math.abs(size.logical.width-size.width)<1 && Math.abs(size.logical.height-size.height)<1,'pointer coordinates cover the full viewport');
-  }
-  return size;
-}
 async function move(page, from, to, seconds = .4) {
   const n = Math.max(2, Math.ceil(seconds / .035));
   for (let i = 1; i <= n; i++) {
@@ -248,10 +229,9 @@ export class HandTracker {
 async function emitHand(page, kind, x = .35, y = .60, overrides = {}) {
   await page.evaluate(({ kind, x, y, overrides }) => {
     const scene = window.palmUniverse.scene;
-    // Camera logical coordinates cover the full native image; letterbox
-    // offsets are applied only when the scene draws into its fullscreen canvas.
-    const inverse = (sx, sy) => ({ x: scene.mirror ? 1-sx : sx, y: sy, z: 0 });
-    const aspect = scene.w / scene.h, palmLength = .085 / aspect;
+    const width = 1280, height = 720, scale = Math.max(scene.w / width, scene.h / height);
+    const vw = width * scale, vh = height * scale;
+    const inverse = (sx, sy) => ({ x: scene.mirror ? 1 - (sx * scene.w - (scene.w - vw) / 2) / vw : (sx * scene.w - (scene.w - vw) / 2) / vw, y: (sy * scene.h - (scene.h - vh) / 2) / vh, z: 0 });
     const fingers = kind === 'open'
       ? { thumb: true, index: true, middle: true, ring: true, pinky: true }
       : kind === 'fist'
@@ -260,7 +240,6 @@ async function emitHand(page, kind, x = .35, y = .60, overrides = {}) {
     const gap = kind === 'open' ? .17 : kind === 'l' ? .18 : kind === 'pinch' ? .012 : kind === 'fist' ? .035 : .055;
     const points = Array.from({ length: 21 }, () => inverse(x, y + .03));
     points[0] = inverse(x, y + .10); points[9] = inverse(x, y + .015);
-    points[5] = inverse(x-palmLength/2,y+.03); points[17] = inverse(x+palmLength/2,y+.03);
     points[4] = inverse(x + gap / 2, y); points[8] = inverse(x - gap / 2, y);
     const gestures = {
       pinch: kind === 'pinch', pinchStrength: kind === 'pinch' ? .94 : kind === 'c' ? .3 : 0,
@@ -268,11 +247,9 @@ async function emitHand(page, kind, x = .35, y = .60, overrides = {}) {
       spread: kind === 'open' ? .9 : 0,
       fingerStates: fingers, palmCenter: inverse(x, y + .08), pinchCenter: inverse(x, y),
       fingertip: points[8], extendedFingers: Object.values(fingers).filter(Boolean).length,
-      imagePalmSize:palmLength,screenPalmLength:palmLength,stableScreenHandSize:palmLength,
       ...overrides,
     };
-    const timestamp=performance.now();
-    window.__mockHandTracker.onResults({ hands: [{ id:1,landmarks: points, gestures, handedness: 'Right', score: .99 }], timestamp, receivedAt:timestamp });
+    window.__mockHandTracker.onResults({ hands: [{ landmarks: points, gestures, handedness: 'Right', score: .99 }], timestamp: performance.now() });
   }, { kind, x, y, overrides });
 }
 async function holdHand(page, kind, x, y, seconds = .28, overrides = {}) {
@@ -286,41 +263,6 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     await emitHand(page, kind, from.x + (to.x - from.x) * p, from.y + (to.y - from.y) * p);
     await page.waitForTimeout(seconds * 1000 / n);
   }
-}
-
-async function emitFlickPose(page, anchor, degrees, progress = 0) {
-  await page.evaluate(({anchor,degrees,progress}) => {
-    const s=window.palmUniverse.scene,aspect=s.w/s.h,direction=s.mirror?1:-1,angle=degrees*Math.PI/180;
-    const wrist={x:anchor.x+direction*.015*progress,y:anchor.y+.095*aspect};
-    const point=(radius,offset=0)=>({x:wrist.x+direction*radius*Math.cos(angle+offset*Math.PI/180),y:wrist.y+radius*Math.sin(angle+offset*Math.PI/180)*aspect,z:0});
-    // Rotate a synthetic 21-point local hand silhouette around the wrist. The
-    // index-to-wrist angle supplies evidence; no synthetic flick flag is used.
-    const points=[wrist,point(.025,-45),point(.05,-45),point(.08,-40),point(.11,-35),
-      point(.058,-5),point(.085,-3),point(.11,-1),point(.135),
-      point(.065,15),point(.095,12),point(.13,10),point(.155,8),
-      point(.058,28),point(.087,26),point(.115,24),point(.137,22),
-      point(.048,40),point(.068,38),point(.087,36),point(.107,34)];
-    const inverse=p=>({x:s.mirror?1-p.x:p.x,y:p.y,z:p.z||0});
-    const landmarks=points.map(inverse),palm=[0,5,9,13,17].reduce((p,i)=>({x:p.x+points[i].x/5,y:p.y+points[i].y/5}),{x:0,y:0});
-    const distance=(a,b)=>Math.hypot(a.x-b.x,(a.y-b.y)/aspect);
-    const length=distance(points[0],points[9]),size=(length+distance(points[5],points[17]))/2;
-    const pinchCenter={x:(points[4].x+points[8].x)/2,y:(points[4].y+points[8].y)/2};
-    const gestures={pinch:false,pinchStrength:0,openPalm:true,fist:false,pointing:false,victory:false,spread:.9,
-      fingerStates:{thumb:true,index:true,middle:true,ring:true,pinky:true},extendedFingers:5,
-      palmCenter:inverse(palm),pinchCenter:inverse(pinchCenter),fingertip:landmarks[8],
-      imagePalmSize:size,screenPalmLength:length,stableScreenHandSize:size};
-    const timestamp=performance.now();
-    window.__mockHandTracker.onResults({hands:[{id:1,landmarks,gestures,handedness:'Right',score:.99}],timestamp,receivedAt:timestamp});
-  },{anchor,degrees,progress});
-}
-
-async function flickHand(page) {
-  const snapshot=(await state(page)).snapshot,anchor=snapshot.target;
-  // An opposite rotation resets the wrist between successive flicks. Neither
-  // this return nor a straight palm translation is the activation gesture.
-  if(snapshot.stage==='sun')for(let i=1;i<=6;i++){await emitFlickPose(page,anchor,-45-85*i/6);await page.waitForTimeout(40);}
-  for(let i=0;i<13;i++){await emitFlickPose(page,anchor,-130);await page.waitForTimeout(40);}
-  for(let i=1;i<=6;i++){await emitFlickPose(page,anchor,-130+85*i/6,i/6);await page.waitForTimeout(30);}
 }
 
 (async () => {
@@ -400,7 +342,7 @@ async function flickHand(page) {
 
   await check('independent-3d-models-and-stage', '全部图形为有体积的真实WebGL模型，着色器可编译，主舞台无视频/截图纹理', async () => {
     const result=await state(page);assert.equal(result.objects3d.ready,true);
-    await verifyViewportStage(page);assert.equal(result.modeButtons,0);
+    assert.ok(Math.abs(result.sceneSize.w/result.sceneSize.h-16/9)<.005);assert.equal(result.modeButtons,0);
     await inspectGeometry(page,'desktop-real-3d-models');
     await page.locator('#guide-toggle').click(); await page.waitForTimeout(300);
     assert.equal(await page.locator('#gesture-guide').isVisible(), true);
@@ -480,16 +422,13 @@ async function flickHand(page) {
   });
 
   await check('camera-mirror-alignment', '镜像开关同步翻转画面和关键点，重置动作流程，非镜像下仍能识别屏幕位置', async () => {
-    await verifyViewportStage(camera,true);
     const mapping=()=>camera.evaluate(()=>{const s=window.palmUniverse.scene,p=s.map({x:.2,y:.4});return {mirror:s.mirror,x:p.x/s.w,y:p.y/s.h,css:document.querySelector('#camera').style.transform};});
     const before=await mapping();assert.equal(before.mirror,true);samePoint(before,{x:.8,y:.4},'mirrored map');assert.equal(before.css,'scaleX(-1)');
-    await holdHand(camera,'open',.20,.6,.5);await moveHand(camera,'open',{x:.20,y:.6},{x:.75,y:.6},.4);
-    await stage(camera,'star','straight-camera-translation-does-not-switch');
-    await flickHand(camera);await stage(camera,'sun','mirrored-screen-right-wrist-flick');
+    await holdHand(camera,'open',.20,.6,.5);await moveHand(camera,'open',{x:.20,y:.6},{x:.75,y:.6},.4);await stage(camera,'sun','mirrored-screen-right-swipe');
     await camera.locator('#mirror-toggle').click();await stage(camera,'idle');await camera.waitForTimeout(70);assert.equal((await sampleSfx(camera,'camera-mirror-stops-sfx')).state.activeVoices,0);
     const after=await mapping();assert.equal(after.mirror,false);samePoint(after,{x:.2,y:.4},'unmirrored map');assert.equal(after.css,'none');
     await holdHand(camera,'fist',.35,.6,.36);const star=await stage(camera,'star');samePoint(star.snapshot.target,{x:.368,y:.635},'unmirrored real input must summon in the correct screen location');
-    await flickHand(camera);await stage(camera,'sun','unmirrored-screen-left-same-physical-wrist-flick');
+    await holdHand(camera,'open',.20,.6,.5);await moveHand(camera,'open',{x:.20,y:.6},{x:.75,y:.6},.4);await stage(camera,'sun','unmirrored-screen-right-swipe');
     await camera.locator('#mirror-toggle').click();await stage(camera,'idle');assert.equal((await mapping()).mirror,true);
   });
 
@@ -502,8 +441,9 @@ async function flickHand(page) {
     await camera.keyboard.press('5'); await camera.keyboard.press('b'); await camera.mouse.dblclick(500, 500);
     let result = await state(camera); assert.equal(result.snapshot.stage, 'idle'); assert.equal(result.modeButtons, 0);
     await holdHand(camera, 'open', .35, .6, .28); await holdHand(camera, 'fist', .35, .6, .36); await stage(camera, 'star');
-    await flickHand(camera);await stage(camera,'sun','camera-local-wrist-flick-to-sun');
-    await flickHand(camera);result=await stage(camera,'moon','camera-return-wrist-and-flick-to-moon');
+    await holdHand(camera, 'open', .20, .6, .5); await moveHand(camera, 'open', { x: .20, y: .6 }, { x: .75, y: .6 }, .4); await stage(camera, 'sun');
+    await moveHand(camera, 'open', { x: .75, y: .6 }, { x: .20, y: .6 }, .5); await holdHand(camera, 'open', .20, .6, .16);
+    await moveHand(camera, 'open', { x: .20, y: .6 }, { x: .75, y: .6 }, .4); result = await stage(camera, 'moon');
     const moon = result.snapshot.target;
     await holdHand(camera, 'pinch', .02, .02, .24); await stage(camera, 'moon');
     await holdHand(camera, 'c', moon.x, moon.y, .24); await stage(camera, 'moonHeld');
@@ -579,7 +519,7 @@ async function flickHand(page) {
     // Default mobile page also starts in the sequence. await stage(mobile, 'idle');
     const metrics = await mobile.evaluate(() => ({ width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth }));
     assert.ok(metrics.scrollWidth <= metrics.width, 'mobile page must not overflow horizontally');
-    await verifyViewportStage(mobile);
+    const result=await state(mobile); assert.ok(Math.abs(result.sceneSize.w/result.sceneSize.h-16/9)<.005, 'mobile keeps the original composition ratio');
     for (const selector of ['#camera-toggle', '#mirror-toggle', '#restart', '#demo-toggle', '#music-toggle', '#replace-music', '#sfx-toggle']) {
       const box = await mobile.locator(selector).boundingBox();
       assert.ok(box && box.x >= 0 && box.y >= 0 && box.x + box.width <= metrics.width + 1 && box.y + box.height <= metrics.height + 1, `${selector} must be visible within mobile viewport`);
