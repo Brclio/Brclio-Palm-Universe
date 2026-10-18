@@ -17,7 +17,8 @@ export class UniverseScene {
     this.objects3d=new Objects3D();this.assetsReady=this.objects3d.assetsReady;
     fetch(new URL('./reference/hand-poses.json',import.meta.url)).then(r=>r.json()).then(poses=>this.handPoses=poses).catch(()=>{});
     this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.phases=[1,.75,.5,.25,0];
+    // The source starts with a thin, right-lit crescent, not a fully dark moon.
+    this.phases=[.78,.64,.48,.30,0];
     this.resize=()=>{this.w=canvas.clientWidth;this.h=canvas.clientHeight;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=this.w*dpr;canvas.height=this.h*dpr;this.ctx.setTransform(dpr,0,0,dpr,0,0);this.objects3d.resize(this.w,this.h);};
     this.resize();window.addEventListener('resize',this.resize);
     this.observer=new ResizeObserver(this.resize);this.observer.observe(canvas);
@@ -116,7 +117,6 @@ export class UniverseScene {
     this.objects3d.draw('star',x,y,r,this.ctx.globalAlpha);
   }
   drawSun(x,y,r){
-    this.glow(x,y,r*1.65,'#ffa61c',.18);
     this.objects3d.draw('sun',x,y,r,this.ctx.globalAlpha);
   }
   drawPhases(x,y,r,progress=1,anchor=null,span=.72,opacity=1,omitFull=false){

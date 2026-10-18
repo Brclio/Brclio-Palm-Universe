@@ -34,12 +34,14 @@ const path = require('node:path');
         const [sx,sy,sw,sh]=row.crop;
         const offsetX=panelWidth/2-sw*scale/2,offsetY=(row.height-10)/2-sh*scale/2;
         c.drawImage(frames[i],sx,sy,sw,sh,left+offsetX,row.y+offsetY,sw*scale,sh*scale);
-        const surface=document.createElement('canvas');surface.width=sw;surface.height=sh;app.ctx=surface.getContext('2d');
-        objects.resize(sw,sh);objects.beginFrame();
-        if(row.kind==='record')app.drawPan(row.x,row.cy,67);
-        else app['draw'+row.kind[0].toUpperCase()+row.kind.slice(1)](row.x,row.cy,row.r);
+        // Keep the model's optical halo outside the source crop's bounds.
+        const surface=document.createElement('canvas');surface.width=panelWidth;surface.height=row.height-10;app.ctx=surface.getContext('2d');
+        objects.resize(surface.width,surface.height);objects.beginFrame();
+        const modelX=offsetX+row.x*scale,modelY=offsetY+row.cy*scale;
+        if(row.kind==='record')app.drawPan(modelX,modelY,67*scale);
+        else app['draw'+row.kind[0].toUpperCase()+row.kind.slice(1)](modelX,modelY,row.r*scale);
         objects.render(app.ctx);
-        c.drawImage(surface,right+offsetX,row.y+offsetY,sw*scale,sh*scale);
+        c.drawImage(surface,right,row.y);
       }
       c.fillStyle='#858d7e';c.font='13px "PingFang SC",sans-serif';
       c.fillText('左列仅用于样式对照；互动场景不加载视频帧、图片或视频纹理。背景与光照环境有所不同。',40,1420);

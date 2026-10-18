@@ -34,6 +34,63 @@ const NOISE = /* glsl */ `
   }
 `;
 
+// Optical scatter lives on a larger sphere, independently of the rotating
+// terrain. Two decay lengths give a luminous edge and a broad, soft shoulder,
+// without a hard ring or a flat sprite. The lunar halo follows the lit limb.
+function createOpticalHalo(solar = false) {
+  const radius = solar ? 1.95 : 1.62;
+  const geometry = new THREE.SphereGeometry(radius, 64, 40);
+  const material = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: {
+      uOpacity: { value: 1 }, uTime: { value: 0 },
+      uRadius: { value: radius }, uSolar: { value: solar ? 1 : 0 },
+      uLightDirection: { value: new THREE.Vector3(0, .06, 1).normalize() },
+    },
+    vertexShader: /* glsl */ `
+      varying vec3 vViewNormal;
+      void main() {
+        vViewNormal = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: /* glsl */ `
+      uniform float uOpacity, uTime, uRadius, uSolar;
+      uniform vec3 uLightDirection;
+      varying vec3 vViewNormal;
+      ${NOISE}
+      void main() {
+        vec3 n = normalize(vViewNormal);
+        float radius = length(n.xy) * uRadius;
+        if (radius < .94) discard;
+        float distanceFromLimb = max(radius - 1.0, 0.0);
+        vec3 limb = normalize(vec3(n.xy, 0.0));
+        float illumination = pow(clamp((1.0 + uLightDirection.z) * .5, 0.0, 1.0), .45);
+        float litEdge = smoothstep(-.14, .36, dot(limb, uLightDirection)
+          + .48 * max(uLightDirection.z, 0.0));
+        float lunar = (.21 * exp(-distanceFromLimb * 24.0)
+          + .20 * exp(-distanceFromLimb * 7.0)) * illumination * (.06 + .94 * litEdge);
+        float activity = .88 + .25 * noise3(limb * 4.2 + vec3(0, uTime * .09, 2.7));
+        float solar = (.48 * exp(-distanceFromLimb * 17.0)
+          + .36 * exp(-distanceFromLimb * 5.4)) * activity
+          * (.82 + .22 * smoothstep(-.6, .6, limb.y - limb.x));
+        float alpha = mix(lunar, solar, uSolar) * smoothstep(.94, 1.015, radius)
+          * (1.0 - smoothstep(uRadius - .22, uRadius, radius));
+        vec3 lunarColor = vec3(1.28, 1.18, .90);
+        vec3 solarColor = mix(vec3(2.0, 1.0, .12), vec3(1.15, .60, .19),
+          smoothstep(0.0, .38, distanceFromLimb));
+        gl_FragColor = vec4(mix(lunarColor, solarColor, uSolar), alpha * uOpacity);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }
+    `,
+  });
+  const object = new THREE.Mesh(geometry, material);
+  object.name = solar ? 'Soft solar optical halo' : 'Soft lunar edge glow';
+  object.renderOrder = 2;
+  return { object, uniforms: material.uniforms, dispose() { geometry.dispose(); material.dispose(); } };
+}
+
 const MOON_VERTEX = /* glsl */ `
   uniform sampler2D uDisplacement;
   uniform float uHasDisplacement;
@@ -89,11 +146,11 @@ const MOON_FRAGMENT = /* glsl */ `
     float incidence = dot(n, normalize(uLightDirection));
     // A real light direction moves the terminator across the sphere. The small
     // earthshine term preserves an almost-black silhouette on unlit phases.
-    float diffuse = smoothstep(-.035, .045, incidence) * sqrt(max(incidence, 0.0));
+    float diffuse = smoothstep(-.035, .045, incidence) * pow(max(incidence, 0.0), .62);
     vec3 eye = normalize(mix(-vViewPosition, vec3(0,0,1), vOrthographic));
     float rim = pow(1.0 - max(dot(n, eye), 0.0), 4.0);
     float earthshine = .025 + .008 * rim;
-    // Desaturate photographic color while retaining the real maria/crater map.
+    // Keep the procedural maria/crater map in the reference's warm grey range.
     albedo = mix(vec3(luminance), albedo, .25) * vec3(1.16, 1.10, .83);
     vec3 color = albedo * (earthshine + 1.25 * diffuse);
     gl_FragColor = vec4(color, uOpacity);
@@ -130,55 +187,28 @@ export function createMoon({ albedo = null, displacement = null, phase = 0 } = {
   const object = new THREE.Group();
   object.name = 'Live 3D moon';
   object.add(surface);
-  const haloGeometry = new THREE.SphereGeometry(1.14, 48, 32);
-  const haloMaterial = new THREE.ShaderMaterial({
-    transparent: true, depthWrite: false,
-    uniforms: { uOpacity: { value: 1 }, uLightStrength: { value: 1 } },
-    vertexShader: /* glsl */ `
-      varying vec3 vViewNormal;
-      void main() {
-        vViewNormal = normalize(normalMatrix * normal);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: /* glsl */ `
-      uniform float uOpacity, uLightStrength;
-      varying vec3 vViewNormal;
-      void main() {
-        vec3 n = normalize(vViewNormal);
-        float radius = sqrt(max(1.0 - n.z * n.z, 0.0)) * 1.14;
-        if (radius < .986) discard;
-        float falloff = exp(-max(radius - 1.0, 0.0) * 32.0);
-        float alpha = falloff * smoothstep(.986, 1.002, radius)
-          * (1.0 - smoothstep(1.085, 1.14, radius)) * .14;
-        gl_FragColor = vec4(vec3(.77, .72, .54), alpha * uOpacity * uLightStrength);
-        #include <tonemapping_fragment>
-        #include <colorspace_fragment>
-      }
-    `,
-  });
-  const halo = new THREE.Mesh(haloGeometry, haloMaterial);
-  halo.name = 'Soft lunar edge glow';
-  halo.renderOrder = 1;
-  object.add(halo);
+  const halo = createOpticalHalo();
+  object.add(halo.object);
   let currentPhase = phase;
   function update(time = 0, options = {}) {
     if (Number.isFinite(options.phase)) currentPhase = options.phase;
     const angle = THREE.MathUtils.clamp(currentPhase, -1, 1) * Math.PI
-      + .23 * Math.pow(1 - Math.min(1, Math.abs(currentPhase) / .25), 2);
+      + .33 * Math.pow(1 - Math.min(1, Math.abs(currentPhase) / .25), 2);
     uniforms.uLightDirection.value.set(Math.sin(angle), .06, Math.cos(angle)).normalize();
-    haloMaterial.uniforms.uLightStrength.value = Math.pow(1 - Math.min(1, Math.abs(currentPhase)), 1.2);
-    // Libration is deliberately subtle: the lunar face remains recognisable.
-    surface.rotation.y = -Math.PI / 2 + Math.sin(time * .035) * .035;
+    halo.uniforms.uLightDirection.value.copy(uniforms.uLightDirection.value);
+    halo.uniforms.uTime.value = time;
+    // Rotate the actual relief-bearing sphere (one turn in ~63 seconds).
+    // Lighting stays in view space, so rotation never changes the moon phase.
+    surface.rotation.y = -Math.PI / 2 + time * .10;
     surface.rotation.x = Math.sin(time * .023) * .018;
     if (Number.isFinite(options.opacity)) {
-      uniforms.uOpacity.value = haloMaterial.uniforms.uOpacity.value = options.opacity;
+      uniforms.uOpacity.value = halo.uniforms.uOpacity.value = options.opacity;
     }
   }
   update(0);
   return {
     object, update,
-    dispose() { geometry.dispose(); material.dispose(); haloGeometry.dispose(); haloMaterial.dispose(); fallback.dispose(); },
+    dispose() { geometry.dispose(); material.dispose(); halo.dispose(); fallback.dispose(); },
   };
 }
 
@@ -288,9 +318,9 @@ const CORONA_FRAGMENT = /* glsl */ `
       // Irregular 3D magnetic knots make uneven prominences, with no polar
       // repetition or angular sine teeth that could read as a cogwheel.
       float prominence = smoothstep(.04, .29, turbulence);
-      float reach = .020 + .105 * prominence;
+      float reach = .032 + .16 * prominence;
       float filament = 1.0 - smoothstep(reach * .3, reach, altitude);
-      float envelope = exp(-altitude * 49.0);
+      float envelope = exp(-altitude * 37.0);
       float patchiness = .32 + .68 * smoothstep(-.12, .20, noise3(flow * .63 + 4.7));
       float density = (envelope * .42 + filament * prominence * .27) * patchiness;
       density *= 1.0 - smoothstep(1.27, 1.35, radius);
@@ -329,22 +359,25 @@ export function createSun() {
   core.name = 'Convective photosphere';
   corona.name = 'Volumetric solar corona';
   corona.renderOrder = 1;
-  object.add(core, corona);
+  const halo = createOpticalHalo(true);
+  object.add(core, corona, halo.object);
   return {
     object,
     update(time = 0, options = {}) {
-      coreUniforms.uTime.value = coronaUniforms.uTime.value = time;
-      core.rotation.y = time * .018;
+      coreUniforms.uTime.value = coronaUniforms.uTime.value = halo.uniforms.uTime.value = time;
+      // A slow axial rotation remains distinct from the faster plasma flow.
+      core.rotation.y = time * .07;
       core.rotation.z = .12;
-      corona.rotation.y = time * .018;
+      corona.rotation.y = time * .07;
       corona.rotation.z = .12;
       if (Number.isFinite(options.opacity)) {
-        coreUniforms.uOpacity.value = coronaUniforms.uOpacity.value = options.opacity;
+        coreUniforms.uOpacity.value = coronaUniforms.uOpacity.value = halo.uniforms.uOpacity.value = options.opacity;
       }
     },
     dispose() {
       coreGeometry.dispose(); coronaGeometry.dispose();
       coreMaterial.dispose(); coronaMaterial.dispose();
+      halo.dispose();
     },
   };
 }

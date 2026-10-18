@@ -161,7 +161,7 @@ async function verifyPhasesDrawing(page) {
   });
   assert.equal(drawing.calls.length,5,'fully unfolded 3D drawing must have exactly five moons');
   assert.ok(drawing.calls.every(call=>Math.abs(call.y-drawing.anchor.y)<.001),'all five phases must stay at release height');
-  assert.deepEqual(drawing.calls.map(call=>call.phase),[1,.75,.5,.25,0],'five spherical light phases progress from dark to full');
+  assert.deepEqual(drawing.calls.map(call=>call.phase),[.78,.64,.48,.30,0],'five spherical light phases progress from a thin right-lit crescent to full');
   samePoint(drawing.calls[4],drawing.anchor,'rightmost full moon remains at release anchor');
   for(let i=1;i<5;i++)assert.ok(drawing.calls[i].x>drawing.calls[i-1].x,'phase order runs left to right');
   return drawing;
@@ -365,7 +365,10 @@ async function moveHand(page, kind, from, to, seconds = .5) {
     let playing=await sampleSfx(page);assert.ok(playing.state.activeVoices>0,'summon cue is still playing before dialog opens');
     await page.locator('#reference-open').click();await page.waitForTimeout(60);
     const suspended=await sampleSfx(page,'reference-dialog-suspends-sfx');assert.equal(suspended.state.suspended,true);assert.equal(suspended.state.enabled,true);assert.equal(suspended.state.activeVoices,0);
-    await page.locator('#reference-close').click();await page.waitForTimeout(80);
+    await page.locator('#reference-close').click();
+    // The dialog close event is queued; GPU-heavy runs can delay it beyond a
+    // fixed 80 ms. Wait for the observable lifecycle transition, with a bound.
+    await page.waitForFunction(()=>!window.palmUniverse.sfx.state.suspended,null,{timeout:2500});
     const resumed=await sampleSfx(page,'reference-close-no-replay');assert.equal(resumed.state.suspended,false);assert.equal(resumed.state.history.length,playing.state.history.length);assert.equal(resumed.voices.length,playing.voices.length);
     await page.locator('#restart').click();await pointer(page,.35,.6);await page.mouse.down();await page.waitForTimeout(280);await page.mouse.up();await stage(page,'star');
     playing=await sampleSfx(page);assert.ok(playing.state.activeVoices>0);
