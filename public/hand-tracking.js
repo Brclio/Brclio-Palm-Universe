@@ -22,7 +22,7 @@ function angle(a, b, c) {
   return length ? Math.acos(clamp((ab.x * cb.x + ab.y * cb.y + ab.z * cb.z) / length, -1, 1)) * 180 / Math.PI : 0;
 }
 
-function gestureMetrics(landmarks, worldLandmarks, aspect, previous) {
+function gestureMetrics(landmarks, worldLandmarks, aspect, previous, elapsed = 1 / 30) {
   // Meter-space geometry avoids orientation and video aspect ratio assumptions.
   const imagePoints = landmarks.map(({ x, y }) => ({ x: x * aspect, y }));
   const p = worldLandmarks?.length === 21
@@ -43,6 +43,16 @@ function gestureMetrics(landmarks, worldLandmarks, aspect, previous) {
   // Screen-space contact matches the rendered cursor; inferred depth is less
   // stable precisely when the thumb and index fingertip occlude one another.
   const imagePalmSize = Math.max((distance(imagePoints[0], imagePoints[9]) + distance(imagePoints[5], imagePoints[17])) / 2, 0.00001);
+  // Image geometry above uses image-height units. Publish camera-width units
+  // so callers can apply the same source-to-display scale as the landmarks.
+  const screenPalmSize = imagePalmSize / aspect;
+  const screenPalmLength = distance(imagePoints[0], imagePoints[9]) / aspect;
+  // Update only on detector observations, using capture time rather than RAF
+  // or result-delivery time. A brief palm turn should not abruptly resize an orb.
+  const sizeBlend = 1 - Math.exp(-Math.max(0, elapsed) / 0.055);
+  const stableScreenHandSize = Number.isFinite(previous?.stableScreenHandSize)
+    ? previous.stableScreenHandSize + (screenPalmSize - previous.stableScreenHandSize) * sizeBlend
+    : screenPalmSize;
   const pinchRatio = distance(imagePoints[4], imagePoints[8]) / imagePalmSize;
   // Separate enter/leave thresholds prevent flicker at the pinch boundary.
   const pinch = pinchRatio < (previous?.pinch ? 0.43 : 0.30);
@@ -69,6 +79,9 @@ function gestureMetrics(landmarks, worldLandmarks, aspect, previous) {
     palmCenter,
     fingertip: { x: landmarks[8].x, y: landmarks[8].y },
     pinchCenter: midpoint(landmarks[4], landmarks[8]),
+    imagePalmSize: screenPalmSize,
+    screenPalmLength,
+    stableScreenHandSize,
   };
 }
 
@@ -109,6 +122,7 @@ export class HandTracker {
     this._lastFrameAt = 0;
     this._lastVideoTime = -1;
     this._previousHands = [];
+    this._nextHandId = 1;
     this._frameErrors = 0;
     this._bitmapResizeSupported = true;
     this._frameTimer = 0;
@@ -359,23 +373,39 @@ export class HandTracker {
     const previous = this._previousHands.filter((hand) => timestamp - hand.timestamp < 400);
     const used = new Set();
     const aspect = (this._video?.videoWidth || 1) / (this._video?.videoHeight || 1);
-    const hands = (result.landmarks || []).map((source, index) => {
+    const sources = (result.landmarks || []).map((source, index) => {
       const landmarks = source.map(({ x, y, z }) => ({ x, y, z }));
       const handedness = result.handedness?.[index]?.[0]?.categoryName || 'Unknown';
-      let nearest = -1;
-      let nearestDistance = 0.35;
-      previous.forEach((hand, oldIndex) => {
-        if (used.has(oldIndex)) return;
-        const delta = Math.hypot(hand.gestures.palmCenter.x - landmarks[9].x, hand.gestures.palmCenter.y - landmarks[9].y)
-          + (hand.handedness === handedness ? 0 : 0.025);
-        if (delta < nearestDistance) { nearest = oldIndex; nearestDistance = delta; }
-      });
-      if (nearest >= 0) used.add(nearest);
-      const gestures = gestureMetrics(landmarks, result.worldLandmarks?.[index], aspect, previous[nearest]?.gestures);
-      return { landmarks, handedness, gestures };
+      const palmCenter = [0, 5, 9, 13, 17].reduce((center, point) => ({
+        x: center.x + landmarks[point].x / 5,
+        y: center.y + landmarks[point].y / 5,
+      }), { x: 0, y: 0 });
+      return { landmarks, handedness, palmCenter, index };
     });
-    this._previousHands = hands.map((hand) => ({ ...hand, timestamp }));
-    this._emitResults({ hands, timestamp });
+    // Associate the same palm point on both observations. Match the closest
+    // pairs first, independently of MediaPipe's output order. Handedness is
+    // only a weak hint: its label can change during the source's palm flip.
+    const candidates = sources.flatMap((source, index) => previous.map((hand, oldIndex) => ({
+      index, oldIndex,
+      distance: Math.hypot(hand.gestures.palmCenter.x - source.palmCenter.x, hand.gestures.palmCenter.y - source.palmCenter.y)
+        + (hand.handedness === source.handedness ? 0 : 0.025),
+    }))).filter((candidate) => candidate.distance < 0.35).sort((a, b) => a.distance - b.distance);
+    const matches = new Map();
+    for (const candidate of candidates) {
+      if (matches.has(candidate.index) || used.has(candidate.oldIndex)) continue;
+      matches.set(candidate.index, candidate.oldIndex);
+      used.add(candidate.oldIndex);
+    }
+    const hands = sources.map(({ landmarks, handedness, index }) => {
+      const old = previous[matches.get(index)];
+      const gestures = gestureMetrics(landmarks, result.worldLandmarks?.[index], aspect, old?.gestures,
+        old ? (timestamp - old.timestamp) / 1000 : 0);
+      return { id: old?.id ?? this._nextHandId++, landmarks, handedness, gestures };
+    });
+    // Keep a missing hand's last REAL observation briefly for identity only;
+    // it is never emitted as a detected hand or counted as gesture evidence.
+    this._previousHands = [...hands.map((hand) => ({ ...hand, timestamp })), ...previous.filter((_, index) => !used.has(index))];
+    this._emitResults({ hands, timestamp, receivedAt: performance.now() });
   }
 
   _trackingError(error, generation) {

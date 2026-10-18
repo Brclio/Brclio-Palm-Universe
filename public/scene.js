@@ -12,6 +12,7 @@ export class UniverseScene {
     this.target={x:.66,y:.43};this.position={...this.target};this.pointer={...this.target};this.particles=[];this.ambient=[];this.last=0;this.time=0;this.burstAt=-100;this.auto=false;this.autoStart=0;this.openSince=0;this.victorySince=0;this.lastSwitch=0;this.grabbed=false;this.orbScale=1;this.dissolved=false;
     this.rehearsal=false;this.sequence=new GestureSequence();this.sequenceSnapshot=null;this.sequenceSignature='';
     this.pointerGrip=.25;this.pressAt=0;
+    this.startedAt=performance.now();this.activeHandId=null;this.activeHand=null;
     this.mirror=true;
     this.recordPlaying=false;this.recordActivated=false;
     this.objects3d=new Objects3D();this.assetsReady=this.objects3d.assetsReady;
@@ -19,7 +20,17 @@ export class UniverseScene {
     this.reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
     // The source starts with a thin, right-lit crescent, not a fully dark moon.
     this.phases=[.78,.64,.48,.30,0];
-    this.resize=()=>{this.w=canvas.clientWidth;this.h=canvas.clientHeight;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=this.w*dpr;canvas.height=this.h*dpr;this.ctx.setTransform(dpr,0,0,dpr,0,0);this.objects3d.resize(this.w,this.h);};
+    this.resize=()=>{
+      const oldWidth=this.w;
+      this.stageWidth=Math.max(canvas.clientWidth,1);this.stageHeight=Math.max(canvas.clientHeight,1);
+      const vw=this.video?.videoWidth,vh=this.video?.videoHeight;
+      const scale=this.camera&&vw&&vh?Math.min(this.stageWidth/vw,this.stageHeight/vh):1;
+      this.w=this.camera&&vw&&vh?vw*scale:this.stageWidth;this.h=this.camera&&vw&&vh?vh*scale:this.stageHeight;
+      if(oldWidth&&this.orbRadius)this.orbRadius*=this.w/oldWidth;
+      this.viewport={x:(this.stageWidth-this.w)/2,y:(this.stageHeight-this.h)/2,width:this.w,height:this.h};
+      const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(this.stageWidth*dpr);canvas.height=Math.round(this.stageHeight*dpr);
+      this.ctx.setTransform(dpr,0,0,dpr,this.viewport.x*dpr,this.viewport.y*dpr);this.objects3d.resize(this.w,this.h);
+    };
     this.resize();window.addEventListener('resize',this.resize);
     this.observer=new ResizeObserver(this.resize);this.observer.observe(canvas);
     for(let i=0;i<65;i++)this.ambient.push({x:random(),y:random(),r:random()*1.1+.2,a:random()*.25,speed:random()*.005+.001});
@@ -29,12 +40,24 @@ export class UniverseScene {
   get sequenceEnabled(){return this.camera||this.rehearsal;}
   setPointer(x,y,down=this.down){this.pointer={x:clamp(x/this.w,0,1),y:clamp(y/this.h,0,1)};this.pointerActive=true;if(down&&!this.down){this.pressAt=this.time;this.pointerGrip=.25;}this.down=down;}
   adjustGrip(delta){if(this.down)this.pointerGrip=clamp(this.pointerGrip+delta,.08,1);}
-  setHands(results,video){this.hands=results.hands||[];this.handTime=performance.now();this.handSerial=(this.handSerial||0)+1;this.video=video;}
+  setHands(results,video){
+    const now=performance.now(),captured=Number.isFinite(results.timestamp)?results.timestamp:now;
+    // A late or out-of-order inference is not fresh hand motion.
+    if(captured>(now+50)||captured<=(this.handTime??-Infinity)||now-captured>180)return;
+    this.handTime=captured;this.handReceivedAt=now;this.handSerial=(this.handSerial||0)+1;this.hands=results.hands||[];
+    const changed=this.video!==video||this.sourceWidth!==video.videoWidth||this.sourceHeight!==video.videoHeight;
+    this.video=video;this.sourceWidth=video.videoWidth;this.sourceHeight=video.videoHeight;if(changed)this.resize();
+    let selected=this.hands.find(hand=>hand.id!==undefined&&hand.id===this.activeHandId);
+    if(!selected&&this.activeHandId===null)selected=this.hands[0];
+    if(!selected&&now-(this.activeHandSeenAt??0)>400)selected=this.hands[0];
+    if(selected){this.activeHand=selected;this.activeHandId=selected.id??null;this.activeHandSeenAt=now;}
+    else this.activeHand=null;
+  }
   map(p){
     const px=this.mirror?1-p.x:p.x;
-    if(!this.video?.videoWidth)return{x:px*this.w,y:p.y*this.h};
-    const s=Math.max(this.w/this.video.videoWidth,this.h/this.video.videoHeight),vw=this.video.videoWidth*s,vh=this.video.videoHeight*s;
-    return{x:px*vw+(this.w-vw)/2,y:p.y*vh+(this.h-vh)/2};
+    // Logical coordinates are the complete camera image; resize() translates
+    // the entire scene into its contain rectangle on the full-window canvas.
+    return{x:px*this.w,y:p.y*this.h};
   }
   burst(){
     if(this.time-this.burstAt<2.8||this.dissolved)return;
@@ -46,20 +69,26 @@ export class UniverseScene {
     }
   }
   resetSequence(){
-    this.sequenceSnapshot=this.sequence.reset(this.time);this.recordPlaying=false;this.recordActivated=false;
+    this.sequenceSnapshot=this.sequence.reset((performance.now()-this.startedAt)/1000);this.recordPlaying=false;this.recordActivated=false;
+    this.orbRadius=null;this.activeHandId=null;this.activeHand=null;this.handTime=null;this.handReceivedAt=null;
     this.objects3d.resetClocks();
     this.sequenceSignature='';this.lastSequenceSerial=null;this.mode=null;this.transition=null;this.appearAt=undefined;this.particles=[];this.dissolved=false;this.orbScale=1;this.grabbing=false;this.target={...this.sequenceSnapshot.target};this.position={...this.target};this.onSequence?.(this.sequenceSnapshot);
   }
-  setCamera(enabled){this.camera=enabled;this.rehearsal=!enabled;this.hands=[];this.pointerActive=false;this.down=false;this.resetSequence();}
-  startRehearsal(){this.camera=false;this.rehearsal=true;this.pointerActive=false;this.down=false;this.resetSequence();}
+  setCamera(enabled){this.camera=enabled;this.rehearsal=!enabled;this.hands=[];this.pointerActive=false;this.down=false;this.resetSequence();this.resize();}
+  startRehearsal(){this.camera=false;this.rehearsal=true;this.pointerActive=false;this.down=false;this.resetSequence();this.resize();}
   stopRehearsal(){this.rehearsal=false;this.sequenceSnapshot=null;this.pointerActive=false;this.setMode('moon');}
   setAuto(enabled){this.auto=false;if(enabled)this.startRehearsal();}
   handInput(hand){
     const normalize=p=>{const q=this.map(p);return{x:q.x/this.w,y:q.y/this.h};};
     const g=hand.gestures,p=hand.landmarks;
     const wrist=normalize(p[0]),knuckle=normalize(p[9]);
-    return{...g,palm:normalize(g.palmCenter),index:normalize(p[8]),thumb:normalize(p[4]),pinchCenter:normalize(g.pinchCenter),aspectRatio:this.w/this.h,handSize:Math.hypot(wrist.x-knuckle.x,(wrist.y-knuckle.y)*this.h/this.w)};
+    return{...g,source:'camera',handId:hand.id,wrist,palm:normalize(g.palmCenter),index:normalize(p[8]),thumb:normalize(p[4]),pinchCenter:normalize(g.pinchCenter),aspectRatio:this.w/this.h,
+      switchDirection:this.mirror?1:-1,orbRadius:this.interactionRadius/this.w,
+      handSize:g.stableScreenHandSize||Math.hypot(wrist.x-knuckle.x,(wrist.y-knuckle.y)*this.h/this.w)};
   }
+  get baseRadius(){return this.orbRadius??Math.min(this.h*(67/720),this.w*.10);}
+  get phaseRadius(){return Math.min(this.baseRadius*49/67,this.w*.065);}
+  get interactionRadius(){return ['moonReleased','phases','phaseHeld'].includes(this.sequence.stage)?this.phaseRadius:this.baseRadius*(this.sequence.stage==='pan'?2.25:1);}
   mouseInput(){
     const stage=this.sequence.stage,p={...this.pointer},closed=this.down;
     const fist=closed&&(stage==='idle'||stage==='pan');
@@ -75,17 +104,18 @@ export class UniverseScene {
     this.time+=dt;
     const t=this.time;
     if(this.sequenceEnabled){
-      const fresh=this.camera&&this.hands.length&&performance.now()-this.handTime<180;
-      const input=this.camera?(fresh?this.handInput(this.hands[0]):null):(this.pointerActive?this.mouseInput():null);
+      const now=performance.now(),gestureTime=(now-this.startedAt)/1000;
+      const fresh=this.camera&&this.activeHand&&now-this.handReceivedAt<this.sequence.config.lostGrace*1000;
+      const input=this.camera?(fresh?this.handInput(this.activeHand):null):(this.pointerActive?this.mouseInput():null);
       const previous=this.sequenceSnapshot;
       let snapshot;
-      if(this.camera&&input&&this.handSerial===this.lastSequenceSerial)snapshot=this.sequence.tick(t);
-      else{snapshot=this.sequence.update(input,t);if(this.camera)this.lastSequenceSerial=this.handSerial;}
+      if(this.camera&&input&&this.handSerial===this.lastSequenceSerial)snapshot=this.sequence.tick(gestureTime);
+      else{snapshot=this.sequence.update(input,this.camera&&input?(this.handTime-this.startedAt)/1000:gestureTime,this.camera&&input?(this.handReceivedAt-this.startedAt)/1000:gestureTime);if(this.camera)this.lastSequenceSerial=this.handSerial;}
       this.sequenceSnapshot=snapshot;
       if(snapshot.mode!==this.mode){
         const cross=this.mode==='star'&&snapshot.mode==='sun'||this.mode==='sun'&&snapshot.mode==='moon';
-        this.transition=cross?{mode:this.mode,start:t}:null;
-        if(!this.mode&&snapshot.mode)this.appearAt=t;
+        this.transition=cross?{mode:this.mode,start:t,direction:this.camera&&!this.mirror?-1:1}:null;
+        if(!this.mode&&snapshot.mode){this.appearAt=t;if(this.camera&&input)this.orbRadius=clamp(input.handSize*this.w*.75,this.baseRadius*.65,this.baseRadius*1.4);}
         this.mode=snapshot.mode;
       }
       this.target={...snapshot.target};this.tracking=snapshot.tracked;this.grabbing=snapshot.held;
@@ -121,7 +151,7 @@ export class UniverseScene {
   }
   drawPhases(x,y,r,progress=1,anchor=null,span=.72,opacity=1,omitFull=false){
     const c=this.ctx,right=anchor?anchor.x*this.w:this.w*.86;
-    const phaseRadius=this.h*(49/720);
+    const phaseRadius=this.phaseRadius;
     c.save();c.globalAlpha*=opacity;
     for(let i=0;i<5;i++){
       if(omitFull&&i===4)continue;
@@ -165,20 +195,20 @@ export class UniverseScene {
     c.restore();
   }
   draw(){
-    const c=this.ctx,w=this.w,h=this.h,t=this.time;c.clearRect(0,0,w,h);this.objects3d.beginFrame();
+    const c=this.ctx,w=this.w,h=this.h,t=this.time;c.clearRect(-this.viewport.x,-this.viewport.y,this.stageWidth,this.stageHeight);this.objects3d.beginFrame();
     if(!this.camera){
       for(const s of this.ambient){const y=(s.y-t*s.speed+100)%1*h;c.beginPath();c.arc(s.x*w,y,s.r,0,TAU);c.fillStyle=`rgba(205,199,157,${s.a*(.6+.4*Math.sin(t*.3+s.x*15))})`;c.fill();}
     }
     if(this.camera){if(this.tracking)for(const hand of this.hands)this.drawHand(hand.landmarks.map(p=>this.map(p)),.9);}
     else if(this.pointerActive)this.drawHand(this.simulatedHand(),.85,true);
     let x=this.position.x*w,y=this.position.y*h;
-    const base=h*(67/720),released=this.sequenceSnapshot?.stage==='moonReleased';
+    const base=this.baseRadius,released=this.sequenceSnapshot?.stage==='moonReleased';
     const release=this.sequenceSnapshot;
     const rp=release?.releaseProgress||0,re=rp*rp*(3-2*rp);
     const r=base*(this.mode==='moon'?(released?release.releaseScale+(49/67-release.releaseScale)*re:this.orbScale):1);
     const burstAge=t-this.burstAt;
     const transitionAge=this.transition?t-this.transition.start:1;
-    if(transitionAge<.50){const p=clamp(transitionAge/.50,0,1),ease=1-Math.pow(1-p,3);c.save();c.globalAlpha=1-p;this.drawEffect(this.transition.mode,x+ease*w*.28,y,r);c.restore();x-=(1-ease)*w*.28;}
+    if(transitionAge<.50){const p=clamp(transitionAge/.50,0,1),ease=1-Math.pow(1-p,3),direction=this.transition.direction??1;c.save();c.globalAlpha=1-p;this.drawEffect(this.transition.mode,x+direction*ease*w*.28,y,r);c.restore();x-=direction*(1-ease)*w*.28;}
     c.save();if(transitionAge<.55)c.globalAlpha=transitionAge/.55;if(this.dissolved)c.globalAlpha*=clamp(1-burstAge*7,0,1);
     if(this.sequenceEnabled&&this.appearAt!==undefined)c.globalAlpha*=clamp((t-this.appearAt)/.22);
     if(this.sequenceSnapshot?.stage==='phaseHeld'&&this.sequenceSnapshot.phaseProgress>0)this.drawPhases(x,y,r,1,this.sequenceSnapshot.phaseAnchor,this.sequenceSnapshot.phaseSpan,this.sequenceSnapshot.phaseProgress,true);

@@ -1,6 +1,6 @@
 {
-  "tested_at": "2026-10-18T03:01:30.423Z",
-  "controller_sha256": "ea0677d5b5d7fb1094465f666011a923c941c0b2d88368e2cd74058761446ab7",
+  "tested_at": "2026-10-18T04:19:01.967Z",
+  "controller_sha256": "23d864b3c7bc03a57f46f5706795cadf1d62a69ff834e4466b9e3e4e92f2eea8",
   "revision": "2026-10-17 source-shape-and-gesture-revision",
   "purpose": "Controller behavior only; no real hand model accuracy claim.",
   "limitations": [
